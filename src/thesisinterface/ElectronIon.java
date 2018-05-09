@@ -5,6 +5,7 @@
  */
 package thesisinterface;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,42 +18,11 @@ public class ElectronIon implements IInput {
     
     private Sequence sequence;
     private char[] convSeq;
-    private List <String> numericSequence;
+    private List <Double> numericSequence;
+    private Map<Character,Double> electronValues = new HashMap<>();
 
     public ElectronIon(Sequence sequence) {
         this.sequence = sequence;
-    }
-
-    @Override
-    public char[] convertSequence(String sequence) {
-        return convSeq=sequence.toCharArray();
-    }
-
-       
-    public String transformNumeric(){
-        
-       for(int i=0; i<convSeq.length;i++){
-           if (convSeq[i]=='G'){
-            numericSequence.add("0.0806,");
-           }
-           
-           if (convSeq[i]=='A'){
-            numericSequence.add("0.1260,");
-           }
-           
-           if (convSeq[i]=='C'){
-            numericSequence.add("0.1340,");
-           }
-           
-           if (convSeq[i]=='T'){
-            numericSequence.add("0.1335,");
-           }
-           else{
-               System.out.println("Unidentified nucleotide");
-           }
-       }
-       
-       return numericSequence.toString();
     }
 
     @Override
@@ -72,10 +42,30 @@ public class ElectronIon implements IInput {
     }
 
     @Override
-    public Map assignValues() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public char[] seqToArray(String sequence) {
+        return convSeq=sequence.toCharArray();
     }
 
+    @Override
+    public Map assignValues() {
+       electronValues.put('G', 0.0806);
+       electronValues.put('A', 0.1260);
+       electronValues.put('C', 0.1340);
+       electronValues.put('T', 0.1335);
+       return electronValues;
+    }
+
+    public List toNumeric(){
+    for(int i=0; i<convSeq.length; i++){
+            if (electronValues.containsKey(convSeq[i])){
+                
+                numericSequence.add(electronValues.get(convSeq[i]));
+            }
+        }
+    
+    return numericSequence;
+    }
+    
     
 }
 

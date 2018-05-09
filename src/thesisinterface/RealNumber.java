@@ -5,6 +5,7 @@
  */
 package thesisinterface;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,42 +18,16 @@ public class RealNumber implements IInput {
     
     private Sequence sequence;
     private char[] convSeq;
-    private List <String> numericSequence;
+    private List <Double> numericSequence;
+    Map<Character,Double> realNumValues = new HashMap<>();
 
     public RealNumber(Sequence sequence) {
         this.sequence = sequence;
     }
 
     @Override
-    public char[] convertSequence(String sequence) {
+    public char[] seqToArray(String sequence) {
         return convSeq=sequence.toCharArray();
-    }
-
-       
-    public String transformNumeric(){
-        
-       for(int i=0; i<convSeq.length;i++){
-           if (convSeq[i]=='G'){
-            numericSequence.add("-0.5,");
-           }
-           
-           if (convSeq[i]=='A'){
-            numericSequence.add("-1.5,");
-           }
-           
-           if (convSeq[i]=='C'){
-            numericSequence.add("0.5,");
-           }
-           
-           if (convSeq[i]=='T'){
-            numericSequence.add("1.5,");
-           }
-           else{
-               System.out.println("Unidentified nucleotide");
-           }
-       }
-       
-       return numericSequence.toString();
     }
 
     @Override
@@ -73,8 +48,22 @@ public class RealNumber implements IInput {
 
     @Override
     public Map assignValues() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       realNumValues.put('G', -0.5);
+       realNumValues.put('A', -1.5);
+       realNumValues.put('C', 0.5);
+       realNumValues.put('T', 1.5);
+       return realNumValues;
     }
 
+    public List toNumeric(){
+    for(int i=0; i<convSeq.length; i++){
+            if (realNumValues.containsKey(convSeq[i])){
+                
+                numericSequence.add(realNumValues.get(convSeq[i]));
+            }
+        }
+    
+    return numericSequence;
+    }
     
 }

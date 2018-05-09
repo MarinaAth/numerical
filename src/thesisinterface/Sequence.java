@@ -5,15 +5,17 @@
  */
 package thesisinterface;
 
+import java.util.HashMap;
+
 /**
  *
  * @author marin
  */
-public class Sequence {
+public abstract class Sequence {
     
-    private String seq;
-    private int index;
-    private char base;
+    protected String seq;
+    protected int index;
+    protected char base;
     
     public Sequence(){
         System.out.println("Default constructor called");
@@ -24,6 +26,10 @@ public class Sequence {
         this.seq = seq;
     }
 
+//    char[] convertSequence(String sequence){
+//        return sequence.toCharArray();
+//    }
+    
     public String getSeq() {
         return seq;
     }
@@ -35,12 +41,29 @@ public class Sequence {
     public char getBase() {
         return base;
     }
-
+    
+//    public String corrMapValues(HashMap values, Object[] sequence){
+//        
+//        Object[] transSeq = new Object[sequence.length];
+//        
+//        for (int i=0; i<sequence.length; i++){
+//            for (int j=0; j<transSeq.length; j++){
+//            
+//            if(values.containsKey(sequence[i])){
+//                transSeq[j]=values.get(sequence[i]);
+//            }
+//           }
+//        }
+//        
+//        return transSeq.toString();
+//    }
+    
     /**
      *
      * @return
      */
     
+  
 
      
     

@@ -5,6 +5,7 @@
  */
 package thesisinterface;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,34 +18,16 @@ public class PairedNumeric implements IInput {
     
     private Sequence sequence;
     private char[] convSeq;
-    private List <String> numericSequence;
+    private List <Double> numericSequence;
+    private Map<Character,Double> pairedNumValues = new HashMap<>();
 
     public PairedNumeric(Sequence sequence) {
         this.sequence = sequence;
     }
 
     @Override
-    public char[] convertSequence(String sequence) {
-        return convSeq=sequence.toCharArray();
-    }
-
-       
-    public String transformNumeric(){
-        
-       for(int i=0; i<convSeq.length;i++){
-           if (convSeq[i]=='A' || convSeq[i]=='T'){
-            numericSequence.add("1,");
-           }
-           
-           if (convSeq[i]=='G' || convSeq[i]=='G'){
-            numericSequence.add("-1,");
-           }
-           else{
-               System.out.println("Unidentified nucleotide");
-           }
-       }
-       
-       return numericSequence.toString();
+    public char[] seqToArray(String sequence) {
+        return convSeq = sequence.toCharArray();
     }
 
     @Override
@@ -65,9 +48,22 @@ public class PairedNumeric implements IInput {
 
     @Override
     public Map assignValues() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       pairedNumValues.put('G', -1.0);
+       pairedNumValues.put('A', 1.0);
+       pairedNumValues.put('C', 1.0);
+       pairedNumValues.put('T', -1.0);
+       return pairedNumValues;
     }
 
- 
+   public List toNumeric(){
+    for(int i=0; i<convSeq.length; i++){
+            if (pairedNumValues.containsKey(convSeq[i])){
+                
+                numericSequence.add(pairedNumValues.get(convSeq[i]));
+            }
+        }
+    
+    return numericSequence;
+    }
     
 }
