@@ -5,6 +5,7 @@
  */
 package thesisinterface;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,45 +17,16 @@ public class AtomicNumber implements IInput {
     
     
     private Sequence sequence;
+    private List <Double> numericSequence;
+    private  final Map<Character,Double> atomicNumValues = new HashMap<>();
     private char[] convSeq;
-    private List <String> numericSequence;
-
+    
     public AtomicNumber(Sequence sequence) {
         this.sequence = sequence;
     }
 
-    @Override
-    public char[] convertSequence(String sequence) {
-        return convSeq=sequence.toCharArray();
-    }
-
-       
-    public String transformNumeric(){
-        
-       for(int i=0; i<convSeq.length;i++){
-           if (convSeq[i]=='G'){
-            numericSequence.add("78,");
-           }
-           
-           if (convSeq[i]=='A'){
-            numericSequence.add("70,");
-           }
-           
-           if (convSeq[i]=='C'){
-            numericSequence.add("58,");
-           }
-           
-           if (convSeq[i]=='T'){
-            numericSequence.add("66,");
-           }
-           else{
-               System.out.println("Unidentified nucleotide");
-           }
-       }
-       
-       return numericSequence.toString();
-    }
-
+   
+    
     @Override
     public int getExtendedInfo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -73,9 +45,27 @@ public class AtomicNumber implements IInput {
 
     @Override
     public Map assignValues() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       atomicNumValues.put('G', 78.0);
+       atomicNumValues.put('A', 70.0);
+       atomicNumValues.put('C', 58.0);
+       atomicNumValues.put('T', 60.0);
+       return atomicNumValues;
     }
 
+    @Override
+    public char[] seqToArray(String sequence) {
+        return convSeq = sequence.toCharArray();
+    }
+
+    public List toNumeric(){
+    for(int i=0; i<convSeq.length; i++){
+            if (atomicNumValues.containsKey(convSeq[i])){
+                
+                numericSequence.add(atomicNumValues.get(convSeq[i]));
+            }
+        }
     
+    return numericSequence;
+    }
     
 }
