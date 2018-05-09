@@ -6,6 +6,7 @@
 package thesisinterface;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,13 +17,14 @@ import java.util.Map;
 public class RealNumber implements IInput {
     
     
-    private GenomicSequence sequence;
+    private Sequence sequence;
     private char[] convSeq;
-    private List <Double> numericSequence;
-    Map<Character,Double> realNumValues = new HashMap<>();
+    private LinkedList <Double> numericSequence;
+    private HashMap<Character,Double> realNumValues = new HashMap<>();
 
-    public RealNumber(GenomicSequence sequence) {
+    public RealNumber(Sequence sequence) {
         this.sequence = sequence;
+        this.convSeq = sequence.getSeq().toCharArray();
     }
 
 //    @Override
@@ -56,10 +58,10 @@ public class RealNumber implements IInput {
     }
 
     public List toNumeric(){
-    for(int i=0; i<convSeq.length; i++){
-            if (realNumValues.containsKey(convSeq[i])){
+    for(int i=0; i<this.convSeq.length; i++){
+            if (realNumValues.containsKey(this.convSeq[i])){
                 
-                numericSequence.add(realNumValues.get(convSeq[i]));
+                numericSequence.add(realNumValues.get(this.convSeq[i]));
             }
         }
     

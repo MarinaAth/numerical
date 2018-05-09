@@ -6,6 +6,7 @@
 package thesisinterface;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,13 +17,14 @@ import java.util.Map;
 public class ElectronIon implements IInput {
     
     
-    private GenomicSequence sequence;
+    private Sequence sequence;
     private char[] convSeq;
-    private List <Double> numericSequence;
-    private Map<Character,Double> electronValues = new HashMap<>();
+    private LinkedList <Double> numericSequence;
+    private HashMap<Character,Double> electronValues = new HashMap<>();
 
-    public ElectronIon(GenomicSequence sequence) {
+    public ElectronIon(Sequence sequence) {
         this.sequence = sequence;
+        this.convSeq = sequence.getSeq().toCharArray();
     }
 
     @Override
@@ -41,13 +43,9 @@ public class ElectronIon implements IInput {
        return sequence.toString();
     }
 
-//    @Override
-//    public char[] seqToArray(String sequence) {
-//        return convSeq=sequence.toCharArray();
-//    }
 
     @Override
-    public Map assignValues() {
+    public HashMap assignValues() {
        electronValues.put('G', 0.0806);
        electronValues.put('A', 0.1260);
        electronValues.put('C', 0.1340);
@@ -55,11 +53,11 @@ public class ElectronIon implements IInput {
        return electronValues;
     }
 
-    public List toNumeric(){
-    for(int i=0; i<convSeq.length; i++){
-            if (electronValues.containsKey(convSeq[i])){
+    public LinkedList toNumeric(){
+    for(int i=0; i<this.convSeq.length; i++){
+            if (electronValues.containsKey(this.convSeq[i])){
                 
-                numericSequence.add(electronValues.get(convSeq[i]));
+                numericSequence.add(electronValues.get(this.convSeq[i]));
             }
         }
     

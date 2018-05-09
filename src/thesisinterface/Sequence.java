@@ -11,7 +11,7 @@ import java.util.HashMap;
  *
  * @author marin
  */
-public abstract class Sequence {
+public class Sequence {
     
     protected String seq;
     protected int index;
@@ -27,14 +27,6 @@ public abstract class Sequence {
     }
 
 
-    abstract char[] convertSequence(char[] convSeq, String sequence);
-    
-    abstract double[][] indicatorSeq();
-
-//    char[] convertSequence(String sequence){
-//        return sequence.toCharArray();
-//    }
-
     public String getSeq() {
         return seq;
     }
@@ -47,21 +39,7 @@ public abstract class Sequence {
         return base;
     }
     
-//    public String corrMapValues(HashMap values, Object[] sequence){
-//        
-//        Object[] transSeq = new Object[sequence.length];
-//        
-//        for (int i=0; i<sequence.length; i++){
-//            for (int j=0; j<transSeq.length; j++){
-//            
-//            if(values.containsKey(sequence[i])){
-//                transSeq[j]=values.get(sequence[i]);
-//            }
-//           }
-//        }
-//        
-//        return transSeq.toString();
-//    }
+//   
     
     /**
      *

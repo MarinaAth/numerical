@@ -16,13 +16,14 @@ import java.util.Map;
 public class PairedNumeric implements IInput {
     
     
-    private GenomicSequence sequence;
+    private Sequence sequence;
     private char[] convSeq;
     private List <Double> numericSequence;
     private Map<Character,Double> pairedNumValues = new HashMap<>();
 
-    public PairedNumeric(GenomicSequence sequence) {
+    public PairedNumeric(Sequence sequence) {
         this.sequence = sequence;
+        this.convSeq = sequence.getSeq().toCharArray();
     }
 
     @Override
@@ -51,10 +52,10 @@ public class PairedNumeric implements IInput {
     }
 
    public List toNumeric(){
-    for(int i=0; i<convSeq.length; i++){
-            if (pairedNumValues.containsKey(convSeq[i])){
+    for(int i=0; i<this.convSeq.length; i++){
+            if (pairedNumValues.containsKey(this.convSeq[i])){
                 
-                numericSequence.add(pairedNumValues.get(convSeq[i]));
+                numericSequence.add(pairedNumValues.get(this.convSeq[i]));
             }
         }
     

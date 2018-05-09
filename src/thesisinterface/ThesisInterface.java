@@ -5,6 +5,7 @@
  */
 package thesisinterface;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,14 +20,13 @@ public class ThesisInterface {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
      
         
-        
-        
-
-        
-       
+    Sequence sequence = new Sequence("GACT");
+     
+    AtomicNumber testSeq = new AtomicNumber(sequence);
+    
+        testSeq.checkIt();
     }
 
 }

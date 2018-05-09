@@ -6,8 +6,7 @@
 package thesisinterface;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.LinkedList;
 
 /**
  *
@@ -16,15 +15,16 @@ import java.util.Map;
 public class AtomicNumber implements IInput {
     
     
-    private GenomicSequence sequence;
-    private List <Double> numericSequence;
-    private  final Map<Character,Double> atomicNumValues = new HashMap<>();
+    private Sequence sequence;
+    private LinkedList <Double> numericSequence;
+    private  final HashMap<Character,Double> atomicNumValues = new HashMap<>();
     private char[] convSeq;
    
     
     
-    public AtomicNumber(GenomicSequence sequence) {
+    public AtomicNumber(Sequence sequence) {
         this.sequence=sequence;
+        this.convSeq = sequence.getSeq().toCharArray();
     }
 
    
@@ -45,7 +45,7 @@ public class AtomicNumber implements IInput {
     }
 
     @Override
-    public Map assignValues() {
+    public HashMap assignValues() {
        atomicNumValues.put('G', 78.0);
        atomicNumValues.put('A', 70.0);
        atomicNumValues.put('C', 58.0);
@@ -53,23 +53,28 @@ public class AtomicNumber implements IInput {
        return atomicNumValues;
     }
 
-//    @Override
-//    public char[] seqToArray(String sequence) {
-//        return convSeq = sequence.toCharArray();
-//    }
 
-    public List toNumeric(){
-    convSeq = sequence.getSeq().toCharArray();
-    for(int i=0; i<convSeq.length; i++){
-            if (atomicNumValues.containsKey(convSeq[i])){
-                
-                numericSequence.add(atomicNumValues.get(convSeq[i]));
-            }
-        }
+    public LinkedList toNumeric(){
     
+        for(int i=0; i<this.convSeq.length; i++){
+            
+            if (atomicNumValues.containsKey(this.convSeq[i])){
+                numericSequence.add(atomicNumValues.get(this.convSeq[i]));
+                } else {
+                System.out.println("Your issue is here");}
+        }
     return numericSequence;
     }
     
+    public void checkIt(){
     
+        for(int i=0; i<this.convSeq.length; i++){
+            
+            if (atomicNumValues.containsKey(this.convSeq[i])){ //το βρισκει false !!!!!
+                System.out.println(atomicNumValues.get(this.convSeq[i]));
+                } else {
+                System.out.println("Your issue is here");}
+        }
     
+    }
 }

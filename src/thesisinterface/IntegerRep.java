@@ -7,6 +7,7 @@ package thesisinterface;
 
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,21 +17,25 @@ import java.util.Map;
  */
 public class IntegerRep implements IInput {
     
-    private GenomicSequence sequence;
+    private Sequence sequence;
     private char[] convSeq;
-    private List <Double> numericSequence;
-    private  final Map<Character,Double> integerValues = new HashMap<>();
+    private LinkedList <Double> numericSequence;
+    private  final HashMap<Character,Double> integerValues = new HashMap<>();
 
-    public IntegerRep(GenomicSequence sequence) {
+    public IntegerRep(Sequence sequence) {
         this.sequence = sequence;
+        this.convSeq = sequence.getSeq().toCharArray();
     }
 
-//    @Override
-//    public char[] seqToArray(String sequence) {
-//        return convSeq=sequence.toCharArray();
-//    }
+    public Sequence getSequence() {
+        return sequence;
+    }
 
-  
+    public char[] getConvSeq() {
+        return convSeq;
+    }
+
+
     @Override
     public int getExtendedInfo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -48,7 +53,7 @@ public class IntegerRep implements IInput {
     }
 
     @Override
-    public Map assignValues() {
+    public HashMap assignValues() {
        integerValues.put('G', 3.0);
        integerValues.put('A', 2.0);
        integerValues.put('C', 1.0);
@@ -56,10 +61,9 @@ public class IntegerRep implements IInput {
        return integerValues;
     }
 
-    public List toNumeric(){
-    for(int i=0; i<convSeq.length; i++){
+    public LinkedList toNumeric(){
+    for(int i=0; i<this.convSeq.length; i++){
             if (integerValues.containsKey(convSeq[i])){
-                
                 numericSequence.add(integerValues.get(convSeq[i]));
             }
         }
