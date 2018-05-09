@@ -27,7 +27,7 @@ public abstract class Sequence {
     }
 
 
-    abstract char[] convertSequence(String sequence);
+    abstract char[] convertSequence(char[] convSeq, String sequence);
     
     abstract double[][] indicatorSeq();
 

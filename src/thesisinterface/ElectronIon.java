@@ -16,12 +16,12 @@ import java.util.Map;
 public class ElectronIon implements IInput {
     
     
-    private Sequence sequence;
+    private GenomicSequence sequence;
     private char[] convSeq;
     private List <Double> numericSequence;
     private Map<Character,Double> electronValues = new HashMap<>();
 
-    public ElectronIon(Sequence sequence) {
+    public ElectronIon(GenomicSequence sequence) {
         this.sequence = sequence;
     }
 
@@ -41,10 +41,10 @@ public class ElectronIon implements IInput {
        return sequence.toString();
     }
 
-    @Override
-    public char[] seqToArray(String sequence) {
-        return convSeq=sequence.toCharArray();
-    }
+//    @Override
+//    public char[] seqToArray(String sequence) {
+//        return convSeq=sequence.toCharArray();
+//    }
 
     @Override
     public Map assignValues() {

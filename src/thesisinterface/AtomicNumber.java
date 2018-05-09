@@ -16,13 +16,15 @@ import java.util.Map;
 public class AtomicNumber implements IInput {
     
     
-    private Sequence sequence;
+    private GenomicSequence sequence;
     private List <Double> numericSequence;
     private  final Map<Character,Double> atomicNumValues = new HashMap<>();
     private char[] convSeq;
+   
     
-    public AtomicNumber(Sequence sequence) {
-        this.sequence = sequence;
+    
+    public AtomicNumber(GenomicSequence sequence) {
+        this.sequence=sequence;
     }
 
    
@@ -51,12 +53,13 @@ public class AtomicNumber implements IInput {
        return atomicNumValues;
     }
 
-    @Override
-    public char[] seqToArray(String sequence) {
-        return convSeq = sequence.toCharArray();
-    }
+//    @Override
+//    public char[] seqToArray(String sequence) {
+//        return convSeq = sequence.toCharArray();
+//    }
 
     public List toNumeric(){
+    convSeq = sequence.getSeq().toCharArray();
     for(int i=0; i<convSeq.length; i++){
             if (atomicNumValues.containsKey(convSeq[i])){
                 

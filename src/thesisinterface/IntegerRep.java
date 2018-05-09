@@ -16,19 +16,19 @@ import java.util.Map;
  */
 public class IntegerRep implements IInput {
     
-    private Sequence sequence;
+    private GenomicSequence sequence;
     private char[] convSeq;
     private List <Double> numericSequence;
     private  final Map<Character,Double> integerValues = new HashMap<>();
 
-    public IntegerRep(Sequence sequence) {
+    public IntegerRep(GenomicSequence sequence) {
         this.sequence = sequence;
     }
 
-    @Override
-    public char[] seqToArray(String sequence) {
-        return convSeq=sequence.toCharArray();
-    }
+//    @Override
+//    public char[] seqToArray(String sequence) {
+//        return convSeq=sequence.toCharArray();
+//    }
 
   
     @Override

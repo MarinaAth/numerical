@@ -16,19 +16,19 @@ import java.util.Map;
 public class RealNumber implements IInput {
     
     
-    private Sequence sequence;
+    private GenomicSequence sequence;
     private char[] convSeq;
     private List <Double> numericSequence;
     Map<Character,Double> realNumValues = new HashMap<>();
 
-    public RealNumber(Sequence sequence) {
+    public RealNumber(GenomicSequence sequence) {
         this.sequence = sequence;
     }
 
-    @Override
-    public char[] seqToArray(String sequence) {
-        return convSeq=sequence.toCharArray();
-    }
+//    @Override
+//    public char[] seqToArray(String sequence) {
+//        return convSeq=sequence.toCharArray();
+//    }
 
     @Override
     public int getExtendedInfo() {

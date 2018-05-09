@@ -16,18 +16,13 @@ import java.util.Map;
 public class PairedNumeric implements IInput {
     
     
-    private Sequence sequence;
+    private GenomicSequence sequence;
     private char[] convSeq;
     private List <Double> numericSequence;
     private Map<Character,Double> pairedNumValues = new HashMap<>();
 
-    public PairedNumeric(Sequence sequence) {
+    public PairedNumeric(GenomicSequence sequence) {
         this.sequence = sequence;
-    }
-
-    @Override
-    public char[] seqToArray(String sequence) {
-        return convSeq = sequence.toCharArray();
     }
 
     @Override
