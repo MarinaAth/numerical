@@ -29,10 +29,9 @@ public class ThesisInterface {
         
         String[] testArray = new String[]{"Marina", "Freddie", "George", "Ollie"};
         
-       
+
+        
        
     }
-    
-
 
 }

@@ -26,7 +26,6 @@ public class AtomicNumber implements IInput {
     }
 
    
-    
     @Override
     public int getExtendedInfo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -67,5 +66,7 @@ public class AtomicNumber implements IInput {
     
     return numericSequence;
     }
+    
+    
     
 }
