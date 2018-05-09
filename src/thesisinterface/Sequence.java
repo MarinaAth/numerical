@@ -26,9 +26,8 @@ public abstract class Sequence {
         this.seq = seq;
     }
 
-//    char[] convertSequence(String sequence){
-//        return sequence.toCharArray();
-//    }
+    abstract char[] convertSequence(String sequence);
+    
     
     public String getSeq() {
         return seq;

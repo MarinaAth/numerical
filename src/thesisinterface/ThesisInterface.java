@@ -29,30 +29,10 @@ public class ThesisInterface {
         
         String[] testArray = new String[]{"Marina", "Freddie", "George", "Ollie"};
         
-        for(int i=0; i<testArray.length; i++){
-            if (test.containsKey(testArray[i])){
-                
-                System.out.println(test.get(testArray[i]));
-            }
-        }
+       
        
     }
     
 
 
-// public static Object[] corrMapValues(HashMap values, Object[] sequence){
-//        
-//        Object[] transSeq = new Object[sequence.length];
-//        
-//        for (int i=0; i<sequence.length; i++){
-//            for (int j=0; j<transSeq.length; j++){
-//            
-//            if(values.containsKey(sequence[i])){
-//                transSeq[j]=values.get(sequence[i]);
-//            }
-//           }
-//        }
-//        
-//        return transSeq;
-//    }
 }
