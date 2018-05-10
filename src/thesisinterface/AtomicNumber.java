@@ -57,7 +57,6 @@ public class AtomicNumber implements IInput {
     public LinkedList toNumeric(){
     
         for(int i=0; i<this.convSeq.length; i++){
-            
             if (atomicNumValues.containsKey(this.convSeq[i])){
                 numericSequence.add(atomicNumValues.get(this.convSeq[i]));
                 } else {
@@ -69,7 +68,6 @@ public class AtomicNumber implements IInput {
     public void checkIt(){
     
         for(int i=0; i<this.convSeq.length; i++){
-            
             if (atomicNumValues.containsKey(this.convSeq[i])){ //το βρισκει false !!!!!
                 System.out.println(atomicNumValues.get(this.convSeq[i]));
                 } else {

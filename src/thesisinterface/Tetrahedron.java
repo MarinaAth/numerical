@@ -5,6 +5,7 @@
  */
 package thesisinterface;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,15 +15,22 @@ import java.util.Map;
  *
  * @author marin
  */
-public class PairedNumeric implements IInput {
+public class Tetrahedron implements IInput {
     
     
     private Sequence sequence;
     private char[] convSeq;
     private LinkedList <Double> numericSequence;
-    private HashMap<Character,Double> pairedNumValues = new HashMap<>();
+    private HashMap<Character,List<Double>> tetraValues = new HashMap<>();
+    
+    private List<Double> indG = new ArrayList<>();
+    private List<Double> indA = new ArrayList<>();
+    private List<Double> indC = new ArrayList<>();
+    private List<Double> indT = new ArrayList<>();
 
-    public PairedNumeric(Sequence sequence) {
+    
+    
+    public Tetrahedron(Sequence sequence) {
         this.sequence = sequence;
         this.convSeq = sequence.getSeq().toCharArray();
     }
@@ -43,24 +51,38 @@ public class PairedNumeric implements IInput {
        return sequence.toString();
     }
 
+    
     @Override
     public HashMap assignValues() {
-       pairedNumValues.put('G', -1.0);
-       pairedNumValues.put('A', 1.0);
-       pairedNumValues.put('C', 1.0);
-       pairedNumValues.put('T', -1.0);
-       return pairedNumValues;
+       
+       indG.add(0, -(Math.sqrt(2.0)/3));
+       indG.add(1, -(Math.sqrt(6.0)/3));
+       indG.add(2, -(1.0/3.0));
+       indA.add(0, 0.0);
+       indA.add(1, 0.0);
+       indA.add(2, 1.0);
+       indC.add(0, -(Math.sqrt(2.0)/3));
+       indC.add(1, (Math.sqrt(6.0)/3));
+       indC.add(2, -(1.0/3.0));
+       indT.add(0, 2*(Math.sqrt(2.0)/3));
+       indT.add(1, 0.0);
+       indT.add(2, -(1.0/3.0));
+        
+       tetraValues.put('G', indG);
+       tetraValues.put('A', indA);
+       tetraValues.put('C', indC);
+       tetraValues.put('T', indT);
+       return tetraValues;
     }
 
    public LinkedList toNumeric(){
     for(int i=0; i<this.convSeq.length; i++){
-            if (pairedNumValues.containsKey(this.convSeq[i])){
+            if (tetraValues.containsKey(this.convSeq[i])){
                 
-                numericSequence.add(pairedNumValues.get(this.convSeq[i]));
+                numericSequence.add(tetraValues.get(this.convSeq[i]));
             }
         }
     
     return numericSequence;
     }
-    
 }
