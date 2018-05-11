@@ -5,7 +5,7 @@
  */
 package thesisinterface;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,10 +16,10 @@ public class Voss {
     
     private Sequence sequence;
     private char[] convSeq;
-    private LinkedList <Integer> indSeqA = new LinkedList<>();
-    private LinkedList <Integer> indSeqT = new LinkedList<>();
-    private LinkedList <Integer> indSeqG = new LinkedList<>();
-    private LinkedList <Integer> indSeqC = new LinkedList<>();
+    private ArrayList <Integer> indSeqA = new ArrayList<>();
+    private ArrayList <Integer> indSeqT = new ArrayList<>();
+    private ArrayList <Integer> indSeqG = new ArrayList<>();
+    private ArrayList <Integer> indSeqC = new ArrayList<>();
    
 //    private HashMap<Character,Double> pairedNumValues = new HashMap<>();
     

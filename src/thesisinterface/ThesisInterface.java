@@ -24,7 +24,7 @@ public class ThesisInterface {
         
     Sequence sequence = new Sequence("AACTGT");
      
-    Voss testSeq = new Voss(sequence);
+    Zcurve testSeq = new Zcurve(sequence);
     
         testSeq.toNumeric();
     }

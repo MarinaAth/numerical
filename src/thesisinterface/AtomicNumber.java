@@ -43,7 +43,7 @@ public class AtomicNumber implements IInput {
     public String asString() {
        return sequence.toString();
     }
-
+    
     @Override
     public HashMap assignValues() {
        atomicNumValues.put('G', 78.0);

@@ -14,60 +14,65 @@ import java.util.List;
  *
  * @author marin
  */
-public class DNAwalk implements IInput {
+public class DNAwalk {
     
     
     private Sequence sequence;
     private char[] convSeq;
-    private LinkedList <Double> numericSequence;
-    private HashMap<Character,Double> pairedNumValues = new HashMap<>();
+    private ArrayList <Integer> indicatorSequence = new ArrayList<>();
     
-    private List<Double> indG = new ArrayList<>();
-    private List<Double> indA = new ArrayList<>();
-    private List<Double> indC = new ArrayList<>();
-    private List<Double> indT = new ArrayList<>();
-
-
+//    private HashMap<Character,Double> pairedNumValues = new HashMap<>();
+    
     public DNAwalk(Sequence sequence) {
         this.sequence = sequence;
         this.convSeq = sequence.getSeq().toCharArray();
     }
 
-    @Override
-    public int getExtendedInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void getBase(int index) {
-        
-        System.out.println(convSeq[index]);
-    }
-
-    @Override
-    public String asString() {
-       return sequence.toString();
-    }
-
-    @Override
-    public HashMap assignValues() {
-        
-       pairedNumValues.put('G', -1.0);
-       pairedNumValues.put('A', 1.0);
-       pairedNumValues.put('C', 1.0);
-       pairedNumValues.put('T', -1.0);
-       return pairedNumValues;
-    }
-
-   public LinkedList toNumeric(){
-    for(int i=0; i<this.convSeq.length; i++){
-            if (pairedNumValues.containsKey(this.convSeq[i])){
-                
-                numericSequence.add(pairedNumValues.get(this.convSeq[i]));
+//    @Override
+//    public int getExtendedInfo() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+//
+//    @Override
+//    public void getBase(int index) {
+//        
+//        System.out.println(convSeq[index]);
+//    }
+//
+//    @Override
+//    public String asString() {
+//       return sequence.toString();
+//    }
+//
+//    @Override
+//    public HashMap assignValues() {
+//       
+//    }
+//
+   public void toNumeric(){
+        if (convSeq[0]=='C'||convSeq[0]=='T'){
+           indicatorSequence.add(0, 1);
+        } else {
+            indicatorSequence.add(0, -1);
+        }
+        for (int i = 1; i<this.convSeq.length; i++) {
+            OUTER:
+            switch (convSeq[i]) {
+                case 'C' :
+                case 'T':
+                    indicatorSequence.add((indicatorSequence.get(i-1))+1);
+                    break OUTER;
+                case 'G':
+                case 'A':
+                    indicatorSequence.add((indicatorSequence.get(i-1))-1);
+                    break OUTER;
+                default:
+                    System.out.println("You have an issue here");
+                    break OUTER;
             }
         }
     
-    return numericSequence;
+       System.out.println("Indicator sequence :" + indicatorSequence.toString() + "OHMAGAWD FINALLY");
     }
     
 }

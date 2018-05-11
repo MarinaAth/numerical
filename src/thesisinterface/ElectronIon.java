@@ -44,7 +44,6 @@ public class ElectronIon implements IInput {
     }
 
 
-    @Override
     public HashMap assignValues() {
        electronValues.put('G', 0.0806);
        electronValues.put('A', 0.1260);

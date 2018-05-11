@@ -75,14 +75,14 @@ public class Tetrahedron implements IInput {
        return tetraValues;
     }
 
-   public LinkedList toNumeric(){
-    for(int i=0; i<this.convSeq.length; i++){
-            if (tetraValues.containsKey(this.convSeq[i])){
-                
-                numericSequence.add(tetraValues.get(this.convSeq[i]));
-            }
-        }
-    
-    return numericSequence;
-    }
+//   public LinkedList toNumeric(){
+//    for(int i=0; i<this.convSeq.length; i++){
+//            if (tetraValues.containsKey(this.convSeq[i])){
+//                
+//                numericSequence.add(tetraValues.get(this.convSeq[i]));
+//            }
+//        }
+//    
+//    return numericSequence;
+//    }
 }
