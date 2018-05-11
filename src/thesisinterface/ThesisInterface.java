@@ -22,11 +22,11 @@ public class ThesisInterface {
     public static void main(String[] args) {
      
         
-    Sequence sequence = new Sequence("GACT");
+    Sequence sequence = new Sequence("AACTGT");
      
-    AtomicNumber testSeq = new AtomicNumber(sequence);
+    Voss testSeq = new Voss(sequence);
     
-        testSeq.checkIt();
+        testSeq.toNumeric();
     }
 
 }
