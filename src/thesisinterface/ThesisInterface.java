@@ -27,6 +27,9 @@ public class ThesisInterface {
     Zcurve testSeq = new Zcurve(sequence);
     
         testSeq.toNumeric();
+        int[][] array = testSeq.vectorArray();
+        
+        System.out.println(Arrays.deepToString(array));
+        }
     }
 
-}

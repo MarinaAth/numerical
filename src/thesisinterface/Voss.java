@@ -6,6 +6,7 @@
 package thesisinterface;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -87,8 +88,23 @@ public class Voss {
        System.out.println("Indicator sequence A:" + indSeqA.toString() + "\n"
                + "Indicator sequence T: " + indSeqT.toString() + "\n"
                        + "Indicator sequence G: " + indSeqG.toString() + "\n"
-                               + "Indicator sequence C: " + indSeqC.toString() + "\n"
-                                       + "OHMAGAWD FINALLY");
+                               + "Indicator sequence C: " + indSeqC.toString());
     }
+   
+   public int[][] vectorArray(){
+       
+       int[][] array = new int[4][convSeq.length];
+       int seqSize = convSeq.length;
+       
+       for (int i=0; i<seqSize; i++){
+           array[0][i]=indSeqA.get(i);
+           array[1][i]=indSeqT.get(i);
+           array[2][i]=indSeqG.get(i);
+           array[3][i]=indSeqC.get(i);
+       }
+       
+       
+       return array;
+   }
     
 }

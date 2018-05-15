@@ -76,32 +76,47 @@ public class Zcurve {
                     indSeq1.add((indSeq1.get(i-1))-1); 
                     indSeq2.add((indSeq2.get(i-1))+1);
                     indSeq3.add((indSeq3.get(i-1))+1);
-                    break OUTER;
+                    break;
                 case 'T':
                     indSeq1.add((indSeq1.get(i-1))+1);
                     indSeq2.add((indSeq2.get(i-1))-1);
                     indSeq3.add((indSeq3.get(i-1))+1);
-                    break OUTER;
+                    break;
                 case 'G':
                     indSeq1.add((indSeq1.get(i-1))+1);
                     indSeq2.add((indSeq2.get(i-1))-1);
                     indSeq3.add((indSeq3.get(i-1))-1);
-                    break OUTER;
+                    break;
                 case 'C':
                     indSeq1.add((indSeq1.get(i-1))-1);
                     indSeq2.add((indSeq2.get(i-1))+1);
                     indSeq3.add((indSeq3.get(i-1))-1);
-                    break OUTER;
+                    break;
                 default:
                     System.out.println("You have an issue here");
-                    break OUTER;
+                    break;
             }
         }
     
        System.out.println("Indicator sequence 1:" + indSeq1.toString() + "\n"
                + "Indicator sequence 2: " + indSeq2.toString() + "\n"
-                       + "Indicator sequence 3: " + indSeq3.toString() + "\n"
-                              + "OHMAGAWD FINALLY");
+                       + "Indicator sequence 3: " + indSeq3.toString());
     }
+    
+   public int[][] vectorArray(){
+       
+       int[][] array = new int[3][convSeq.length];
+       int seqSize = convSeq.length;
+       
+       for (int i=0; i<seqSize; i++){
+           array[0][i]=indSeq1.get(i);
+           array[1][i]=indSeq2.get(i);
+           array[2][i]=indSeq3.get(i);
+           
+       }
+       
+       
+       return array;
+   }
     
 }

@@ -72,7 +72,11 @@ public class DNAwalk {
             }
         }
     
-       System.out.println("Indicator sequence :" + indicatorSequence.toString() + "OHMAGAWD FINALLY");
+       System.out.println("Indicator sequence :" + indicatorSequence.toString());
     }
+   
+   
     
+   
+   
 }

@@ -85,4 +85,6 @@ public class Tetrahedron implements IInput {
 //    
 //    return numericSequence;
 //    }
+    
+    
 }
