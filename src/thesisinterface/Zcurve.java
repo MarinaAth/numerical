@@ -19,9 +19,6 @@ public class Zcurve {
     private ArrayList <Integer> indSeq2 = new ArrayList<>();
     private ArrayList <Integer> indSeq3 = new ArrayList<>();
     
-   
-//    private HashMap<Character,Double> pairedNumValues = new HashMap<>();
-    
     public Zcurve(Sequence sequence) {
         this.sequence = sequence;
         this.convSeq = sequence.getSeq().toCharArray();
@@ -114,8 +111,6 @@ public class Zcurve {
            array[2][i]=indSeq3.get(i);
            
        }
-       
-       
        return array;
    }
     

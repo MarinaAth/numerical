@@ -20,9 +20,7 @@ public class DNAwalk {
     private Sequence sequence;
     private char[] convSeq;
     private ArrayList <Integer> indicatorSequence = new ArrayList<>();
-    
-//    private HashMap<Character,Double> pairedNumValues = new HashMap<>();
-    
+
     public DNAwalk(Sequence sequence) {
         this.sequence = sequence;
         this.convSeq = sequence.getSeq().toCharArray();

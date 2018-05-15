@@ -19,8 +19,6 @@ public interface IInput {
     
     String asString();
     
-//    char[] seqToArray(String sequence); 
-    
     Map assignValues();
     
 }

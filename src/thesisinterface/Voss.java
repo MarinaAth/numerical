@@ -14,7 +14,6 @@ import java.util.Arrays;
  */
 public class Voss {
     
-    
     private Sequence sequence;
     private char[] convSeq;
     private ArrayList <Integer> indSeqA = new ArrayList<>();
@@ -22,8 +21,6 @@ public class Voss {
     private ArrayList <Integer> indSeqG = new ArrayList<>();
     private ArrayList <Integer> indSeqC = new ArrayList<>();
    
-//    private HashMap<Character,Double> pairedNumValues = new HashMap<>();
-    
     public Voss(Sequence sequence) {
         this.sequence = sequence;
         this.convSeq = sequence.getSeq().toCharArray();
@@ -60,28 +57,28 @@ public class Voss {
                     indSeqT.add(0);
                     indSeqG.add(0);
                     indSeqC.add(0);
-                    break OUTER;
+                    break;
                 case 'T':
                     indSeqA.add(0);
                     indSeqT.add(1);
                     indSeqG.add(0);
                     indSeqC.add(0);
-                    break OUTER;
+                    break;
                 case 'G':
                     indSeqA.add(0);
                     indSeqT.add(0);
                     indSeqG.add(1);
                     indSeqC.add(0);
-                    break OUTER;
+                    break;
                 case 'C':
                     indSeqA.add(0);
                     indSeqT.add(0);
                     indSeqG.add(0);
                     indSeqC.add(1);
-                    break OUTER;
+                    break;
                 default:
                     System.out.println("You have an issue here");
-                    break OUTER;
+                    break;
             }
         }
     
@@ -102,8 +99,6 @@ public class Voss {
            array[2][i]=indSeqG.get(i);
            array[3][i]=indSeqC.get(i);
        }
-       
-       
        return array;
    }
     

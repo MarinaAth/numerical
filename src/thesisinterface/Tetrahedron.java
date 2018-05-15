@@ -20,7 +20,6 @@ public class Tetrahedron implements IInput {
     
     private Sequence sequence;
     private char[] convSeq;
-    private LinkedList <Double> numericSequence;
     private HashMap<Character,List<Double>> tetraValues = new HashMap<>();
     
     private List<Double> indG = new ArrayList<>();
@@ -28,6 +27,10 @@ public class Tetrahedron implements IInput {
     private List<Double> indC = new ArrayList<>();
     private List<Double> indT = new ArrayList<>();
 
+    private List<Double> indicator1 = new LinkedList<>();
+    private List<Double> indicator2 = new LinkedList<>();
+    private List<Double> indicator3 = new LinkedList<>();
+    
     
     
     public Tetrahedron(Sequence sequence) {
@@ -75,16 +78,6 @@ public class Tetrahedron implements IInput {
        return tetraValues;
     }
 
-//   public LinkedList toNumeric(){
-//    for(int i=0; i<this.convSeq.length; i++){
-//            if (tetraValues.containsKey(this.convSeq[i])){
-//                
-//                numericSequence.add(tetraValues.get(this.convSeq[i]));
-//            }
-//        }
-//    
-//    return numericSequence;
-//    }
-    
-    
+   
+
 }
