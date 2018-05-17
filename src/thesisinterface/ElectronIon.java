@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author marin
  */
-public class ElectronIon implements IInput {
+public class ElectronIon implements ISymbolSequence {
     
     
     private Sequence sequence;
@@ -28,12 +28,12 @@ public class ElectronIon implements IInput {
     }
 
     @Override
-    public int getExtendedInfo() {
+    public Object getExtendedInfo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void getBase(int index) {
+    public void getSymbolAt(int index) {
         
         System.out.println(convSeq[index]);
     }

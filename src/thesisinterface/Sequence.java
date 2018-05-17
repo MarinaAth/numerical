@@ -11,43 +11,17 @@ import java.util.HashMap;
  *
  * @author marin
  */
-public class Sequence {
-    
-    protected String seq;
-    protected int index;
-    protected char base;
+public class Sequence extends BaseSymbolSequence {
     
     public Sequence(){
+        super("");
         System.out.println("Default constructor called");
-        this.seq = "";
     }
 
     public Sequence(String seq) {
-        this.seq = seq;
+        super(seq);
     }
 
 
-    public String getSeq() {
-        return seq;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public char getBase() {
-        return base;
-    }
-    
-//   
-    
-    /**
-     *
-     * @return
-     */
-    
-  
-
-     
     
 }

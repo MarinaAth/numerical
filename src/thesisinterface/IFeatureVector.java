@@ -5,16 +5,14 @@
  */
 package thesisinterface;
 
+import java.util.List;
+
 /**
  *
  * @author marin
  */
-public interface IOutput {
-    
-    
-    int getDimensions();
-    int getLength(); //return start and end here?
-    int getDirection();
-    
-    
+public interface IFeatureVector {
+    List<String> getDimensionNames();
+    int getNumberOfDimensions(); 
+    Double getDimensionValue(String dimensionName);
 }

@@ -15,7 +15,7 @@ import java.util.Map;
  *
  * @author marin
  */
-public class IntegerRep implements IInput {
+public class IntegerRep implements ISymbolSequence {
     
     private Sequence sequence;
     private char[] convSeq;
@@ -37,12 +37,12 @@ public class IntegerRep implements IInput {
 
 
     @Override
-    public int getExtendedInfo() {
+    public Object getExtendedInfo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void getBase(int index) {
+    public void getSymbolAt(int index) {
         
         System.out.println(convSeq[index]);
     }
