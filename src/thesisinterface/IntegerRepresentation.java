@@ -5,26 +5,31 @@
  */
 package thesisinterface;
 
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import sun.net.www.http.KeepAliveCache;
 
 /**
- * This class is a representation, taking into account the atomic number.
+ *
  * @author marin
  */
-public class AtomicNumberRepresentation extends KeyBasedRepresentation {
+public class IntegerRepresentation extends KeyBasedRepresentation {
 
-    public AtomicNumberRepresentation(ISymbolSequence sequence) {
+    public IntegerRepresentation(ISymbolSequence sequence) {
         super(sequence);
     }
-    
+
     @Override
     public void assignValues() {
-       numValues.put("G", 78.0);
-       numValues.put("A", 70.0);
-       numValues.put("C", 58.0);
-       numValues.put("T", 60.0);
+        numValues.put("G", 3.0);
+        numValues.put("A", 2.0);
+        numValues.put("C", 1.0);
+        numValues.put("T", 0.0);
     }
+  
+    
+    
 }

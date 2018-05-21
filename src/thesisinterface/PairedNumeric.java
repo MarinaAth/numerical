@@ -14,53 +14,20 @@ import java.util.Map;
  *
  * @author marin
  */
-public class PairedNumeric implements ISymbolSequence {
+public class PairedNumeric extends KeyBasedRepresentation {
+
+    public PairedNumeric(ISymbolSequence sequence) {
+        super(sequence);
+    }
+
+    @Override
+    public void assignValues() {
+        numValues.put("G", -1.0);
+        numValues.put("C", -1.0);
+        numValues.put("A", 1.0);
+        numValues.put("T", 1.0);
+    }
     
-    
-    private Sequence sequence;
-    private char[] convSeq;
-    private LinkedList <Double> numericSequence;
-    private HashMap<Character,Double> pairedNumValues = new HashMap<>();
-
-    public PairedNumeric(Sequence sequence) {
-        this.sequence = sequence;
-        this.convSeq = sequence.getSeq().toCharArray();
-    }
-
-    @Override
-    public Object getExtendedInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void getSymbolAt(int index) {
-        
-        System.out.println(convSeq[index]);
-    }
-
-    @Override
-    public String asString() {
-       return sequence.toString();
-    }
-
-    @Override
-    public HashMap assignValues() {
-       pairedNumValues.put('G', -1.0);
-       pairedNumValues.put('A', 1.0);
-       pairedNumValues.put('C', 1.0);
-       pairedNumValues.put('T', -1.0);
-       return pairedNumValues;
-    }
-
-   public LinkedList toNumeric(){
-    for(int i=0; i<this.convSeq.length; i++){
-            if (pairedNumValues.containsKey(this.convSeq[i])){
-                
-                numericSequence.add(pairedNumValues.get(this.convSeq[i]));
-            }
-        }
-    
-    return numericSequence;
-    }
+   
     
 }

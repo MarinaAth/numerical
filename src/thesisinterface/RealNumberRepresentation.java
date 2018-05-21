@@ -11,20 +11,26 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class is a representation, taking into account the atomic number.
+ *
  * @author marin
  */
-public class AtomicNumberRepresentation extends KeyBasedRepresentation {
+public class RealNumberRepresentation extends KeyBasedRepresentation {
 
-    public AtomicNumberRepresentation(ISymbolSequence sequence) {
+    public RealNumberRepresentation(ISymbolSequence sequence) {
         super(sequence);
     }
-    
+
     @Override
     public void assignValues() {
-       numValues.put("G", 78.0);
-       numValues.put("A", 70.0);
-       numValues.put("C", 58.0);
-       numValues.put("T", 60.0);
+        numValues.put("G", -0.5);
+        numValues.put("A", -1.5);
+        numValues.put("C", 0.5);
+        numValues.put("T", 1.5);
     }
+
+    
+    
+    
+    
 }
+
