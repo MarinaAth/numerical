@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author marin
  */
-public class RealNumberRepresentation extends KeyBasedRepresentation {
+public class RealNumberRepresentation extends SingleValueRepresentation {
 
     public RealNumberRepresentation(ISymbolSequence sequence) {
         super(sequence);

@@ -5,8 +5,8 @@
  */
 package thesisinterface;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,11 +14,12 @@ import java.util.Map;
  *
  * @author marin
  */
-public abstract class KeyBasedRepresentation extends BaseFeatureVector {
-    protected Map<String, Double> numValues = new HashMap<>();
+public abstract class MultipleValueRepresentation extends BaseFeatureVector{
+    
+    protected Map<String, List<Double> > numValues = new HashMap<>();
     protected ISymbolSequence sequence;
     
-    public KeyBasedRepresentation(ISymbolSequence sequence) {
+    public MultipleValueRepresentation(ISymbolSequence sequence) {
         this.sequence = sequence;
         assignValues();
         calculateVectorDimensions();
@@ -33,9 +34,8 @@ public abstract class KeyBasedRepresentation extends BaseFeatureVector {
         for (int iSymbolCnt = 0; iSymbolCnt < sequence.size(); iSymbolCnt++) {
             // Determine dimension name
             String sDimensionName = "X" + (iSymbolCnt + 1);
-            // Assign the corresponding value from the atomicNumValues key to the feature
-            put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
+            // Assign the corresponding value from the numValues key to the feature
+            put(sDimensionName, numValues.get());
         }            
     }
-    
 }

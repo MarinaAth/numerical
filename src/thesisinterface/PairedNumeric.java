@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author marin
  */
-public class PairedNumeric extends KeyBasedRepresentation {
+public class PairedNumeric extends SingleValueRepresentation {
 
     public PairedNumeric(ISymbolSequence sequence) {
         super(sequence);

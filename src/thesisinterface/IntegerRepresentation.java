@@ -16,7 +16,7 @@ import sun.net.www.http.KeepAliveCache;
  *
  * @author marin
  */
-public class IntegerRepresentation extends KeyBasedRepresentation {
+public class IntegerRepresentation extends SingleValueRepresentation {
 
     public IntegerRepresentation(ISymbolSequence sequence) {
         super(sequence);

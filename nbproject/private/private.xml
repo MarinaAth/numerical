@@ -3,13 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/DNAwalk.java</file>
-            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/Zcurve.java</file>
-            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/Tetrahedron.java</file>
+            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/BaseFeatureVector.java</file>
+            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/MultipleValueRepresentation.java</file>
+            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/AtomicNumberRepresentation.java</file>
+            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/BaseSymbolSequence.java</file>
+            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/SingleValueRepresentation.java</file>
             <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/Sequence.java</file>
-            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/PairedNumeric.java</file>
             <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/ThesisInterface.java</file>
-            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/Voss.java</file>
+            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/IFeatureVector.java</file>
+            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/ISymbolSequence.java</file>
         </group>
     </open-files>
 </project-private>

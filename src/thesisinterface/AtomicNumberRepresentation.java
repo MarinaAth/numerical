@@ -14,7 +14,7 @@ import java.util.Map;
  * This class is a representation, taking into account the atomic number.
  * @author marin
  */
-public class AtomicNumberRepresentation extends KeyBasedRepresentation {
+public class AtomicNumberRepresentation extends SingleValueRepresentation {
 
     public AtomicNumberRepresentation(ISymbolSequence sequence) {
         super(sequence);

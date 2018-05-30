@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author marin
  */
-public class ElectronIonRepresentation extends KeyBasedRepresentation {
+public class ElectronIonRepresentation extends SingleValueRepresentation {
 
     public ElectronIonRepresentation(ISymbolSequence sequence) {
         super(sequence);
