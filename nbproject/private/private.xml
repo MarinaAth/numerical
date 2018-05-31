@@ -6,12 +6,12 @@
             <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/BaseFeatureVector.java</file>
             <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/MultipleValueRepresentation.java</file>
             <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/AtomicNumberRepresentation.java</file>
+            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/RealNumberRepresentation.java</file>
             <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/BaseSymbolSequence.java</file>
-            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/SingleValueRepresentation.java</file>
-            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/Sequence.java</file>
-            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/ThesisInterface.java</file>
+            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/Tetrahedron.java</file>
+            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/VossRepresentation.java</file>
+            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/PairedNumeric.java</file>
             <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/IFeatureVector.java</file>
-            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/ISymbolSequence.java</file>
         </group>
     </open-files>
 </project-private>

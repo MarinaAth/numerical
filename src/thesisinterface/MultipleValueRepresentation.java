@@ -7,6 +7,7 @@ package thesisinterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,12 +31,14 @@ public abstract class MultipleValueRepresentation extends BaseFeatureVector{
 
 
     public void calculateVectorDimensions(){
+        
+        
         // For each symbol in sequence
         for (int iSymbolCnt = 0; iSymbolCnt < sequence.size(); iSymbolCnt++) {
             // Determine dimension name
             String sDimensionName = "X" + (iSymbolCnt + 1);
             // Assign the corresponding value from the numValues key to the feature
-            put(sDimensionName, numValues.get());
+            put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
         }            
     }
 }

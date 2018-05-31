@@ -8,7 +8,7 @@ package thesisinterface;
 import java.util.List;
 
 /**
- *
+ *This interface represents the output vector of a given input sequence.
  * @author marin
  */
 public interface IFeatureVector {
