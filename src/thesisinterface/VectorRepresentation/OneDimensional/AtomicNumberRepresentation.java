@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package thesisinterface;
+package thesisinterface.VectorRepresentation.OneDimensional;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import thesisinterface.VectorRepresentation.ISymbolSequence;
 
 /**
  * This class is a representation, taking into account the atomic number.
@@ -22,9 +19,9 @@ public class AtomicNumberRepresentation extends SingleValueRepresentation {
     
     @Override
     public void assignValues() {
-       numValues.put("G", 78.0);
-       numValues.put("A", 70.0);
-       numValues.put("C", 58.0);
-       numValues.put("T", 60.0);
+       numValues.put("G", getSingleValueList(78.0));
+       numValues.put("A", getSingleValueList(70.0));
+       numValues.put("C", getSingleValueList(58.0));
+       numValues.put("T", getSingleValueList(60.0));
     }
 }

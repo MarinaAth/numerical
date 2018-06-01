@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package thesisinterface;
+package thesisinterface.VectorRepresentation;
 
 import java.util.List;
 
@@ -14,5 +14,5 @@ import java.util.List;
 public interface IFeatureVector {
     List<String> getDimensionNames();
     int getNumberOfDimensions(); 
-    Double getDimensionValue(String dimensionName);
+    List<Double> getDimensionValue(String dimensionName);
 }

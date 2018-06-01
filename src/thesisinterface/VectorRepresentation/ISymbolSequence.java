@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package thesisinterface;
-
-import java.util.Map;
+package thesisinterface.VectorRepresentation;
 
 /**
  * This interface represents an input sequence of symbols.

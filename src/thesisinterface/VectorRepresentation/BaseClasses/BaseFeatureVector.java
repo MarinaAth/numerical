@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package thesisinterface;
+package thesisinterface.VectorRepresentation.BaseClasses;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
+import thesisinterface.VectorRepresentation.IFeatureVector;
 
 /**
  *
  * @author marin
  */
-public class BaseFeatureVector extends TreeMap<String, Double> implements IFeatureVector {
+public class BaseFeatureVector extends TreeMap<String, List<Double>> implements IFeatureVector {
 
     @Override
     public List<String> getDimensionNames() {
@@ -27,7 +27,7 @@ public class BaseFeatureVector extends TreeMap<String, Double> implements IFeatu
     }
 
     @Override
-    public Double getDimensionValue(String dimensionName) {
+    public List<Double> getDimensionValue(String dimensionName) {
         return get(dimensionName);
     }
     

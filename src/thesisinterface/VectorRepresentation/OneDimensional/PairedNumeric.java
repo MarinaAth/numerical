@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package thesisinterface;
+package thesisinterface.VectorRepresentation.OneDimensional;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import thesisinterface.VectorRepresentation.ISymbolSequence;
 
 /**
  *
@@ -22,10 +19,10 @@ public class PairedNumeric extends SingleValueRepresentation {
 
     @Override
     public void assignValues() {
-        numValues.put("G", -1.0);
-        numValues.put("C", -1.0);
-        numValues.put("A", 1.0);
-        numValues.put("T", 1.0);
+        numValues.put("G", getSingleValueList(-1.0));
+        numValues.put("C", getSingleValueList(-1.0));
+        numValues.put("A", getSingleValueList(1.0));
+        numValues.put("T", getSingleValueList(1.0));
     }
     
    

@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package thesisinterface;
+package thesisinterface.VectorRepresentation.OneDimensional;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import thesisinterface.VectorRepresentation.ISymbolSequence;
 
 /**
  *
@@ -22,10 +19,10 @@ public class ElectronIonRepresentation extends SingleValueRepresentation {
 
     @Override
     public void assignValues() {
-        numValues.put("G", 0.0806);
-        numValues.put("A", 0.1260);
-        numValues.put("C", 0.1340);
-        numValues.put("T", 0.1335);
+        numValues.put("G", getSingleValueList(0.0806));
+        numValues.put("A", getSingleValueList(0.1260));
+        numValues.put("C", getSingleValueList(0.1340));
+        numValues.put("T", getSingleValueList(0.1335));
     }
     
     
