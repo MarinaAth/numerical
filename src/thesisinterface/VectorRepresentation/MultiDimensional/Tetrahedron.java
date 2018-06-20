@@ -27,6 +27,7 @@ public class Tetrahedron extends MultipleValueRepresentation {
     @Override
     public void assignValues() {
        
+               
        valuesG.add(0, -(Math.sqrt(2.0)/3));
        valuesG.add(1, -(Math.sqrt(6.0)/3));
        valuesG.add(2, -(1.0/3.0));

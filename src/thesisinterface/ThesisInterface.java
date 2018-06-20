@@ -5,10 +5,6 @@
  */
 package thesisinterface;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  *
  * @author marin
@@ -21,15 +17,9 @@ public class ThesisInterface {
      */
     public static void main(String[] args) {
      
-        
-    Sequence sequence = new Sequence("AACTGT");
-     
-    Zcurve testSeq = new Zcurve(sequence);
     
-        testSeq.toNumeric();
-        int[][] array = testSeq.vectorArray();
-        
-        System.out.println(Arrays.deepToString(array));
-        }
     }
+
+
+}
 

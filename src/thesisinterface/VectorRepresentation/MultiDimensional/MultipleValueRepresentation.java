@@ -6,6 +6,7 @@
 package thesisinterface.VectorRepresentation.MultiDimensional;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import thesisinterface.VectorRepresentation.BaseClasses.BaseFeatureVector;
@@ -25,6 +26,7 @@ public abstract class MultipleValueRepresentation extends BaseFeatureVector{
         assignValues();
         calculateVectorDimensions();
     }
+
 
     
     public abstract void assignValues();

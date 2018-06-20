@@ -6,6 +6,7 @@
 package thesisinterface.VectorRepresentation.Cumulative;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import thesisinterface.VectorRepresentation.BaseClasses.BaseFeatureVector;
@@ -35,6 +36,9 @@ public abstract class CumulativeValueRepresentation extends BaseFeatureVector{
         
         // For each symbol in sequence
         for (int iSymbolCnt = 0; iSymbolCnt < sequence.size(); iSymbolCnt++) {
+            
+            List<Double> value = get(sequence.getSymbolAt(iSymbolCnt-1));
+            
             // Determine dimension name
             String sDimensionName = "X" + (iSymbolCnt + 1);
             // Assign the corresponding value from the numValues key to the feature
