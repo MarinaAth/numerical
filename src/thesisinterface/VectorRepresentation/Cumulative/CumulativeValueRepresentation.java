@@ -23,26 +23,26 @@ public abstract class CumulativeValueRepresentation extends BaseFeatureVector{
     
     public CumulativeValueRepresentation(ISymbolSequence sequence) {
         this.sequence = sequence;
-        assignValues();
+        //assignValues();
         calculateVectorDimensions();
     }
     
     
-    public abstract void assignValues();
+//    public abstract void assignValues();
 
 
-    public void calculateVectorDimensions(){
+    public abstract void calculateVectorDimensions();
         
         
         // For each symbol in sequence
-        for (int iSymbolCnt = 0; iSymbolCnt < sequence.size(); iSymbolCnt++) {
+        //for (int iSymbolCnt = 0; iSymbolCnt < sequence.size(); iSymbolCnt++) {
             
-            List<Double> value = get(sequence.getSymbolAt(iSymbolCnt-1));
+            //List<Double> value = get(sequence.getSymbolAt(iSymbolCnt-1));
             
             // Determine dimension name
-            String sDimensionName = "X" + (iSymbolCnt + 1);
+            //String sDimensionName = "X" + (iSymbolCnt + 1);
             // Assign the corresponding value from the numValues key to the feature
-            put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
-        }            
-    }
+            //put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
+        //}            
+    
 }

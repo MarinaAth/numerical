@@ -6,6 +6,7 @@
 package thesisinterface.VectorRepresentation.Cumulative;
 
 import java.util.ArrayList;
+import java.util.List;
 import thesisinterface.VectorRepresentation.BaseClasses.Sequence;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
 
@@ -20,40 +21,22 @@ public class DNAwalk extends CumulativeValueRepresentation{
     }
 
     
-    
-    @Override
-    public void assignValues() {
-        
+   @Override
+    public void calculateVectorDimensions() {
+         //For each symbol in sequence
+        for (int iSymbolCnt = 0; iSymbolCnt < sequence.size(); iSymbolCnt++) {
+            
+            List<Double> value = get(sequence.getSymbolAt(iSymbolCnt-1));
+            
+            //Determine dimension name
+            String sDimensionName = "X" + (iSymbolCnt + 1);
+            //Assign the corresponding value from the numValues key to the feature
+            
+            if(sDimensionName.equalsIgnoreCase("C")||sDimensionName.equalsIgnoreCase("T"))
+            put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
     }
    
-//   public void toNumeric(){
-//        if (convSeq[0]=='C'||convSeq[0]=='T'){
-//           indicatorSequence.add(0, 1);
-//        } else {
-//            indicatorSequence.add(0, -1);
-//        }
-//        for (int i = 1; i<this.convSeq.length; i++) {
-//            OUTER:
-//            switch (convSeq[i]) {
-//                case 'C' :
-//                case 'T':
-//                    indicatorSequence.add((indicatorSequence.get(i-1))+1);
-//                    break OUTER;
-//                case 'G':
-//                case 'A':
-//                    indicatorSequence.add((indicatorSequence.get(i-1))-1);
-//                    break OUTER;
-//                default:
-//                    System.out.println("You have an issue here");
-//                    break OUTER;
-//            }
-//        }
-//    
-//       System.out.println("Indicator sequence :" + indicatorSequence.toString());
-//    }
-//   
-//   
-//    
    
-   
+}
+    
 }

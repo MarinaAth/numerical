@@ -23,24 +23,20 @@ public abstract class MultipleValueRepresentation extends BaseFeatureVector{
     
     public MultipleValueRepresentation(ISymbolSequence sequence) {
         this.sequence = sequence;
-        assignValues();
-        calculateVectorDimensions();
+        createRepresentation();
+        //calculateVectorDimensions();
     }
 
-
+    public List<Double> getMultipleValueList(double element){
+        List<Double> dlist = new LinkedList<>();
+        dlist.add(element);
+        return dlist;
+    }
     
-    public abstract void assignValues();
+    public abstract void createRepresentation();
 
+    public abstract void calculateVectorDimensions();
+   
+    
 
-    public void calculateVectorDimensions(){
-        
-        
-        // For each symbol in sequence
-        for (int iSymbolCnt = 0; iSymbolCnt < sequence.size(); iSymbolCnt++) {
-            // Determine dimension name
-            String sDimensionName = "X" + (iSymbolCnt + 1);
-            // Assign the corresponding value from the numValues key to the feature
-            put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
-        }            
-    }
 }

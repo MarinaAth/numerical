@@ -15,35 +15,40 @@ import thesisinterface.VectorRepresentation.ISymbolSequence;
  */
 public class Tetrahedron extends MultipleValueRepresentation {
 
-    protected List<Double> valuesG = new ArrayList<>();
-    protected List<Double> valuesA = new ArrayList<>();
-    protected List<Double> valuesT = new ArrayList<>();
-    protected List<Double> valuesC = new ArrayList<>();
-    
     public Tetrahedron(ISymbolSequence sequence) {
         super(sequence);
     }
     
     @Override
-    public void assignValues() {
+    public void createRepresentation() {
        
-               
-       valuesG.add(0, -(Math.sqrt(2.0)/3));
-       valuesG.add(1, -(Math.sqrt(6.0)/3));
-       valuesG.add(2, -(1.0/3.0));
-       valuesA.add(0, 0.0);
-       valuesA.add(1, 0.0);
-       valuesA.add(2, 1.0);
-       valuesC.add(0, -(Math.sqrt(2.0)/3));
-       valuesC.add(1, (Math.sqrt(6.0)/3));
-       valuesC.add(2, -(1.0/3.0));
-       valuesT.add(0, 2*(Math.sqrt(2.0)/3));
-       valuesT.add(1, 0.0);
-       valuesT.add(2, -(1.0/3.0));
+       numValues.put("G", getMultipleValueList( -(Math.sqrt(2.0)/3)));
+       numValues.put("G", getMultipleValueList(-(Math.sqrt(6.0)/3)));
+       numValues.put("G", getMultipleValueList(-(1.0/3.0)));
+       numValues.put("A", getMultipleValueList(0.0));
+       numValues.put("A", getMultipleValueList(0.0));
+       numValues.put("A", getMultipleValueList(1.0));
+       numValues.put("C", getMultipleValueList(-(Math.sqrt(2.0)/3)));
+       numValues.put("C", getMultipleValueList(Math.sqrt(6.0)/3));
+       numValues.put("C", getMultipleValueList(-(1.0/3.0)));
+       numValues.put("T", getMultipleValueList(2*(Math.sqrt(2.0)/3)));
+       numValues.put("T", getMultipleValueList(0.0));
+       numValues.put("T", getMultipleValueList(-(1.0/3.0)));
+       
+       calculateVectorDimensions();
+       
+    }
+    
+    @Override
+        public void calculateVectorDimensions(){
         
-       numValues.put("G", valuesG);
-       numValues.put("A", valuesA);
-       numValues.put("C", valuesC);
-       numValues.put("T", valuesT);
+        
+            // For each symbol in sequence
+            for (int iSymbolCnt = 0; iSymbolCnt < sequence.size(); iSymbolCnt++) {
+                // Determine dimension name
+                String sDimensionName = "X" + (iSymbolCnt + 1);
+                // Assign the corresponding value from the numValues key to the feature
+                put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
+            }            
     }
 }
