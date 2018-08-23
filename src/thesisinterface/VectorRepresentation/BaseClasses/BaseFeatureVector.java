@@ -25,6 +25,7 @@ public class BaseFeatureVector extends TreeMap<String, List<Double>> implements 
 
     public static void main(String[] args) throws IOException, FileNotFoundException {
 
+		Scanner sc = new Scanner(System.in);
         String input = null;
 
         Pattern fastaHeader = Pattern.compile("^\\>.*");
