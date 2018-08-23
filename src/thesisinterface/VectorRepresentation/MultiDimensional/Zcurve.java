@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package thesisinterface.VectorRepresentation.Cumulative;
+package thesisinterface.VectorRepresentation.MultiDimensional;
 
 import java.util.ArrayList;
 import thesisinterface.VectorRepresentation.BaseClasses.Sequence;
@@ -13,16 +13,22 @@ import thesisinterface.VectorRepresentation.ISymbolSequence;
  *
  * @author marin
  */
-public class Zcurve extends CumulativeValueRepresentation {
+public class Zcurve extends MultipleValueRepresentation {
 
     public Zcurve(ISymbolSequence sequence) {
         super(sequence);
     }
 
-    
-   @Override
-    public void calculateVectorDimensions() {
-        
+    @Override
+    public void createRepresentation() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void calculateVectorDimensions() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+  
 
 }

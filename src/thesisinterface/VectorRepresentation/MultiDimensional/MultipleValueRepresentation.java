@@ -18,6 +18,7 @@ import thesisinterface.VectorRepresentation.ISymbolSequence;
  */
 public abstract class MultipleValueRepresentation extends BaseFeatureVector{
     
+    
     protected Map<String, List<Double> > numValues = new HashMap<>();
     protected ISymbolSequence sequence;
     

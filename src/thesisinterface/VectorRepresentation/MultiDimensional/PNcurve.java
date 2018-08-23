@@ -5,6 +5,9 @@
  */
 package thesisinterface.VectorRepresentation.MultiDimensional;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
 
 /**
@@ -13,6 +16,7 @@ import thesisinterface.VectorRepresentation.ISymbolSequence;
  */
 public class PNcurve extends MultipleValueRepresentation{
 
+    Map< String, List<Double>> initialCoord = new HashMap<>();
     public PNcurve(ISymbolSequence sequence) {
         super(sequence);
     }
@@ -36,11 +40,41 @@ public class PNcurve extends MultipleValueRepresentation{
         numValues.put("CG", getMultipleValueList(15.0));
         numValues.put("CC", getMultipleValueList(16.0));
         
+        
+        
+        
     }
 
     @Override
     public void calculateVectorDimensions() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        int count = 1;
+        
+        for (int iSymbolCnt=0; iSymbolCnt<sequence.size();iSymbolCnt++){
+            
+           String sDimensionName = (sequence.getSymbolAt(iSymbolCnt+1) + sequence.getSymbolAt(iSymbolCnt+2)) + count;
+           
+           String key = (sequence.getSymbolAt(iSymbolCnt)+sequence.getSymbolAt(iSymbolCnt+1));
+           
+           
+           
+        }
+    }
+    
+    //method for euclidean distance for all the items in two lists
+    public double euclideanDistance(List<Double> coord1, List<Double> coord2){
+        double tmp = 0;
+        //run through list 1 with the coordinates of the first point(dinucleotide)
+        for (int i=0; i<coord1.size();i++){
+            //run through list 2 with the coordinates of the second point (dinucleotide)
+            for (int j=0;j<coord2.size();j++){
+               //variable tmp will equal the second power of the difference for eace pair of points from the two lists
+               tmp += Math.pow(coord1.get(i) - coord2.get(j), 2);
+            }
+        }
+        // return square root of tmp=euclidean distance 
+        return Math.sqrt(tmp);
+      
     }
     
 }

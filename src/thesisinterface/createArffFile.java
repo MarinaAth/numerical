@@ -7,6 +7,7 @@ package thesisinterface;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,16 +18,7 @@ import java.util.regex.Pattern;
  *
  * @author marin
  */
+public class createArffFile {
 
-public class ThesisInterface {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-     
-    }
-
-
+    
 }
-

@@ -15,6 +15,9 @@ import thesisinterface.VectorRepresentation.ISymbolSequence;
  */
 public class TNcurve extends MultipleValueRepresentation{
 
+    List<Double> xValues = new LinkedList<>();
+    List<Double> yValues = new LinkedList<>();
+    
     public TNcurve(ISymbolSequence sequence) {
         super(sequence);
     }
@@ -159,20 +162,36 @@ public class TNcurve extends MultipleValueRepresentation{
     @Override
     public void calculateVectorDimensions() {
         
+        int initialValue0fx = 0;
+        int initialValue0fy = 0;
+        
         int count = 1;
         // For each symbol in sequence
         for (int iSymbolCnt = 0; iSymbolCnt < sequence.size(); iSymbolCnt++) {
             // Determine dimension name - trinucleotides
             String sDimensionName = (sequence.getSymbolAt(iSymbolCnt+1) + sequence.getSymbolAt(iSymbolCnt +2) + sequence.getSymbolAt(iSymbolCnt +3)) + count;
-            
+            //To match the keys in the numValues map
             String key = (sequence.getSymbolAt(iSymbolCnt)+sequence.getSymbolAt(iSymbolCnt+1)+sequence.getSymbolAt(iSymbolCnt+2));
             // Assign the corresponding value from the numValues key to the feature
             put(sDimensionName, numValues.get(key));
+            xValues.add(numValues.get(key).get(0));
+            yValues.add(numValues.get(key).get(1));
             
             count++;
         }
         
         //To calculate and put at the end of the list the mean of x and y coordinates
+        for(int i=0; i<xValues.size(); i++){
+            for (int j=0; j<yValues.size(); j++){
+               initialValue0fx+=xValues.get(i);
+               initialValue0fy+=yValues.get(j);
+            }
+        }
+        
+        double meanX=initialValue0fx/xValues.size();
+        double meanY=initialValue0fy/yValues.size();
+        
+       //How to incorporate them?
     }
     
     
