@@ -23,7 +23,7 @@ import thesisinterface.VectorRepresentation.IFeatureVector;
  */
 public class BaseFeatureVector extends TreeMap<String, List<Double>> implements IFeatureVector {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, FileNotFoundException {
 
         String input = null;
 
@@ -39,15 +39,13 @@ public class BaseFeatureVector extends TreeMap<String, List<Double>> implements 
                         outputReprFile.write(input);
                         readDataFile.nextLine();
                         
-                    } finally {
-                        System.out.println("In finally block");
-                        if (outputReprFile != null) {
-                            System.out.println("Closing output file");
-                            outputReprFile.close();
-                        }
-
-                    }
-                }
+              } 
+                } else{
+                    
+                   }
+                
+                System.out.println("Closing file");
+                outputrReprFile.close();
             }
 
         }
