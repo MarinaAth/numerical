@@ -55,7 +55,7 @@ public class ThesisInterface {
                     atomicNumRepr.assignValues();
                     atomicNumRepr.calculateVectorDimensions();
                     
-//                    outputReprFile.write();
+
                 }
 
                 System.out.println("Now closing");
