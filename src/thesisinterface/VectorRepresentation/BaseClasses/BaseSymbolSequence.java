@@ -14,16 +14,11 @@ import thesisinterface.VectorRepresentation.ISymbolSequence;
  * @author marin
  */
 public class BaseSymbolSequence implements ISymbolSequence {
+    
     protected String sequence;
-    protected LinkedList <Double> numericSequence;
-    protected final HashMap<Character,Double> atomicNumValues = new HashMap<>();
-    protected char[] convSeq;
    
-    
-    
     public BaseSymbolSequence(String sequence) {
         this.sequence=sequence;
-        this.convSeq = sequence.toCharArray();
     }
 
    

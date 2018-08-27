@@ -12,7 +12,10 @@ import java.util.List;
  * @author marin
  */
 public interface IFeatureVector {
+    
     List<String> getDimensionNames();
+    
     int getNumberOfDimensions(); 
+    
     List<Double> getDimensionValue(String dimensionName);
 }

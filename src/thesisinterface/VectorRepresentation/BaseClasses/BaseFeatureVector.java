@@ -16,6 +16,8 @@ import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 import thesisinterface.VectorRepresentation.IFeatureVector;
+import thesisinterface.VectorRepresentation.OneDimensional.AtomicNumberRepresentation;
+import thesisinterface.VectorRepresentation.OneDimensional.SingleValueRepresentation;
 
 /**
  *
@@ -23,35 +25,6 @@ import thesisinterface.VectorRepresentation.IFeatureVector;
  */
 public class BaseFeatureVector extends TreeMap<String, List<Double>> implements IFeatureVector {
 
-    public static void main(String[] args) throws IOException {
-
-        String input = null;
-
-        Pattern fastaHeader = Pattern.compile("^\\>.*");
-
-        try (Scanner readDataFile = new Scanner(new BufferedReader(new FileReader("filename.extension")));
-                BufferedWriter outputReprFile = new BufferedWriter(new FileWriter("filename.extension"))) {
-
-            while (readDataFile.hasNextLine()) {
-                input = readDataFile.nextLine().toString();
-                if (input.equalsIgnoreCase(fastaHeader.toString())) {
-                    try {
-                        outputReprFile.write(input);
-                        readDataFile.nextLine();
-                        
-                    } finally {
-                        System.out.println("In finally block");
-                        if (outputReprFile != null) {
-                            System.out.println("Closing output file");
-                            outputReprFile.close();
-                        }
-
-                    }
-                }
-            }
-
-        }
-    }
     @Override
     public List<String> getDimensionNames() {
         return new ArrayList<>(this.keySet());
@@ -66,5 +39,5 @@ public class BaseFeatureVector extends TreeMap<String, List<Double>> implements 
     public List<Double> getDimensionValue(String dimensionName) {
         return get(dimensionName);
     }
-    
+
 }
