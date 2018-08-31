@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface IFeatureVector {
     
-    List<String> getDimensionNames();
+    List<Integer> getDimensionNames();
     
     int getNumberOfDimensions(); 
     

@@ -5,28 +5,20 @@
  */
 package thesisinterface.VectorRepresentation.BaseClasses;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Map.Entry;
 import java.util.TreeMap;
-import java.util.regex.Pattern;
 import thesisinterface.VectorRepresentation.IFeatureVector;
-import thesisinterface.VectorRepresentation.OneDimensional.AtomicNumberRepresentation;
-import thesisinterface.VectorRepresentation.OneDimensional.SingleValueRepresentation;
 
 /**
  *
  * @author marin
  */
-public class BaseFeatureVector extends TreeMap<String, List<Double>> implements IFeatureVector {
-
+public class BaseFeatureVector extends TreeMap<Integer, List<Double>> implements IFeatureVector {
+ 
     @Override
-    public List<String> getDimensionNames() {
+    public List<Integer> getDimensionNames() {
         return new ArrayList<>(this.keySet());
     }
 
@@ -39,5 +31,19 @@ public class BaseFeatureVector extends TreeMap<String, List<Double>> implements 
     public List<Double> getDimensionValue(String dimensionName) {
         return get(dimensionName);
     }
+
+    @Override
+    public String toString() {
+        
+        this.entrySet().stream().map((entry) -> {
+            int key = entry.getKey();
+            return entry;
+        }).forEachOrdered((entry) -> {
+            List<Double> value = entry.getValue();
+        });
+        return this.values().toString();
+    }
+    
+    
 
 }

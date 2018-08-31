@@ -35,7 +35,7 @@ public class BaseSymbolSequence implements ISymbolSequence {
 
     @Override
     public String asString() {
-       return sequence.toString();
+       return sequence;
     }
 
     @Override

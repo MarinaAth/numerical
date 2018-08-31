@@ -5,17 +5,11 @@
  */
 package thesisinterface.VectorRepresentation.OneDimensional;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.regex.Pattern;
 import thesisinterface.VectorRepresentation.BaseClasses.BaseFeatureVector;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
 
@@ -30,10 +24,10 @@ public abstract class SingleValueRepresentation extends BaseFeatureVector {
     
     public SingleValueRepresentation(ISymbolSequence sequence) {
         this.sequence = sequence;
-    }
+      }
 
     public List<Double> getSingleValueList(double element){
-        List<Double> dlist = new LinkedList<>();
+        List<Double> dlist = new ArrayList<>();
         dlist.add(element);
         return dlist;
     }
@@ -45,10 +39,11 @@ public abstract class SingleValueRepresentation extends BaseFeatureVector {
         // For each symbol in sequence
         for (int iSymbolCnt = 0; iSymbolCnt < sequence.size(); iSymbolCnt++) {
             // Determine dimension name
-            String sDimensionName = "X" + (iSymbolCnt + 1);
+            int sDimensionName = iSymbolCnt ;
             // Assign the corresponding value from the atomicNumValues key to the feature
             put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
-        }            
+        }
+        
     }
     
 }

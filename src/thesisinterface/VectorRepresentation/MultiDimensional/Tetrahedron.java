@@ -46,7 +46,7 @@ public class Tetrahedron extends MultipleValueRepresentation {
             // For each symbol in sequence
             for (int iSymbolCnt = 0; iSymbolCnt < sequence.size(); iSymbolCnt++) {
                 // Determine dimension name
-                String sDimensionName = "X" + (iSymbolCnt + 1);
+                int sDimensionName = iSymbolCnt + 1;
                 // Assign the corresponding value from the numValues key to the feature
                 put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
             }            

@@ -39,7 +39,7 @@ public class DNAwalk extends MultipleValueRepresentation{
         for (int iSymbolCnt = 0; iSymbolCnt < sequence.size(); iSymbolCnt++) {
             
             //Determine dimension name
-            String sDimensionName = "X" + (iSymbolCnt + 1);
+            int sDimensionName = iSymbolCnt;
             //Assign the corresponding value from the numValues key to the feature
             
             put(sDimensionName, (numValues.get(sequence.getSymbolAt(iSymbolCnt))));

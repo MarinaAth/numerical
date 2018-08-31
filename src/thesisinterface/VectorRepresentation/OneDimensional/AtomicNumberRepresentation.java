@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package thesisinterface.VectorRepresentation.OneDimensional;
-
 import thesisinterface.VectorRepresentation.ISymbolSequence;
 
 /**

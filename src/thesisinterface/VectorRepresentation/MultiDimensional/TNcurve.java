@@ -169,7 +169,7 @@ public class TNcurve extends MultipleValueRepresentation{
         // For each symbol in sequence
         for (int iSymbolCnt = 0; iSymbolCnt < sequence.size(); iSymbolCnt++) {
             // Determine dimension name - trinucleotides
-            String sDimensionName = (sequence.getSymbolAt(iSymbolCnt+1) + sequence.getSymbolAt(iSymbolCnt +2) + sequence.getSymbolAt(iSymbolCnt +3)) + count;
+            int sDimensionName = (iSymbolCnt+1)+(iSymbolCnt +2)+(iSymbolCnt + 3)+(count);
             //To match the keys in the numValues map
             String key = (sequence.getSymbolAt(iSymbolCnt)+sequence.getSymbolAt(iSymbolCnt+1)+sequence.getSymbolAt(iSymbolCnt+2));
             // Assign the corresponding value from the numValues key to the feature
