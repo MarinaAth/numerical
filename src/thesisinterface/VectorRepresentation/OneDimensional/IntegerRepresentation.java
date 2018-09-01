@@ -6,6 +6,9 @@
 package thesisinterface.VectorRepresentation.OneDimensional;
 
 
+import java.io.FileWriter;
+import java.io.IOException;
+import thesisinterface.VectorRepresentation.BaseClasses.BaseSymbolSequence;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
 
 /**
@@ -26,6 +29,18 @@ public class IntegerRepresentation extends SingleValueRepresentation {
         numValues.put("T", getSingleValueList(0.0));
     }
   
-    
+    public static void integerNumberRepresentation(FileWriter outputFile, String inputSequence) throws IOException {
+
+        BaseSymbolSequence inputSeq = new BaseSymbolSequence(inputSequence);
+        //TreeMap
+        IntegerRepresentation integerNumRepr = new IntegerRepresentation(inputSeq);
+
+        integerNumRepr.assignValues();
+
+        integerNumRepr.calculateVectorDimensions();
+
+        outputFile.write(integerNumRepr.toString() + "\n");
+        outputFile.write(integerNumRepr.getDimensionNames() + "\n");
+    }
     
 }

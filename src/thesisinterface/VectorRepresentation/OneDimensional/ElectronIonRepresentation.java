@@ -5,6 +5,9 @@
  */
 package thesisinterface.VectorRepresentation.OneDimensional;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import thesisinterface.VectorRepresentation.BaseClasses.BaseSymbolSequence;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
 
 /**
@@ -25,5 +28,17 @@ public class ElectronIonRepresentation extends SingleValueRepresentation {
         numValues.put("T", getSingleValueList(0.1335));
     }
     
-    
+    public static void electronIonRepresentation(FileWriter outputFile, String inputSequence) throws IOException {
+
+        BaseSymbolSequence inputSeq = new BaseSymbolSequence(inputSequence);
+        //TreeMap
+        ElectronIonRepresentation electronIonRepr = new ElectronIonRepresentation(inputSeq);
+
+        electronIonRepr.assignValues();
+
+        electronIonRepr.calculateVectorDimensions();
+
+        outputFile.write(electronIonRepr.toString() + "\n");
+        outputFile.write(electronIonRepr.getDimensionNames() + "\n");
+    }
 }

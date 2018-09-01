@@ -5,6 +5,9 @@
  */
 package thesisinterface.VectorRepresentation.OneDimensional;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import thesisinterface.VectorRepresentation.BaseClasses.BaseSymbolSequence;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
 
 /**
@@ -26,7 +29,19 @@ public class RealNumberRepresentation extends SingleValueRepresentation {
     }
 
     
-    
+    public static void realNumberRepresentation(FileWriter outputFile, String inputSequence) throws IOException {
+
+        BaseSymbolSequence inputSeq = new BaseSymbolSequence(inputSequence);
+        //TreeMap
+        RealNumberRepresentation realNumRepr = new RealNumberRepresentation(inputSeq);
+
+        realNumRepr.assignValues();
+
+        realNumRepr.calculateVectorDimensions();
+
+        outputFile.write(realNumRepr.toString() + "\n");
+        outputFile.write(realNumRepr.getDimensionNames() + "\n");
+    }
     
     
 }

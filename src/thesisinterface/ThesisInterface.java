@@ -5,23 +5,13 @@
  */
 package thesisinterface;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
-import java.util.TreeMap;
 import java.util.regex.Pattern;
-import thesisinterface.VectorRepresentation.BaseClasses.BaseFeatureVector;
-import thesisinterface.VectorRepresentation.BaseClasses.BaseSymbolSequence;
 import thesisinterface.VectorRepresentation.OneDimensional.AtomicNumberRepresentation;
-import thesisinterface.VectorRepresentation.OneDimensional.SingleValueRepresentation;
 
 /**
  *
@@ -31,13 +21,17 @@ public class ThesisInterface {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
 
         Pattern fastaHeader = Pattern.compile("^>.*");
 
-        try (Scanner readDataFile = new Scanner(new FileReader("HumanExonsSurrogates.fas"));
-                FileWriter outputReprFile = new FileWriter("AtomicReprHumanExonsSurrogates.txt")) {
+        File toReadFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Comparison14\\InsectUCNEsSurrogates.fas");
+        File toWriteFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Comparison14\\AtomicNumReprInsectUCNEsSurr.txt");
+
+        try (Scanner readDataFile = new Scanner(new FileReader(toReadFile));
+                FileWriter outputReprFile = new FileWriter(toWriteFile)) {
 
             while (readDataFile.hasNextLine()) {
 
@@ -48,21 +42,19 @@ public class ThesisInterface {
                     outputReprFile.write(input + "\n");
 
                 } else {
-                    BaseSymbolSequence inputSeq = new BaseSymbolSequence(input);
-                    //TreeMap
-                    AtomicNumberRepresentation atomicNumRepr = new AtomicNumberRepresentation(inputSeq);
 
-                    atomicNumRepr.assignValues();
+                    AtomicNumberRepresentation.atomicNumberRepresentation(outputReprFile, input);
 
-                    atomicNumRepr.calculateVectorDimensions();
-
-                    outputReprFile.write(atomicNumRepr.toString() + "\n");
-                    outputReprFile.write(atomicNumRepr.getDimensionNames() + "\n");
                 }
             }
         }
 
         System.out.println("Now closing");
+    }
+
+    public static boolean checkRepresentationResult() {
+
+        return true;
     }
 
 }
