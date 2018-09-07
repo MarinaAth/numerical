@@ -7,7 +7,6 @@ package thesisinterface.VectorRepresentation.BaseClasses;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.TreeMap;
 import thesisinterface.VectorRepresentation.IFeatureVector;
 

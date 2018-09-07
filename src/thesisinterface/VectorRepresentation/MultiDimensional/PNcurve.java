@@ -6,6 +6,7 @@
 package thesisinterface.VectorRepresentation.MultiDimensional;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
@@ -16,13 +17,17 @@ import thesisinterface.VectorRepresentation.ISymbolSequence;
  */
 public class PNcurve extends MultipleValueRepresentation{
 
-    Map< String, List<Double>> initialCoord = new HashMap<>();
+    Map< String, Integer> keyCount = new HashMap<>();
+    Map<String, List<Double>> coordinatesMap = new HashMap<>();
+    List<Double> initialCoordinatesList = new LinkedList<>();
+    List<String> existingKeys = new LinkedList();
+    
     public PNcurve(ISymbolSequence sequence) {
         super(sequence);
     }
     
     @Override
-    public void createRepresentation() {
+    public void assignValues() {
         numValues.put("AA", getMultipleValueList(1.0));
         numValues.put("AΤ", getMultipleValueList(2.0));
         numValues.put("AG", getMultipleValueList(3.0));
@@ -39,24 +44,32 @@ public class PNcurve extends MultipleValueRepresentation{
         numValues.put("CT", getMultipleValueList(14.0));
         numValues.put("CG", getMultipleValueList(15.0));
         numValues.put("CC", getMultipleValueList(16.0));
-        
-        
-        
-        
     }
 
     @Override
     public void calculateVectorDimensions() {
         
-        int count = 1;
-        
+        int count = 0;
         for (int iSymbolCnt=0; iSymbolCnt<sequence.size();iSymbolCnt++){
-            
-           String sDimensionName = (sequence.getSymbolAt(iSymbolCnt+1) + sequence.getSymbolAt(iSymbolCnt+2)) + count;
+           //Dimension name for dinucleotide as integer
+           String concat = Integer.toString(iSymbolCnt) + Integer.toString(iSymbolCnt+1);
+           int sDimensionName = Integer.parseInt(concat);
            
            String key = (sequence.getSymbolAt(iSymbolCnt)+sequence.getSymbolAt(iSymbolCnt+1));
+           //count for key=dinucleotide so far
+           if(!existingKeys.contains(key)){
+               existingKeys.add(key);
+               keyCount.put(key, count);
+           }else {
+               count = keyCount.get(key);
+               keyCount.put(key, count);
+           }
+           //add 
+           coordinatesMap.put(key, numValues.get(key));
+           coordinatesMap.put(key, getMultipleValueList(count));
+           coordinatesMap.put(key, getMultipleValueList(iSymbolCnt+1));
            
-           
+           //create List for euclidean distance, M/M, L/L
            
         }
     }
@@ -74,7 +87,14 @@ public class PNcurve extends MultipleValueRepresentation{
         }
         // return square root of tmp=euclidean distance 
         return Math.sqrt(tmp);
-      
     }
     
+    public double MMatrix(double euclideanDistance, int peaks){
+        return (euclideanDistance/peaks);
+    }
+    
+    public double LMatrix(double euclideanDistance, int sum){
+        //sum for AT-GG = euclidean Distance of AT-TG + euclidean distance of TG-GG
+        return (euclideanDistance/sum);
+    }
 }

@@ -5,9 +5,13 @@
  */
 package thesisinterface.VectorRepresentation.MultiDimensional;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import thesisinterface.VectorRepresentation.BaseClasses.BaseSymbolSequence;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
+import thesisinterface.VectorRepresentation.OneDimensional.RealNumberRepresentation;
 
 /**
  *
@@ -20,7 +24,7 @@ public class Tetrahedron extends MultipleValueRepresentation {
     }
     
     @Override
-    public void createRepresentation() {
+    public void assignValues() {
        
        numValues.put("G", getMultipleValueList( -(Math.sqrt(2.0)/3)));
        numValues.put("G", getMultipleValueList(-(Math.sqrt(6.0)/3)));
@@ -50,5 +54,17 @@ public class Tetrahedron extends MultipleValueRepresentation {
                 // Assign the corresponding value from the numValues key to the feature
                 put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
             }            
+    }
+        
+        public static void tetrahedronRepresentation(FileWriter outputFile, String inputSequence) throws IOException {
+
+        BaseSymbolSequence inputSeq = new BaseSymbolSequence(inputSequence);
+        //TreeMap
+        Tetrahedron tetrahedroRepr = new Tetrahedron(inputSeq);
+
+        tetrahedroRepr.calculateVectorDimensions();
+
+        outputFile.write(tetrahedroRepr.toString() + "\n");
+        outputFile.write(tetrahedroRepr.getDimensionNames() + "\n");
     }
 }

@@ -5,8 +5,11 @@
  */
 package thesisinterface.VectorRepresentation.MultiDimensional;
 
-import java.util.LinkedList;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import thesisinterface.VectorRepresentation.BaseClasses.BaseSymbolSequence;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
 
 /**
@@ -15,15 +18,16 @@ import thesisinterface.VectorRepresentation.ISymbolSequence;
  */
 public class TNcurve extends MultipleValueRepresentation{
 
-    List<Double> xValues = new LinkedList<>();
-    List<Double> yValues = new LinkedList<>();
-    
+    List<Double> xValues = new ArrayList<>();
+    List<Double> yValues = new ArrayList<>();
+    double meanX;
+    double meanY;
     public TNcurve(ISymbolSequence sequence) {
         super(sequence);
     }
 
     @Override
-    public void createRepresentation() {
+    public void assignValues() {
         
         numValues.put("AAA", getMultipleValueList(1.0));
         numValues.put("AAA", getMultipleValueList(1.0));
@@ -153,17 +157,11 @@ public class TNcurve extends MultipleValueRepresentation{
         numValues.put("TCG", getMultipleValueList(-2.0));
         numValues.put("TTG", getMultipleValueList(4.0));
         numValues.put("TTG", getMultipleValueList(-2.0));
-        
-        
-        calculateVectorDimensions();
-
     }
 
     @Override
     public void calculateVectorDimensions() {
         
-        int initialValue0fx = 0;
-        int initialValue0fy = 0;
         
         int count = 1;
         // For each symbol in sequence
@@ -176,24 +174,41 @@ public class TNcurve extends MultipleValueRepresentation{
             put(sDimensionName, numValues.get(key));
             xValues.add(numValues.get(key).get(0));
             yValues.add(numValues.get(key).get(1));
-            
             count++;
         }
+    
+        int initialValue0fx = 0;
+        int initialValue0fy = 0;
         
-        //To calculate and put at the end of the list the mean of x and y coordinates
         for(int i=0; i<xValues.size(); i++){
             for (int j=0; j<yValues.size(); j++){
                initialValue0fx+=xValues.get(i);
                initialValue0fy+=yValues.get(j);
             }
         }
+
+        meanX=initialValue0fx/xValues.size();
+        meanY=initialValue0fy/yValues.size();
+        xValues.add(meanX);
+        yValues.add(meanY);
         
-        double meanX=initialValue0fx/xValues.size();
-        double meanY=initialValue0fy/yValues.size();
-        
-       //How to incorporate them?
     }
+ 
     
+    public static void TNCurveRepresentation(FileWriter outputFile, String inputSequence) throws IOException {
+
+        BaseSymbolSequence inputSeq = new BaseSymbolSequence(inputSequence);
+        //TreeMap
+        TNcurve TNCurveRepr = new TNcurve(inputSeq);
+
+        TNCurveRepr.assignValues();
+        TNCurveRepr.calculateVectorDimensions();
+       
+        outputFile.write(TNCurveRepr.xValues.toString());
+        outputFile.write(TNCurveRepr.yValues.toString());
+        
+        
+    }
     
     
 }

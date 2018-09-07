@@ -11,11 +11,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-import thesisinterface.VectorRepresentation.OneDimensional.AtomicNumberRepresentation;
-import thesisinterface.VectorRepresentation.OneDimensional.ElectronIonRepresentation;
-import thesisinterface.VectorRepresentation.OneDimensional.IntegerRepresentation;
-import thesisinterface.VectorRepresentation.OneDimensional.PairedNumeric;
-import thesisinterface.VectorRepresentation.OneDimensional.RealNumberRepresentation;
+import static thesisinterface.VectorRepresentation.MultiDimensional.Tetrahedron.tetrahedronRepresentation;
+import static thesisinterface.VectorRepresentation.OneDimensional.AtomicNumberRepresentation.atomicNumberRepresentation;
+import static thesisinterface.VectorRepresentation.OneDimensional.ElectronIonRepresentation.electronIonRepresentation;
+import static thesisinterface.VectorRepresentation.OneDimensional.IntegerRepresentation.integerNumberRepresentation;
+import static thesisinterface.VectorRepresentation.OneDimensional.PairedNumeric.pairedNumericRepresentation;
+import static thesisinterface.VectorRepresentation.OneDimensional.RealNumberRepresentation.realNumberRepresentation;
+import static thesisinterface.VectorRepresentation.MultiDimensional.TNcurve.TNCurveRepresentation;
+
 
 /**
  *
@@ -31,13 +34,15 @@ public class ThesisInterface {
 
         Pattern fastaHeader = Pattern.compile("^>.*");
 
-        File toReadFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Comparison14\\InsectUCNEsSurrogates.fas");
+        File toReadFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Comparison1\\HumanExonsSurrogates.fas");
         
-        File outputAtomicReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Comparison14\\AtomicNumReprInsectUCNEsSurr.txt");
-        File outputElectronReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Electron Ion Representation\\Comparison14\\AtomicNumReprInsectUCNEsSurr.txt");
-        File outputPairedReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Paired Numeric Representation\\Comparison14\\AtomicNumReprInsectUCNEsSurr.txt");
-        File outputIntegerReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Integer Number Representation\\Comparison14\\AtomicNumReprInsectUCNEsSurr.txt");
-        File outputRealReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Real Number Representation\\Comparison14\\AtomicNumReprInsectUCNEsSurr.txt");
+        File outputAtomicReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Atomic Number Representation\\Comparison1\\HumanExonsSurrogates.txt");
+        File outputElectronReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Electron Ion Representation\\Comparison1\\HumanExonsSurrogates.txt");
+        File outputPairedReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Paired Numeric Representation\\Comparison1\\HumanExonsSurrogates.txt");
+        File outputIntegerReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Integer Number Representation\\Comparison1\\HumanExonsSurrogates.txt");
+        File outputRealReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Real Number Representation\\Comparison1\\HumanExonsSurrogates.txt");
+        File outputTetrahedronReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Tetrahedron Representation\\Comparison1\\HumanExonsSurrogates.txt");
+        File outputTNCurveReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\TNCurve Representation\\Comparison1\\HumanExonsSurrogates.txt");
 
         
         try (Scanner readDataFile = new Scanner(new FileReader(toReadFile));
@@ -45,7 +50,9 @@ public class ThesisInterface {
                 FileWriter outputFile2 = new FileWriter(outputElectronReprFile);
                 FileWriter outputFile3 = new FileWriter(outputPairedReprFile);
                 FileWriter outputFile4 = new FileWriter(outputIntegerReprFile);
-                FileWriter outputFile5 = new FileWriter(outputRealReprFile)) {
+                FileWriter outputFile5 = new FileWriter(outputRealReprFile);
+                FileWriter outputFile6 = new FileWriter(outputTetrahedronReprFile);
+                FileWriter outputFile7 = new FileWriter(outputTNCurveReprFile)) {
 
             while (readDataFile.hasNextLine()) {
 
@@ -58,14 +65,18 @@ public class ThesisInterface {
                     outputFile3.write(input + "\n");
                     outputFile4.write(input + "\n");
                     outputFile5.write(input + "\n");
+                    outputFile6.write(input + "\n");
+                    outputFile7.write(input + "\n");
 
                 } else {
 
-                    AtomicNumberRepresentation.atomicNumberRepresentation(outputFile1, input);
-                    ElectronIonRepresentation.electronIonRepresentation(outputFile2, input);
-                    PairedNumeric.pairedNumericRepresentation(outputFile3, input);
-                    IntegerRepresentation.integerNumberRepresentation(outputFile4, input);
-                    RealNumberRepresentation.realNumberRepresentation(outputFile5, input);
+                    atomicNumberRepresentation(outputFile1, input);
+                    electronIonRepresentation(outputFile2, input);
+                    pairedNumericRepresentation(outputFile3, input);
+                    integerNumberRepresentation(outputFile4, input);
+                    realNumberRepresentation(outputFile5, input);
+                    tetrahedronRepresentation(outputFile6, input);
+                    TNCurveRepresentation(outputFile7, input);
                 }
             }
         }
@@ -78,4 +89,5 @@ public class ThesisInterface {
         return true;
     }
 
+    
 }

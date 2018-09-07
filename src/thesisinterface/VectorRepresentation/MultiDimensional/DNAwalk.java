@@ -22,7 +22,7 @@ public class DNAwalk extends MultipleValueRepresentation{
 
    
     @Override
-    public void createRepresentation() {
+    public void assignValues() {
         numValues.put("C", getMultipleValueList(1.0));
         numValues.put("T", getMultipleValueList(1.0));
         numValues.put("A", getMultipleValueList(-1.0));

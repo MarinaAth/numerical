@@ -20,7 +20,7 @@ public class Zcurve extends MultipleValueRepresentation {
     }
 
     @Override
-    public void createRepresentation() {
+    public void assignValues() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -24,8 +24,7 @@ public abstract class MultipleValueRepresentation extends BaseFeatureVector{
     
     public MultipleValueRepresentation(ISymbolSequence sequence) {
         this.sequence = sequence;
-        createRepresentation();
-        //calculateVectorDimensions();
+        
     }
 
     public List<Double> getMultipleValueList(double element){
@@ -34,7 +33,7 @@ public abstract class MultipleValueRepresentation extends BaseFeatureVector{
         return dlist;
     }
     
-    public abstract void createRepresentation();
+    public abstract void assignValues();
 
     public abstract void calculateVectorDimensions();
    

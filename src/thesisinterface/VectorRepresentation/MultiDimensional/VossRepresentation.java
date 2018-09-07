@@ -21,7 +21,7 @@ public class VossRepresentation extends MultipleValueRepresentation {
     }
 
     @Override
-    public void createRepresentation() {
+    public void assignValues() {
         
        numValues.put("G", getMultipleValueList(0.0));
        numValues.put("G", getMultipleValueList(1.0));
