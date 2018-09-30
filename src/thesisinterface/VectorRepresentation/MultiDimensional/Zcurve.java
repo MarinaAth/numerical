@@ -5,8 +5,6 @@
  */
 package thesisinterface.VectorRepresentation.MultiDimensional;
 
-import java.util.ArrayList;
-import thesisinterface.VectorRepresentation.BaseClasses.Sequence;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
 
 /**

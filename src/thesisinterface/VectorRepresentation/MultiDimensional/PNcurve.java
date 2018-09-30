@@ -19,7 +19,7 @@ public class PNcurve extends MultipleValueRepresentation{
 
     Map< String, Integer> keyCount = new HashMap<>();
     Map<String, List<Double>> coordinatesMap = new HashMap<>();
-    List<Double> initialCoordinatesList = new LinkedList<>();
+    List<Double> distanceBasedList = new LinkedList<>();
     List<String> existingKeys = new LinkedList();
     
     public PNcurve(ISymbolSequence sequence) {
@@ -64,13 +64,21 @@ public class PNcurve extends MultipleValueRepresentation{
                count = keyCount.get(key);
                keyCount.put(key, count);
            }
-           //add 
+           //create a Map with coordinates from which we'll get the dimension values
            coordinatesMap.put(key, numValues.get(key));
            coordinatesMap.put(key, getMultipleValueList(count));
            coordinatesMap.put(key, getMultipleValueList(iSymbolCnt+1));
            
-           //create List for euclidean distance, M/M, L/L
-           
+           //create Map for euclidean distance, M/M, L/L 
+           for(int i=iSymbolCnt;i<iSymbolCnt;i--){
+               String concatCompare =Integer.toString(i-1) + Integer.toString(i);
+               double euclDist = (euclideanDistance(coordinatesMap.get(concatCompare), coordinatesMap.get(concat)));
+               distanceBasedList.add(euclDist);
+               distanceBasedList.add(MMatrix(euclDist, i));
+               
+           }
+           //not right - need to fix for LMatrix and for List that keeps adding/possibly Map and retrieve for Key??
+           put(sDimensionName, distanceBasedList);
         }
     }
     
@@ -93,8 +101,10 @@ public class PNcurve extends MultipleValueRepresentation{
         return (euclideanDistance/peaks);
     }
     
-    public double LMatrix(double euclideanDistance, int sum){
+    public double LMatrix(){
         //sum for AT-GG = euclidean Distance of AT-TG + euclidean distance of TG-GG
+        
+        
         return (euclideanDistance/sum);
     }
 }
