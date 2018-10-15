@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 import thesisinterface.VectorRepresentation.BaseClasses.BaseFeatureVector;
 import thesisinterface.VectorRepresentation.OneDimensional.AtomicNumberRepresentation;
 import static thesisinterface.VectorRepresentation.OneDimensional.AtomicNumberRepresentation.atomicNumberRepresentation;
+import static thesisinterface.VectorRepresentation.OneDimensional.ElectronIonRepresentation.electronIonRepresentation;
 
 /**
  *
@@ -37,18 +38,19 @@ public class ThesisInterface {
 
     public static void main(String[] args) throws IOException {
 
-        //BaseFeatureVector atomicNumRepr = new BaseFeatureVector();
+        //BaseFeatureVector electronRepr = new BaseFeatureVector();
         File toReadFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Comparison1\\HumanExonsSurrogates.fas");
 
-        File outputAtomicReprFile = new File(
-                "D:\\Marina\\Documents\\MSc DataSets\\Atomic Number Representation\\Comparison1\\HumanExonsSurrogates.txt");
-        File outputSparseAtomicFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Atomic Number Representation\\Comparison1\\HumanExonsSurrogates_Sparce.txt");
+        File outputElectronReprFile = new File(
+                "D:\\Marina\\Documents\\MSc DataSets\\Electron Ion Representation\\Comparison1\\HumanExonsSurrogates.txt");
+        File outputSparseElectronFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Electron Ion Representation\\Comparison1\\HumanExonsSurrogates_Sparce.txt");
 
         int max = 0;
         int numOfAttributes;
 
+        //create a representation file
         try (Scanner readDataFile = new Scanner(new FileReader(toReadFile));
-                FileWriter outputFile1 = new FileWriter(outputAtomicReprFile)) {
+                FileWriter outputFile1 = new FileWriter(outputElectronReprFile)) {
 
             while (readDataFile.hasNextLine()) {
 
@@ -59,55 +61,53 @@ public class ThesisInterface {
                 } else {
                     BaseFeatureVector atomicNumRepr = atomicNumberRepresentation(input);
 
+                    //get the maximum number of dimensions to be used as attributes
                     numOfAttributes = atomicNumRepr.getNumberOfDimensions();
                     if (numOfAttributes > max) {
                         max = numOfAttributes;
                     }
-
                     outputFile1.write(atomicNumRepr.toString() + System.lineSeparator());
-
                 }
-
             }
-
         }
         System.out.println(max);
 
+        //create the sparse representation file
         try (Scanner readDataFile = new Scanner(new FileReader(toReadFile));
-                FileWriter outputSparseFile1 = new FileWriter(outputSparseAtomicFile)) {
+                FileWriter outputSparseFile1 = new FileWriter(outputSparseElectronFile)) {
 
-            List<Double> addedDimensions = new LinkedList<>();
-            addedDimensions.add(0.0);
-
+            //establish counter to be used for checking
             int counter = 3101;
             while (readDataFile.hasNextLine()) {
 
                 String input = readDataFile.nextLine();
-                BaseFeatureVector atomicNumRepr = new BaseFeatureVector();
+                BaseFeatureVector electronRepr;
+                
                 if (input.matches(fastaHeader.pattern())) {
                     outputSparseFile1.write(input + System.lineSeparator());
                 } else {
-                    atomicNumRepr = (AtomicNumberRepresentation) atomicNumberRepresentation(input);
-                    int initialDimensions = atomicNumRepr.getNumberOfDimensions();
-                    outputSparseFile1.write(atomicNumRepr.toString());
+                    electronRepr = electronIonRepresentation(input);
+                    int initialDimensions = electronRepr.getNumberOfDimensions();
+                    outputSparseFile1.write(electronRepr.toString());
+                    
                     if (initialDimensions < max) {
                         int diff = max - initialDimensions;
-                        atomicNumRepr.addVectorDimensions(initialDimensions, diff, addedDimensions);
-                        int finalnumber = initialDimensions + atomicNumRepr.getNumberOfDimensions();
+                        mergeVectors(electronRepr, diff);
+                        
+                        int finalnumber = initialDimensions + electronRepr.getNumberOfDimensions();
                         if (finalnumber < max) {
                             System.out.println("Warning, you have less dimensions than needed on line " + (((counter - 3101) / 2) + 3101));
-                        } else if (finalnumber > max) {
-                            System.out.println("Warning, you have more dimensions than needed on line " + (((counter - 3101) / 2) + 3101));
+                        } else if(finalnumber > max){
+                            System.out.println("Warning, more dimensions than needed on line " + (((counter - 3101) / 2) + 3101));
                         }
-                        outputSparseFile1.write(", " + atomicNumRepr.toString() + System.lineSeparator());
+                        outputSparseFile1.write(", " + electronRepr.toString() + System.lineSeparator());
                     }
-
-                    counter++;
                 }
+                counter++;
             }
         }
         createArffFile pleaseWorkProperly = new createArffFile();
-        pleaseWorkProperly.convertToArffFile(outputSparseAtomicFile, max);
+        pleaseWorkProperly.convertToArffFile(outputSparseElectronFile, max);
     }
 
     // class for creation of ARFF file - readable by WEKA
@@ -158,4 +158,15 @@ public class ThesisInterface {
         }
     }
 
+    public static void mergeVectors(BaseFeatureVector representation, int difference){
+        List<Double> addedDimensions = new LinkedList<>();
+        addedDimensions.add(0.0);
+        BaseFeatureVector sparseVector = new BaseFeatureVector();
+        
+        for (int iSymbolCnt = representation.getNumberOfDimensions()+1; iSymbolCnt<=difference; iSymbolCnt++){
+            sparseVector.put(iSymbolCnt, addedDimensions);
+        }
+        
+        representation.putAll(sparseVector);
+    }
 }

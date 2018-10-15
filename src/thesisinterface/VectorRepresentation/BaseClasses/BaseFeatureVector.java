@@ -42,12 +42,4 @@ public class BaseFeatureVector extends TreeMap<Integer, List<Double>> implements
         });
         return this.values().toString();
     }
-    
-  public void addVectorDimensions(int numberOfDimensions, int difference, List<Double> dimensionsToAdd){
-        for (int iSymbolCnt = numberOfDimensions+1; iSymbolCnt<=difference; iSymbolCnt++){
-            int sDimensionName = iSymbolCnt;
-            put(sDimensionName, dimensionsToAdd);
-        }
-    } 
-
 }
