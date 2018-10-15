@@ -5,12 +5,15 @@
  */
 package thesisinterface.VectorRepresentation.OneDimensional;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import thesisinterface.VectorRepresentation.BaseClasses.BaseFeatureVector;
+import thesisinterface.VectorRepresentation.BaseClasses.BaseSymbolSequence;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
 
 /**
@@ -46,4 +49,7 @@ public abstract class SingleValueRepresentation extends BaseFeatureVector {
         
     }
     
+    
+   
 }
+    

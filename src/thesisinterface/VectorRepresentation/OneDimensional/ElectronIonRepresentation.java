@@ -28,17 +28,18 @@ public class ElectronIonRepresentation extends SingleValueRepresentation {
         numValues.put("T", getSingleValueList(0.1335));
     }
     
-    public static void electronIonRepresentation(FileWriter outputFile, String inputSequence) throws IOException {
+    public static SingleValueRepresentation electronIonRepresentation(String inputSequence) throws IOException {
 
-        BaseSymbolSequence inputSeq = new BaseSymbolSequence(inputSequence);
+    	BaseSymbolSequence inputSeq = new BaseSymbolSequence(inputSequence);
         //TreeMap
-        ElectronIonRepresentation electronIonRepr = new ElectronIonRepresentation(inputSeq);
+        ElectronIonRepresentation electronRepr = new ElectronIonRepresentation(inputSeq);
 
-        electronIonRepr.assignValues();
+        electronRepr.assignValues();
 
-        electronIonRepr.calculateVectorDimensions();
+        electronRepr.calculateVectorDimensions();
 
-        outputFile.write(electronIonRepr.toString() + "\n");
-        outputFile.write(electronIonRepr.getDimensionNames() + "\n");
+//        outputFile.write(electronRepr.toString() + "\n");
+        
+        return electronRepr;
     }
 }

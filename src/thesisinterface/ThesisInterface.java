@@ -1,30 +1,31 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ * To change this license fastaHeader, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package thesisinterface;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-import static thesisinterface.VectorRepresentation.MultiDimensional.Tetrahedron.tetrahedronRepresentation;
+import thesisinterface.VectorRepresentation.BaseClasses.BaseFeatureVector;
+import thesisinterface.VectorRepresentation.OneDimensional.AtomicNumberRepresentation;
 import static thesisinterface.VectorRepresentation.OneDimensional.AtomicNumberRepresentation.atomicNumberRepresentation;
-import static thesisinterface.VectorRepresentation.OneDimensional.ElectronIonRepresentation.electronIonRepresentation;
-import static thesisinterface.VectorRepresentation.OneDimensional.IntegerRepresentation.integerNumberRepresentation;
-import static thesisinterface.VectorRepresentation.OneDimensional.PairedNumeric.pairedNumericRepresentation;
-import static thesisinterface.VectorRepresentation.OneDimensional.RealNumberRepresentation.realNumberRepresentation;
-import static thesisinterface.VectorRepresentation.MultiDimensional.TNcurve.TNCurveRepresentation;
 
 /**
  *
- * @author marina
+ * @author marina Process: 1)create instances of each class of representation
+ * 2)run through the data file once to create the representation and find the
+ * number of attributes that will be declared in the arff file 3)create the arff
+ * file by declaring the number of attributes found before, running through the
+ * representation file and constructing a file that WEKA can read
  */
 public class ThesisInterface {
 
@@ -32,140 +33,129 @@ public class ThesisInterface {
      * @param args the command line arguments
      * @throws java.io.IOException
      */
-    private static final Pattern header = Pattern.compile("^>.*");
+    private static final Pattern fastaHeader = Pattern.compile("^>.*");
 
     public static void main(String[] args) throws IOException {
 
+        //BaseFeatureVector atomicNumRepr = new BaseFeatureVector();
         File toReadFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Comparison1\\HumanExonsSurrogates.fas");
 
-        File outputAtomicReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Atomic Number Representation\\Comparison1\\HumanExonsSurrogates.txt");
-//        File outputElectronReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Electron Ion Representation\\Comparison1\\HumanExonsSurrogates.txt");
-//        File outputPairedReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Paired Numeric Representation\\Comparison1\\HumanExonsSurrogates.txt");
-//        File outputIntegerReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Integer Number Representation\\Comparison1\\HumanExonsSurrogates.txt");
-//        File outputRealReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Real Number Representation\\Comparison1\\HumanExonsSurrogates.txt");
-//        File outputTetrahedronReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Tetrahedron Representation\\Comparison1\\HumanExonsSurrogates.txt");
-//        File outputTNCurveReprFile = new File("D:\\Marina\\Documents\\MSc DataSets\\TNCurve Representation\\Comparison1\\HumanExonsSurrogates.txt");
+        File outputAtomicReprFile = new File(
+                "D:\\Marina\\Documents\\MSc DataSets\\Atomic Number Representation\\Comparison1\\HumanExonsSurrogates.txt");
+        File outputSparseAtomicFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Atomic Number Representation\\Comparison1\\HumanExonsSurrogates_Sparce.txt");
+
+        int max = 0;
+        int numOfAttributes;
 
         try (Scanner readDataFile = new Scanner(new FileReader(toReadFile));
                 FileWriter outputFile1 = new FileWriter(outputAtomicReprFile)) {
-//                FileWriter outputFile2 = new FileWriter(outputElectronReprFile);
-//                FileWriter outputFile3 = new FileWriter(outputPairedReprFile);
-//                FileWriter outputFile4 = new FileWriter(outputIntegerReprFile);
-//                FileWriter outputFile5 = new FileWriter(outputRealReprFile);
-//                FileWriter outputFile6 = new FileWriter(outputTetrahedronReprFile);
-//                FileWriter outputFile7 = new FileWriter(outputTNCurveReprFile)) 
 
             while (readDataFile.hasNextLine()) {
 
                 String input = readDataFile.nextLine();
 
-                if (input.matches(header.pattern())) {
-
+                if (input.matches(fastaHeader.pattern())) {
                     outputFile1.write(input + "\n");
-//                    outputFile2.write(input + "\n");
-//                    outputFile3.write(input + "\n");
-//                    outputFile4.write(input + "\n");
-//                    outputFile5.write(input + "\n");
-//                    outputFile6.write(input + "\n");
-//                    outputFile7.write(input + "\n");
-
                 } else {
+                    BaseFeatureVector atomicNumRepr = atomicNumberRepresentation(input);
 
-                    atomicNumberRepresentation(outputFile1, input);
-//                    electronIonRepresentation(outputFile2, input);
-//                    pairedNumericRepresentation(outputFile3, input);
-//                    integerNumberRepresentation(outputFile4, input);
-//                    realNumberRepresentation(outputFile5, input);
-//                    tetrahedronRepresentation(outputFile6, input);
-//                    TNCurveRepresentation(outputFile7, input);
+                    numOfAttributes = atomicNumRepr.getNumberOfDimensions();
+                    if (numOfAttributes > max) {
+                        max = numOfAttributes;
+                    }
+
+                    outputFile1.write(atomicNumRepr.toString() + System.lineSeparator());
+
+                }
+
+            }
+
+        }
+        System.out.println(max);
+
+        try (Scanner readDataFile = new Scanner(new FileReader(toReadFile));
+                FileWriter outputSparseFile1 = new FileWriter(outputSparseAtomicFile)) {
+
+            List<Double> addedDimensions = new LinkedList<>();
+            addedDimensions.add(0.0);
+
+            int counter = 3101;
+            while (readDataFile.hasNextLine()) {
+
+                String input = readDataFile.nextLine();
+                BaseFeatureVector atomicNumRepr = new BaseFeatureVector();
+                if (input.matches(fastaHeader.pattern())) {
+                    outputSparseFile1.write(input + System.lineSeparator());
+                } else {
+                    atomicNumRepr = (AtomicNumberRepresentation) atomicNumberRepresentation(input);
+                    int initialDimensions = atomicNumRepr.getNumberOfDimensions();
+                    outputSparseFile1.write(atomicNumRepr.toString());
+                    if (initialDimensions < max) {
+                        int diff = max - initialDimensions;
+                        atomicNumRepr.addVectorDimensions(initialDimensions, diff, addedDimensions);
+                        int finalnumber = initialDimensions + atomicNumRepr.getNumberOfDimensions();
+                        if (finalnumber < max) {
+                            System.out.println("Warning, you have less dimensions than needed on line " + (((counter - 3101) / 2) + 3101));
+                        } else if (finalnumber > max) {
+                            System.out.println("Warning, you have more dimensions than needed on line " + (((counter - 3101) / 2) + 3101));
+                        }
+                        outputSparseFile1.write(", " + atomicNumRepr.toString() + System.lineSeparator());
+                    }
+
+                    counter++;
                 }
             }
         }
-
-        System.out.println("Closing representation file");
-
         createArffFile pleaseWorkProperly = new createArffFile();
-        pleaseWorkProperly.findLongerSequence(toReadFile);
-
-        pleaseWorkProperly.convertToArffFile(toReadFile, outputAtomicReprFile);
+        pleaseWorkProperly.convertToArffFile(outputSparseAtomicFile, max);
     }
 
+    // class for creation of ARFF file - readable by WEKA
     public static class createArffFile {
 
-        
-        //find the longer sequence in the dataset and use it to
-        public int findLongerSequence(File inputFile) throws FileNotFoundException {
+        private Scanner representationToConvert;
 
-            int max = 0;
-            try (Scanner scanner = new Scanner(new FileReader(inputFile))) {
-                while (scanner.hasNextLine()) {
-                    String input = scanner.nextLine();
-                    if (input.matches(header.pattern())) {
-                        System.out.println("Reached here");
-                        Pattern startPoint = Pattern.compile("\\d+");
-                        System.out.println(startPoint.toString());
-                        int start = Integer.parseInt(startPoint.toString());
-                        Pattern endPoint = Pattern.compile("\\p{Punct}\\d+");
+        // create sparse vector using the specific representation
+        public void convertToArffFile(File reprOutputFile, int numOfAttributes)
+                throws IOException {
 
-                        int end = Integer.parseInt(endPoint.toString());
-
-                        int temp = (end - start);
-                        if (temp > max) {
-                            max = temp;
-                        }
-                    }
-                }
-            }
-            return max;
-        }
-
-        //create sparse vector using the specific representation
-        public void convertToArffFile(File inputFile, File representationTextFile) throws IOException {
-            //get timestamp for creation of file
+            // get timestamp for creation of file
             Timestamp ts = new Timestamp(System.currentTimeMillis());
             Date date = new Date(ts.getTime());
 
-            //get the name of the file to be used later
-            String fileName = representationTextFile.getName();
+            // get the name of the file to be used later
+            String fileName = reprOutputFile.getName();
 
-            System.out.println("Enter name of file");
-            Scanner sc = new Scanner(System.in);
+            // start the creation of an arff file
+            try (FileWriter outputArffFile = new FileWriter(reprOutputFile.getCanonicalPath().replace(".txt", "") + ".arff")) {
 
-            //start the creation of an arff file
-            try (FileWriter outputArffFile = new FileWriter(sc.toString())) {
+                //comment section w/info of arff file
+                outputArffFile.write("%1. Title " + fileName + System.lineSeparator() + "%2. Sources:" + System.lineSeparator() + "%Creator: Marina Athanasouli" + System.lineSeparator()
+                        + "%Date:" + date + System.lineSeparator() + "@relation " + fileName.replace(".txt", "") + System.lineSeparator());
 
-                int attributesNumber = findLongerSequence(inputFile);
-//            SparseVector sp = new SparseVector(attributesNumber);
-                outputArffFile.write("/%1. Title " + fileName
-                        + "\n/%2. Sources:\n"
-                        + "/%Creator: Marina Athanasouli\n"
-                        + "/%Date:" + date
-                        + "\n/@RELATION " + fileName);
+                representationToConvert = new Scanner(reprOutputFile);
 
-                //number of attributes = length of longer sequence
-                for (int i = 0; i < attributesNumber; i++) {
-                    outputArffFile.write("/@ATTRIBUTE " + i);
+                // number of attributes = length of longer sequence
+                for (int i = 1; i <= numOfAttributes; i++) {
+                    outputArffFile.write("@attribute " + i + " Numeric" + System.lineSeparator());
                 }
-                outputArffFile.write("/@DATA\n");
+                outputArffFile.write("@data" + System.lineSeparator());
 
-                Scanner representationToConvert = new Scanner(new FileReader(representationTextFile));
+                //read the representation file
                 while (representationToConvert.hasNextLine()) {
-                    if (representationToConvert.nextLine().equals(header)) {
-                        representationToConvert.next();
-                    } else {
-                        outputArffFile.write(representationToConvert.toString());
-                    }
+                    String writable = representationToConvert.nextLine();
 
+                    //if it matches the fasta header, ignore
+                    if (writable.matches(fastaHeader.toString())) {
+                    } else {
+                        //transfer only the values w/o []
+                        outputArffFile.write(writable.replace("[", "").replace("]", ""));
+                        outputArffFile.write(System.lineSeparator());
+                    }
                 }
             }
             System.out.println("Closing Arff File.");
         }
-
-    }
-
-    public static boolean checkRepresentationResult() {
-
-        return true;
     }
 
 }

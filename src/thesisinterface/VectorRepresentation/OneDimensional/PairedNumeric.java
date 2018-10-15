@@ -28,18 +28,19 @@ public class PairedNumeric extends SingleValueRepresentation {
         numValues.put("T", getSingleValueList(1.0));
     }
     
-   public static void pairedNumericRepresentation(FileWriter outputFile, String inputSequence) throws IOException {
+   public static SingleValueRepresentation pairedNumericRepresentation(String inputSequence) throws IOException {
 
         BaseSymbolSequence inputSeq = new BaseSymbolSequence(inputSequence);
         //TreeMap
-        PairedNumeric pairedNumericRepr = new PairedNumeric(inputSeq);
+        SingleValueRepresentation pairedNumericRepr = new PairedNumeric(inputSeq);
 
         pairedNumericRepr.assignValues();
 
         pairedNumericRepr.calculateVectorDimensions();
 
-        outputFile.write(pairedNumericRepr.toString() + "\n");
-        outputFile.write(pairedNumericRepr.getDimensionNames() + "\n");
+//        outputFile.write(pairedNumericRepr.toString() + "\n");
+        
+        return pairedNumericRepr;
     }
     
 }

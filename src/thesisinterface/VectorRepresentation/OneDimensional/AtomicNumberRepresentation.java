@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package thesisinterface.VectorRepresentation.OneDimensional;
-import java.io.FileWriter;
 import java.io.IOException;
 import thesisinterface.VectorRepresentation.BaseClasses.BaseSymbolSequence;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
@@ -27,9 +26,9 @@ public class AtomicNumberRepresentation extends SingleValueRepresentation {
        numValues.put("T", getSingleValueList(60.0));
     }
     
-    public static void atomicNumberRepresentation(FileWriter outputFile, String inputSequence) throws IOException {
+    public static SingleValueRepresentation atomicNumberRepresentation(String inputSequence) throws IOException {
 
-        BaseSymbolSequence inputSeq = new BaseSymbolSequence(inputSequence);
+    	BaseSymbolSequence inputSeq = new BaseSymbolSequence(inputSequence);
         //TreeMap
         AtomicNumberRepresentation atomicNumRepr = new AtomicNumberRepresentation(inputSeq);
 
@@ -37,7 +36,10 @@ public class AtomicNumberRepresentation extends SingleValueRepresentation {
 
         atomicNumRepr.calculateVectorDimensions();
 
-        outputFile.write(atomicNumRepr.toString() + "\n");
-        outputFile.write(atomicNumRepr.getDimensionNames() + "\n");
+//        outputFile.write(atomicNumRepr.toString() + "\n");
+        
+        return atomicNumRepr;
     }
+    
+    
 }
