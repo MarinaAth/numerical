@@ -37,9 +37,7 @@ public class ElectronIonRepresentation extends SingleValueRepresentation {
         electronRepr.assignValues();
 
         electronRepr.calculateVectorDimensions();
-
-//        outputFile.write(electronRepr.toString() + "\n");
-        
+   
         return electronRepr;
     }
 }

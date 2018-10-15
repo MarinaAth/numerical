@@ -83,24 +83,29 @@ public class ThesisInterface {
                 String input = readDataFile.nextLine();
                 BaseFeatureVector electronRepr;
                 
+                //initial creation of the arff file with the representation
                 if (input.matches(fastaHeader.pattern())) {
                     outputSparseFile1.write(input + System.lineSeparator());
                 } else {
                     electronRepr = electronIonRepresentation(input);
+                    
+                    //counting the dimensions to find out how many dimensions need to be added
                     int initialDimensions = electronRepr.getNumberOfDimensions();
                     outputSparseFile1.write(electronRepr.toString());
                     
+                    
+                    int diff = max - initialDimensions;
                     if (initialDimensions < max) {
-                        int diff = max - initialDimensions;
                         mergeVectors(electronRepr, diff);
+                        outputSparseFile1.write(", " + electronRepr.toString() + System.lineSeparator());
                         
-                        int finalnumber = initialDimensions + electronRepr.getNumberOfDimensions();
-                        if (finalnumber < max) {
+                        //check and get message if there is an issue with the final number of dimensions of the representation
+                        int finalCountOfDimensions = initialDimensions + electronRepr.getNumberOfDimensions();
+                        if (finalCountOfDimensions < max) {
                             System.out.println("Warning, you have less dimensions than needed on line " + (((counter - 3101) / 2) + 3101));
-                        } else if(finalnumber > max){
+                        } else if(finalCountOfDimensions > max){
                             System.out.println("Warning, more dimensions than needed on line " + (((counter - 3101) / 2) + 3101));
                         }
-                        outputSparseFile1.write(", " + electronRepr.toString() + System.lineSeparator());
                     }
                 }
                 counter++;
@@ -158,13 +163,15 @@ public class ThesisInterface {
         }
     }
 
+    //create an empty vector to merge with the representation in order to create a sparse vector (sort of)
     public static void mergeVectors(BaseFeatureVector representation, int difference){
         List<Double> addedDimensions = new LinkedList<>();
         addedDimensions.add(0.0);
         BaseFeatureVector sparseVector = new BaseFeatureVector();
         
         for (int iSymbolCnt = representation.getNumberOfDimensions()+1; iSymbolCnt<=difference; iSymbolCnt++){
-            sparseVector.put(iSymbolCnt, addedDimensions);
+            int sDimensionName = iSymbolCnt;
+            sparseVector.put(sDimensionName, addedDimensions);
         }
         
         representation.putAll(sparseVector);
