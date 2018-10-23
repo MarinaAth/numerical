@@ -4,25 +4,24 @@
  * and open the template in the editor.
  */
 package thesisinterface;
+import java.io.*; 
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Pattern;
 import thesisinterface.VectorRepresentation.BaseClasses.BaseFeatureVector;
-import thesisinterface.VectorRepresentation.OneDimensional.AtomicNumberRepresentation;
 import static thesisinterface.VectorRepresentation.OneDimensional.AtomicNumberRepresentation.atomicNumberRepresentation;
-import static thesisinterface.VectorRepresentation.OneDimensional.ElectronIonRepresentation.electronIonRepresentation;
+
+
+import weka.core.Attribute;
+import weka.core.Instance;
+import weka.core.Instances;
+import weka.core.SparseInstance;
 
 /**
  *
- * @author marina Process: 1)create instances of each class of representation
+ * @author marina 
+ * Process: 1)create instances of each class of representation
  * 2)run through the data file once to create the representation and find the
  * number of attributes that will be declared in the arff file 3)create the arff
  * file by declaring the number of attributes found before, running through the
@@ -38,22 +37,27 @@ public class ThesisInterface {
 
     public static void main(String[] args) throws IOException {
 
-        //BaseFeatureVector electronRepr = new BaseFeatureVector();
-        File toReadFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Comparison1\\HumanExonsSurrogates.fas");
+        File toReadFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Comparison 1\\HumanExonsSurrogates.fas");
 
-        File outputElectronReprFile = new File(
-                "D:\\Marina\\Documents\\MSc DataSets\\Electron Ion Representation\\Comparison1\\HumanExonsSurrogates.txt");
-        File outputSparseElectronFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Electron Ion Representation\\Comparison1\\HumanExonsSurrogates_Sparce.txt");
+        File outputAtomicReprFile = new File(
+                "D:/Marina\\Documents/MSc DataSets\\Atomic Number Representation\\Comparison 1\\HumanExonsSurrogates.fas");
+        File outputSparseAtomicFile = new File("D:\\Marina/Documents/MSc DataSets/Atomic Number Representation/Comparison 1/HumanExonsSurrogates_sparse.fas");
+
+
+        // Nikiforos
+        makeSparse(toReadFile.getPath());
+        if (true) return;
 
         int max = 0;
         int numOfAttributes;
 
         //create a representation file
         try (Scanner readDataFile = new Scanner(new FileReader(toReadFile));
-                FileWriter outputFile1 = new FileWriter(outputElectronReprFile)) {
+                FileWriter outputFile1 = new FileWriter(outputAtomicReprFile)) {
 
             while (readDataFile.hasNextLine()) {
 
+            	
                 String input = readDataFile.nextLine();
 
                 if (input.matches(fastaHeader.pattern())) {
@@ -71,8 +75,9 @@ public class ThesisInterface {
             }
         }
         System.out.println(max);
+    }
 
-        //create the sparse representation file
+       /* create the sparse representation file
         try (Scanner readDataFile = new Scanner(new FileReader(toReadFile));
                 FileWriter outputSparseFile1 = new FileWriter(outputSparseElectronFile)) {
 
@@ -81,26 +86,26 @@ public class ThesisInterface {
             while (readDataFile.hasNextLine()) {
 
                 String input = readDataFile.nextLine();
-                BaseFeatureVector electronRepr;
+                BaseFeatureVector atomicNumRepr;
                 
                 //initial creation of the arff file with the representation
                 if (input.matches(fastaHeader.pattern())) {
                     outputSparseFile1.write(input + System.lineSeparator());
                 } else {
-                    electronRepr = electronIonRepresentation(input);
+                    atomicNumRepr = atomicNumberRepresentation(input);
                     
                     //counting the dimensions to find out how many dimensions need to be added
-                    int initialDimensions = electronRepr.getNumberOfDimensions();
-                    outputSparseFile1.write(electronRepr.toString());
+                    int initialDimensions = atomicNumRepr.getNumberOfDimensions();
+                    outputSparseFile1.write(atomicNumRepr.toString());
                     
                     
                     int diff = max - initialDimensions;
                     if (initialDimensions < max) {
-                        mergeVectors(electronRepr, diff);
-                        outputSparseFile1.write(", " + electronRepr.toString() + System.lineSeparator());
+                        mergeVectors(atomicNumRepr, diff);
+                        outputSparseFile1.write(", " + atomicNumRepr.toString() + System.lineSeparator());
                         
                         //check and get message if there is an issue with the final number of dimensions of the representation
-                        int finalCountOfDimensions = initialDimensions + electronRepr.getNumberOfDimensions();
+                        int finalCountOfDimensions = initialDimensions + atomicNumRepr.getNumberOfDimensions();
                         if (finalCountOfDimensions < max) {
                             System.out.println("Warning, you have less dimensions than needed on line " + (((counter - 3101) / 2) + 3101));
                         } else if(finalCountOfDimensions > max){
@@ -113,13 +118,77 @@ public class ThesisInterface {
         }
         createArffFile pleaseWorkProperly = new createArffFile();
         pleaseWorkProperly.convertToArffFile(outputSparseElectronFile, max);
+    }*/
+
+
+
+    // Nikiforos method
+    //to create the sparse ARFF representation file
+    public static void makeSparse(String fasPath){
+        IOHandler io = new IOHandler();
+        int maxDim = -1;
+        try{
+            // read fas
+            ArrayList<String> contents = io.readFAS(fasPath);
+
+            
+            // find max vector dimension
+            for(String line: contents){
+                if (line.length() > maxDim) maxDim = line.length();
+            }
+            // create the sparse vector
+            ArrayList<BaseFeatureVector> data = new ArrayList<>();
+            // for each base sequence
+            for (String line : contents) {
+                // get atomic repr
+                BaseFeatureVector atomicNumRepr = atomicNumberRepresentation(line);
+                // pad with zeros
+                atomicNumRepr.sparsify(maxDim);
+                // add to list
+                data.add(atomicNumRepr);
+            }
+            // convert to weka instances
+            Instances instances = toWekaInstances(data);
+            // write arff file
+            io.writeARFF(fasPath + ".arff", instances);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // convert data to WEKA instances
+    public static Instances toWekaInstances(ArrayList<BaseFeatureVector> data){
+        ArrayList<Attribute> attributeList = new ArrayList();
+        int maxDim = data.get(0).size();
+        for (int i = 0; i < maxDim; ++i) {
+            Attribute att = new Attribute("attribute" + (i + 1), false);
+            attributeList.add(att);
+        }
+        Instances instances = new Instances("data", attributeList, data.size() );
+
+        for (int v=0; v<data.size(); ++v) {
+            BaseFeatureVector vec = data.get(v);
+            Instance instance = new SparseInstance(attributeList.size());
+            for (int i = 0; i < attributeList.size(); ++i) {
+                List<Double> dlist = vec.get(i);
+                double val = dlist.get(0);
+                instance.setValue(attributeList.get(i), val);
+            }
+            instances.add(instance);
+        }
+       return instances;
     }
 
     // class for creation of ARFF file - readable by WEKA
-    public static class createArffFile {
+    /*public static class createArffFile {
 
         private Scanner representationToConvert;
 
+        public void toArff(File infile){
+        }
         // create sparse vector using the specific representation
         public void convertToArffFile(File reprOutputFile, int numOfAttributes)
                 throws IOException {
@@ -161,7 +230,7 @@ public class ThesisInterface {
             }
             System.out.println("Closing Arff File.");
         }
-    }
+    }*/
 
     //create an empty vector to merge with the representation in order to create a sparse vector (sort of)
     public static void mergeVectors(BaseFeatureVector representation, int difference){

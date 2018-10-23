@@ -36,8 +36,6 @@ public class AtomicNumberRepresentation extends SingleValueRepresentation {
 
         atomicNumRepr.calculateVectorDimensions();
 
-//        outputFile.write(atomicNumRepr.toString() + "\n");
-        
         return atomicNumRepr;
     }
     

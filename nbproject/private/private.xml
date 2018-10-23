@@ -3,14 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/VectorRepresentation/OneDimensional/AtomicNumberRepresentation.java</file>
+            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/IOHandler.java</file>
+            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/VectorRepresentation/MultiDimensional/DNAwalk.java</file>
             <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/VectorRepresentation/OneDimensional/PairedNumeric.java</file>
-            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/VectorRepresentation/OneDimensional/SingleValueRepresentation.java</file>
-            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/VectorRepresentation/OneDimensional/RealNumberRepresentation.java</file>
             <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/ThesisInterface.java</file>
-            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/VectorRepresentation/OneDimensional/ElectronIonRepresentation.java</file>
+            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/VectorRepresentation/IFeatureVector.java</file>
             <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/VectorRepresentation/BaseClasses/BaseFeatureVector.java</file>
             <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/VectorRepresentation/OneDimensional/IntegerRepresentation.java</file>
+            <file>file:/C:/Users/marin/Documents/NetBeansProjects/thesisInterface/src/thesisinterface/VectorRepresentation/MultiDimensional/VirtualPotentials.java</file>
         </group>
     </open-files>
 </project-private>
