@@ -7,7 +7,7 @@ package thesisinterface;
 
 /**
  *
- * @author marin
+ * @author marina
  */
 import thesisinterface.VectorRepresentation.BaseClasses.BaseFeatureVector;
 import weka.core.converters.ArffSaver;
@@ -47,6 +47,7 @@ public class IOHandler {
         return contents;
     }
     public void writeCSV(String path, ArrayList<BaseFeatureVector> data) {
+        
         File out = new File(path);
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(out));
@@ -59,6 +60,7 @@ public class IOHandler {
                     if(i<vec.getNumberOfDimensions()-1) bw.write(",");
                 }
                 bw.write(System.lineSeparator());
+                
             }
             bw.close();
         }
@@ -69,6 +71,8 @@ public class IOHandler {
         }
 
     }
+    
+    
     public void read(String path){
         //if (path.endsWith(FAS_EXTENSION)) return readFAS(path);
         return;

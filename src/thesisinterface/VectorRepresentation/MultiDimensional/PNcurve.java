@@ -101,10 +101,10 @@ public class PNcurve extends MultipleValueRepresentation{
         return (euclideanDistance/peaks);
     }
     
-    public double LMatrix(){
-        //sum for AT-GG = euclidean Distance of AT-TG + euclidean distance of TG-GG
-        
-        
-        return (euclideanDistance/sum);
-    }
+//    public double LMatrix(){
+//        //sum for AT-GG = euclidean Distance of AT-TG + euclidean distance of TG-GG
+//        
+//        
+//        return (euclideanDistance/sum);
+//    }
 }
