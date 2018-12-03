@@ -5,12 +5,21 @@
  */
 package thesisinterface;
 import java.io.*; 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.function.IntFunction;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import thesisinterface.VectorRepresentation.BaseClasses.BaseFeatureVector;
 import static thesisinterface.VectorRepresentation.OneDimensional.AtomicNumberRepresentation.atomicNumberRepresentation;
+import static thesisinterface.VectorRepresentation.OneDimensional.ElectronIonRepresentation.electronIonRepresentation;
+import static thesisinterface.VectorRepresentation.OneDimensional.PairedNumeric.pairedNumericRepresentation;
+import static thesisinterface.VectorRepresentation.OneDimensional.RealNumberRepresentation.realNumberRepresentation;
 
 
 import weka.core.Attribute;
@@ -36,43 +45,52 @@ public class ThesisInterface {
      */
     private static final Pattern fastaHeader = Pattern.compile("^>.*");
 
-    public static File outputSparseAtomicFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Atomic Number Representation\\Comparison1\\HumanExonsSurrogates.fas");
+    public static File outputSparseFile;
+    
+    
     
     public static void main(String[] args) throws IOException {
         
-        File toReadFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Comparison1\\HumanExonsSurrogates.fas");
-
-        
-        File outputAtomicReprFile = new File(
-                "D:\\Marina\\Documents\\MSc DataSets\\Atomic Number Representation\\Comparison3\\HumanExonsSurrogates.fas");
-        
-
-
-        // Nikiforos
-        makeSparse(toReadFile.getPath());
-        if (true) return;
-
-
-//        create a representation file
-        try (Scanner readDataFile = new Scanner(new FileReader(toReadFile));
-                FileWriter outputFile1 = new FileWriter(outputAtomicReprFile)) {
-
-            while (readDataFile.hasNextLine()) {
-
-            	
-                String input = readDataFile.nextLine();
-
-                if (input.matches(fastaHeader.pattern())) {
-                    outputFile1.write(input + "\n");
-                } else {
-                    BaseFeatureVector atomicNumRepr = atomicNumberRepresentation(input);
-                    outputFile1.write(atomicNumRepr.toString() + System.lineSeparator());
-                }
+//        File toReadFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Comparison5c\\Amniotic.fas");
+//
+//        File directory = new File ("D:\\Marina\\Documents\\MSc DataSets\\Fasta Files");
+//       
+        //open folder of fasta datasets 
+        try (Stream<Path> paths = Files.walk(Paths.get("D:/Marina/Documents/MSc DataSets/Fasta Files"))) {
+    
+            //create a list of the directories of all subfolders and files contained
+            List<String> pathList = paths.map(p -> {
+            if (Files.isDirectory(p)) {
+                return "/" + p.toString();
             }
+            return p.toString();
+        })
+        .peek(System.out::println) // write all results in console for debug
+        .collect(Collectors.toList());
+        
+        //run the list of directories
+        for (int i=0; i<pathList.size();i++){
+            
+            //ignore all items of list that are not fasta files
+            if(!pathList.get(i).endsWith(".fas")){} 
+            else {
+            File toReadFile = new File(pathList.get(i));
+            System.out.println(pathList.get(i));
+            //create file for specific type of representation a
+            outputSparseFile = new File(pathList.get(i).replace("Fasta Files", "/RealNumber"));
+            System.out.println(outputSparseFile.toString());
+            
+            //create sparse representation
+            makeSparse(toReadFile.getPath());
+            if (true) {
         }
+        }
+        }
+        
+        
+        
 }
-
-
+    }
     // Nikiforos method
     //to create the sparse ARFF representation file
     public static void makeSparse(String fasPath){
@@ -92,16 +110,16 @@ public class ThesisInterface {
             // for each base sequence
             for (String line : contents) {
                 // get atomic repr
-                BaseFeatureVector atomicNumRepr = atomicNumberRepresentation(line);
+                BaseFeatureVector representation = realNumberRepresentation(line);
                 // pad with zeros
-                atomicNumRepr.sparsify(maxDim);
+                representation.sparsify(maxDim);
                 // add to list
-                data.add(atomicNumRepr);
+                data.add(representation);
             }
             // convert to weka instances
             Instances instances = toWekaInstances(data);
             // write arff file
-            io.writeARFF(outputSparseAtomicFile + ".arff", instances);
+            io.writeARFF(outputSparseFile + ".arff", instances);
           
             
         } catch (FileNotFoundException e) {
@@ -134,5 +152,6 @@ public class ThesisInterface {
         }
        return instances;
     }
-
+    
+    
 }

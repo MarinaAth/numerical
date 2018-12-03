@@ -38,8 +38,6 @@ public class RealNumberRepresentation extends SingleValueRepresentation {
         realNumRepr.assignValues();
 
         realNumRepr.calculateVectorDimensions();
-
-//        outputFile.write(realNumRepr.toString() + "\n");
         
         return realNumRepr;
     }
