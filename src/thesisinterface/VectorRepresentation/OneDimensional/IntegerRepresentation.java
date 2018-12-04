@@ -33,7 +33,7 @@ public class IntegerRepresentation extends SingleValueRepresentation {
 
     	BaseSymbolSequence inputSeq = new BaseSymbolSequence(inputSequence);
         //TreeMap
-        SingleValueRepresentation integerNumRepr = new ElectronIonRepresentation(inputSeq);
+        SingleValueRepresentation integerNumRepr = new IntegerRepresentation(inputSeq);
 
         integerNumRepr.assignValues();
 

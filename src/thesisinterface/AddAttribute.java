@@ -43,7 +43,7 @@ public class AddAttribute {
                 filter = new Add();
                 filter.setAttributeIndex("last");
                 filter.setNominalLabels(args[3] + ", " + args[4]);
-                filter.setAttributeName("Organism");
+                filter.setAttributeName("Type");
                 filter.setInputFormat(data1);
                 newData1 = Filter.useFilter(data1, filter);
                 newData2 = Filter.useFilter(data2, filter);
@@ -73,7 +73,7 @@ public class AddAttribute {
                 nominalValues.add(args[3]);
                 nominalValues.add(args[4]);
                 //nominalValues.add(args[3]);
-                classAttr = new Attribute("Organism", nominalValues);
+                classAttr = new Attribute("Type", nominalValues);
                 newData1.insertAttributeAt(classAttr, newData1.numAttributes());
                 newData2.insertAttributeAt(classAttr, newData2.numAttributes());
                 for (int i = 0; i < newData1.numAttributes(); i++) {
