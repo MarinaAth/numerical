@@ -47,11 +47,7 @@ public class ThesisInterface {
     public static File outputSparseFile;
 
     public static void main(String[] args) throws IOException {
-
-//        File toReadFile = new File("D:\\Marina\\Documents\\MSc DataSets\\Comparison5c\\Amniotic.fas");
-//
-//        File directory = new File ("D:\\Marina\\Documents\\MSc DataSets\\Fasta Files");
-//       
+       
         //open folder of fasta datasets 
         try (Stream<Path> paths = Files.walk(Paths.get("D:/Marina/Documents/MSc DataSets/Fasta Files"))) {
 

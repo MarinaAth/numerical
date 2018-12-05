@@ -7,9 +7,14 @@ package thesisinterface;
 
 import weka.core.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import static weka.core.Instances.mergeInstances;
 import weka.core.converters.ArffSaver;
-import weka.core.converters.ConverterUtils.DataSource;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Add;
 
@@ -20,91 +25,120 @@ import weka.filters.unsupervised.attribute.Add;
 public class AddAttribute {
 
     public static void main(String[] args) throws Exception {
-        if (args.length != 5) {
-            System.out.println("\nUsage: AddAttribute <file.arff> <filter|java> <class_type>\n");
-            System.exit(1);
-        }
 
-        // load dataset
-        Instances data1 = new Instances(new BufferedReader(new FileReader(args[0])));
-        Instances data2 = new Instances(new BufferedReader(new FileReader(args[1])));
+        String parentFolder = "D:/Marina/Documents/MSc DataSets/ElectronIon";
+        String procedure = "filter";
+
+//        if (args.length != 2) {
+//            System.out.println("\nUsage: AddAttribute <file.arff> <filter|java> <class_type>\n");
+//            System.exit(1);
+//        }
+//        
+        Path folderPath = Paths.get(parentFolder);
+        List<Path> subfolder = Files.walk(folderPath, 1)
+                .filter(Files::isDirectory)
+                .collect(Collectors.toList());
+        subfolder.remove(0);
+
+        System.out.println(subfolder.toString());
+
+        Instances data1 = null;
+        Instances data2 = null;
         Instances newData1 = null;
         Instances newData2 = null;
 
         Attribute classAttr = null;
+        for (int i = 0; i < subfolder.size(); i++) {
+            File f = subfolder.get(i).toFile();
+            String[] fileList = f.list();
 
-        if (data1.numAttributes() != data2.numAttributes()) {
-            paddingDatasets(data1, data2);
-        }
-        switch (args[2]) {
-            case "filter":
-                Add filter;
-                // 1. nominal attribute
-                filter = new Add();
-                filter.setAttributeIndex("last");
-                filter.setNominalLabels(args[3] + ", " + args[4]);
-                filter.setAttributeName("Type");
-                filter.setInputFormat(data1);
-                newData1 = Filter.useFilter(data1, filter);
-                newData2 = Filter.useFilter(data2, filter);
+            System.out.println(Arrays.toString(fileList));
 
-                for (int i = newData1.numInstances() - 1; i >= 0; i--) {
-                    newData1.instance(i).setValue(newData1.numAttributes() - 1, args[3]);
-                }
-                for (int j = newData2.numInstances() - 1; j >= 0; j--) {
-                    newData2.instance(j).setValue(newData2.numAttributes() - 1, args[4]);
-                }
+            data1 = new Instances(new BufferedReader(new FileReader(subfolder.get(i).toAbsolutePath() + "\\" +  fileList[0])));
+            data2 = new Instances(new BufferedReader(new FileReader(subfolder.get(i).toAbsolutePath() + "\\" + fileList[1])));
 
-                newData1.setClassIndex(newData1.numAttributes() - 1);
-                newData2.setClassIndex(newData2.numAttributes() - 1);
+            String label1 = fileList[0].replace(subfolder.get(i).toString(), "").replace(".fas.arff", "");
+            String label2 = fileList[1].replace(subfolder.get(i).toString(), "").replace(".fas.arff", "");
+
+            // load dataset
+            if (data1.numAttributes() != data2.numAttributes()) {
+                paddingDatasets(data1, data2);
+            }
+            switch (procedure) {
+                case "filter":
+                    Add filter;
+                    // 1. nominal attribute
+                    filter = new Add();
+                    filter.setAttributeIndex("last");
+                    filter.setNominalLabels(label1 + ", " + label2);
+                    filter.setAttributeName("Type");
+                    filter.setInputFormat(data1);
+                    newData1 = Filter.useFilter(data1, filter);
+                    newData2 = Filter.useFilter(data2, filter);
+
+                    for (int k = newData1.numInstances() - 1; k >= 0; k--) {
+                        newData1.instance(k).setValue(newData1.numAttributes() - 1, label1);
+                    }
+                    for (int j = newData2.numInstances() - 1; j >= 0; j--) {
+                        newData2.instance(j).setValue(newData2.numAttributes() - 1, label2);
+                    }
+
+                    newData1.setClassIndex(newData1.numAttributes() - 1);
+                    newData2.setClassIndex(newData2.numAttributes() - 1);
+
+                    //append all instances
+                    for (int c = 0; c < newData2.numInstances(); c++) {
+                        newData1.add(newData2.get(c));
+                    }
 // 2. numeric attribute
 //        filter = new Add();
 //        filter.setAttributeIndex("last");
 //        filter.setAttributeName("NewNumeric");
 //        filter.setInputFormat(newData1);
 //        newData1 = Filter.useFilter(newData1, filter);
-                break;
+                    break;
 
-            case "java":
-                newData1 = new Instances(data1);
-                newData2 = new Instances(data2);
-                // create a nominal attribute and make it the class
-                List<String> nominalValues = new ArrayList<>();
-                nominalValues.add(args[3]);
-                nominalValues.add(args[4]);
-                //nominalValues.add(args[3]);
-                classAttr = new Attribute("Type", nominalValues);
-                newData1.insertAttributeAt(classAttr, newData1.numAttributes());
-                newData2.insertAttributeAt(classAttr, newData2.numAttributes());
-                for (int i = 0; i < newData1.numAttributes(); i++) {
-                    newData1.instance(i).setValue(classAttr, args[3]);
-                }
-                for (int j = 0; j < newData2.numAttributes(); j++) {
+                case "java":
+                    newData1 = new Instances(data1);
+                    newData2 = new Instances(data2);
+                    // create a nominal attribute and make it the class
+                    List<String> nominalValues = new ArrayList<>();
+                    nominalValues.add(args[3]);
+                    nominalValues.add(args[4]);
 
-                    newData2.instance(j).setValue(classAttr, args[4]);
+                    classAttr = new Attribute("Type", nominalValues);
+                    newData1.insertAttributeAt(classAttr, newData1.numAttributes());
+                    newData2.insertAttributeAt(classAttr, newData2.numAttributes());
+                    for (int s = 0; s < newData1.numAttributes(); s++) {
+                        newData1.instance(s).setValue(classAttr, label1);
+                    }
+                    for (int j = 0; j < newData2.numAttributes(); j++) {
 
-                }
-                newData1.setClassIndex(newData1.numAttributes() - 1);
-                newData2.setClassIndex(newData2.numAttributes() - 1);
+                        newData2.instance(j).setValue(classAttr, label2);
+
+                    }
+                    newData1.setClassIndex(newData1.numAttributes() - 1);
+                    newData2.setClassIndex(newData2.numAttributes() - 1);
 
 //        2. numeric
 //        newData1.insertAttributeAt(new Attribute("NewNumeric"), newData1.numAttributes());
-                break;
-            default:
-                System.out.println("\nUsage: AddAttribute <file.arff> <filter|java>\n");
-                System.exit(2);
-        }
+                    break;
+                default:
+                    System.out.println("\nUsage: AddAttribute <Parent_folder> <filter|java>\n");
+//                        System.exit(2);
+                }
 
-        try {
-            ArffSaver saver1 = new ArffSaver();
-            ArffSaver saver2 = new ArffSaver();
-            saver1.setInstances(newData1);
-            saver2.setInstances(newData2);
-            saver1.setFile(new File(args[0]));
-            saver2.setFile(new File(args[1]));
-            saver1.writeBatch();
-            saver2.writeBatch();
-        } catch (IOException e) {
+            try {
+
+                ArffSaver saver = new ArffSaver();
+                saver.setInstances(newData1);
+
+                saver.setFile(new File(subfolder.get(i).toString() + "\\Combined" + (i+1) +".arff"));
+                saver.writeBatch();
+
+            } catch (IOException e) {
+            }
+
         }
 
     }
@@ -112,7 +146,7 @@ public class AddAttribute {
     public static void paddingDatasets(Instances dataset1, Instances dataset2) {
         if (dataset1.numAttributes() < dataset2.numAttributes()) {
             int diff = dataset2.numAttributes() - dataset1.numAttributes();
-            int counter = dataset1.numAttributes()+1;
+            int counter = dataset1.numAttributes() + 1;
             for (int i = 0; i < diff; i++) {
                 dataset1.insertAttributeAt(new Attribute("attribute" + counter), dataset1.numAttributes());
                 for (int instCounter = 0; instCounter < dataset1.numInstances(); instCounter++) {
@@ -132,4 +166,5 @@ public class AddAttribute {
             }
         }
     }
+
 }
