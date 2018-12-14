@@ -5,8 +5,10 @@
  */
 package thesisinterface.VectorRepresentation.MultiDimensional;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import thesisinterface.VectorRepresentation.BaseClasses.BaseSymbolSequence;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
 
 /**
@@ -56,5 +58,18 @@ public class DNAwalk extends MultipleValueRepresentation {
         }
 
         return result;
+    }
+    
+     public static MultipleValueRepresentation dnaWalk(String inputSequence) throws IOException {
+
+    	BaseSymbolSequence inputSeq = new BaseSymbolSequence(inputSequence);
+        //TreeMap
+        DNAwalk baseRepr = new DNAwalk(inputSeq);
+
+        baseRepr.assignValues();
+
+        baseRepr.calculateVectorDimensions();
+
+        return baseRepr;
     }
 }

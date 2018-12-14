@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import thesisinterface.VectorRepresentation.BaseClasses.BaseFeatureVector;
+import static thesisinterface.VectorRepresentation.MultiDimensional.DNAwalk.dnaWalk;
 import static thesisinterface.VectorRepresentation.OneDimensional.AtomicNumberRepresentation.atomicNumberRepresentation;
 import static thesisinterface.VectorRepresentation.OneDimensional.ElectronIonRepresentation.electronIonRepresentation;
 import static thesisinterface.VectorRepresentation.OneDimensional.IntegerRepresentation.integerRepresentation;
@@ -49,7 +50,7 @@ public class ThesisInterface {
     public static void main(String[] args) throws IOException {
        
         //open folder of fasta datasets 
-        try (Stream<Path> paths = Files.walk(Paths.get("D:/Marina/Documents/MSc DataSets/Fasta Files"))) {
+        try (Stream<Path> paths = Files.walk(Paths.get("D:/Marina/Documents/ThesisDatasets/Fasta Files"))) {
 
             //create a list of the directories of all subfolders and files contained
             List<String> pathList = paths.map(p -> {
@@ -70,7 +71,7 @@ public class ThesisInterface {
                     File toReadFile = new File(pathList.get(i));
                     System.out.println(pathList.get(i));
                     //create file for specific type of representation a
-                    outputSparseFile = new File(pathList.get(i).replace("Fasta Files", "/IntegerNumber"));
+                    outputSparseFile = new File(pathList.get(i).replace("Fasta Files", "/RealNumber"));
                     System.out.println(outputSparseFile.toString());
 
                     //create sparse representation
@@ -103,7 +104,7 @@ public class ThesisInterface {
             // for each base sequence
             for (String line : contents) {
                 // get atomic repr
-                BaseFeatureVector representation = integerRepresentation(line);
+                BaseFeatureVector representation = realNumberRepresentation(line);
                 // pad with zeros
                 representation.sparsify(maxDim);
                 // add to list
@@ -115,9 +116,7 @@ public class ThesisInterface {
             io.writeARFF(outputSparseFile + ".arff", instances);
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
         }
 
     }

@@ -12,8 +12,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import static weka.core.Instances.mergeInstances;
 import weka.core.converters.ArffSaver;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Add;
@@ -26,14 +24,10 @@ public class AddAttribute {
 
     public static void main(String[] args) throws Exception {
 
-        String parentFolder = "D:/Marina/Documents/MSc DataSets/ElectronIon";
+        String parentFolder = "D:/Marina/Documents/ThesisDatasets/RealNumber";
         String procedure = "filter";
-
-//        if (args.length != 2) {
-//            System.out.println("\nUsage: AddAttribute <file.arff> <filter|java> <class_type>\n");
-//            System.exit(1);
-//        }
-//        
+        
+        
         Path folderPath = Paths.get(parentFolder);
         List<Path> subfolder = Files.walk(folderPath, 1)
                 .filter(Files::isDirectory)
@@ -51,11 +45,11 @@ public class AddAttribute {
         for (int i = 0; i < subfolder.size(); i++) {
             File f = subfolder.get(i).toFile();
             String[] fileList = f.list();
-
+            String comparisonNum = subfolder.get(i).toString().replace(parentFolder, "");
             System.out.println(Arrays.toString(fileList));
 
-            data1 = new Instances(new BufferedReader(new FileReader(subfolder.get(i).toAbsolutePath() + "\\" +  fileList[0])));
-            data2 = new Instances(new BufferedReader(new FileReader(subfolder.get(i).toAbsolutePath() + "\\" + fileList[1])));
+            data1 = new Instances(new BufferedReader(new FileReader(subfolder.get(i).toAbsolutePath() + "/" + fileList[0])));
+            data2 = new Instances(new BufferedReader(new FileReader(subfolder.get(i).toAbsolutePath() + "/" + fileList[1])));
 
             String label1 = fileList[0].replace(subfolder.get(i).toString(), "").replace(".fas.arff", "");
             String label2 = fileList[1].replace(subfolder.get(i).toString(), "").replace(".fas.arff", "");
@@ -133,7 +127,7 @@ public class AddAttribute {
                 ArffSaver saver = new ArffSaver();
                 saver.setInstances(newData1);
 
-                saver.setFile(new File(subfolder.get(i).toString() + "\\Combined" + (i+1) +".arff"));
+                saver.setFile(new File(subfolder.get(i).toString().replace("/Comparison", "/Combined") + ".arff"));
                 saver.writeBatch();
 
             } catch (IOException e) {
