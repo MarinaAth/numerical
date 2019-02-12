@@ -125,20 +125,44 @@ public class ThesisInterface {
     public static Instances toWekaInstances(ArrayList<BaseFeatureVector> data) {
         ArrayList<Attribute> attributeList = new ArrayList();
         int maxDim = data.get(0).size();
-        for (int i = 0; i < maxDim; ++i) {
-            Attribute att = new Attribute("attribute" + (i + 1), false);
-            attributeList.add(att);
-        }
-        Instances instances = new Instances("data", attributeList, data.size());
+        int iDimCount = 0; // Start with zero
 
-        for (int v = 0; v < data.size(); ++v) {
-            BaseFeatureVector vec = data.get(v);
-            Instance instance = new SparseInstance(attributeList.size());
-            for (int i = 0; i < attributeList.size(); ++i) {
-                List<Double> dlist = vec.get(i);
-                double val = dlist.get(0);
-                instance.setValue(attributeList.get(i), val);
+        // For every symbol-related dimension
+        for (int i = 1; i <= maxDim; ++i) {
+            // Count number of measurements/components in that dimension
+            int maxInnerDim = data.get(0).get(i).size();
+            // For every component in the related dimension
+            for (int innerDim = 0; innerDim < maxInnerDim; ++innerDim) {
+                Attribute att = new Attribute("attribute" + (iDimCount + 1), false);
+                attributeList.add(att);
+                iDimCount++; // Get next number
             }
+        }
+
+        Instances instances = new Instances("data", attributeList, data.size());
+        // For every data instance
+        for (int v = 0; v < data.size(); ++v) {
+            // Init empty instance
+            Instance instance = new SparseInstance(attributeList.size());
+
+            BaseFeatureVector vec = data.get(v);
+            // Count number of dimensions in that instance
+            maxDim = vec.size();
+            int iCurDim = 0; // Here we keep the overall dimension counter
+
+            // For every dimension
+            for (int dim = 1; dim <= maxDim; ++dim) {
+                // Get list of components for specific dimension
+                List<Double> dlist = vec.get(dim);
+
+                // For every component in the related dimension
+                for (int innerDim = 0; innerDim < dlist.size(); ++innerDim) {
+                    double val = dlist.get(innerDim);
+                    instance.setValue(attributeList.get(iCurDim), val);
+                    iCurDim++; // Move to next
+                }
+            }
+
             instances.add(instance);
         }
         return instances;
