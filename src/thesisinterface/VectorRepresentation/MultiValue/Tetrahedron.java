@@ -40,6 +40,8 @@ public class Tetrahedron extends MultipleValueRepresentation {
        numValues.get("T").addAll(getMultipleValueList(0.0));
        numValues.get("T").addAll(getMultipleValueList(-(1.0/3.0)));
        
+       calculateVectorDimensions();
+       
     }
     
     @Override

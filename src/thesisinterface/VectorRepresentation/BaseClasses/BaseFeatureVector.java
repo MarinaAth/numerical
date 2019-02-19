@@ -44,25 +44,13 @@ public class BaseFeatureVector extends TreeMap<Integer, List<Double>> implements
     }
 
     public void sparsify(int maxDim) {
-        sparsify(maxDim, 1);
-    }
-    
-    /**
-     * This method adds a zero for each inner dimension, for each outer dimension
-     * @param maxDim
-     * @param innerDim 
-     */
-    public void sparsify(int maxDim, int innerDim) {
         int currentLen = size();
         for (int i=currentLen; i< maxDim; ++i){
-            // System.out.println("Dimension # " + );
             ArrayList<Double> zlist = new ArrayList<>();
-            for (int iInnerDim=0; iInnerDim < innerDim; iInnerDim++) {
-                zlist.add(0.0);                
-            }
+            zlist.add(0.0);
             put(i, zlist);
         }
-        System.out.println("");
+
     }
 
    
