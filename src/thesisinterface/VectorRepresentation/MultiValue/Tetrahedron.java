@@ -3,17 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package thesisinterface.VectorRepresentation.MultiDimensional;
+package thesisinterface.VectorRepresentation.MultiValue;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import thesisinterface.VectorRepresentation.BaseClasses.BaseFeatureVector;
 import thesisinterface.VectorRepresentation.BaseClasses.BaseSymbolSequence;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
-import thesisinterface.VectorRepresentation.OneDimensional.RealNumberRepresentation;
+
 
 /**
  *
@@ -69,8 +68,9 @@ public class Tetrahedron extends MultipleValueRepresentation {
 //    public static void main(String[] args) {
 //        System.out.println("The representation for the string AGTC is...");
 //        Tetrahedron t = new Tetrahedron(new BaseSymbolSequence("AGTC"));
+//        t.assignValues();
 //        t.calculateVectorDimensions();
 //
-//        System.out.println();
+//        System.out.println(t);
 //    }
 }

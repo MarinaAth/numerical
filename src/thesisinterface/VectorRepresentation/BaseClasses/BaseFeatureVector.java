@@ -43,7 +43,6 @@ public class BaseFeatureVector extends TreeMap<Integer, List<Double>> implements
         return this.values().toString();
     }
 
-    @Override
     public void sparsify(int maxDim) {
         int currentLen = size();
         for (int i=currentLen; i< maxDim; ++i){
@@ -53,4 +52,6 @@ public class BaseFeatureVector extends TreeMap<Integer, List<Double>> implements
         }
 
     }
+
+   
 }

@@ -24,7 +24,7 @@ public class AddAttribute {
 
     public static void main(String[] args) throws Exception {
 
-        String parentFolder = "D:/Marina/Documents/ThesisDatasets/RealNumber";
+        String parentFolder = "D:/Marina/Documents/ThesisDatasets/DNAWalk";
         String procedure = "filter";
         
         
@@ -127,7 +127,7 @@ public class AddAttribute {
                 ArffSaver saver = new ArffSaver();
                 saver.setInstances(newData1);
 
-                saver.setFile(new File(subfolder.get(i).toString().replace("/Comparison", "/Combined") + ".arff"));
+                saver.setFile(new File(subfolder.get(i).toString().replace("Comparison", "Combined") + ".arff"));
                 saver.writeBatch();
 
             } catch (IOException e) {

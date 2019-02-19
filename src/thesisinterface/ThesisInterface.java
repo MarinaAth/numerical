@@ -17,12 +17,13 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import thesisinterface.VectorRepresentation.BaseClasses.BaseFeatureVector;
-import static thesisinterface.VectorRepresentation.MultiDimensional.DNAwalk.dnaWalk;
-import static thesisinterface.VectorRepresentation.OneDimensional.AtomicNumberRepresentation.atomicNumberRepresentation;
-import static thesisinterface.VectorRepresentation.OneDimensional.ElectronIonRepresentation.electronIonRepresentation;
-import static thesisinterface.VectorRepresentation.OneDimensional.IntegerRepresentation.integerRepresentation;
-import static thesisinterface.VectorRepresentation.OneDimensional.PairedNumeric.pairedNumericRepresentation;
-import static thesisinterface.VectorRepresentation.OneDimensional.RealNumberRepresentation.realNumberRepresentation;
+import static thesisinterface.VectorRepresentation.MultiValue.DNAwalk.dnaWalk;
+import static thesisinterface.VectorRepresentation.MultiValue.Tetrahedron.tetrahedronRepresentation;
+import static thesisinterface.VectorRepresentation.SingleValue.AtomicNumberRepresentation.atomicNumberRepresentation;
+import static thesisinterface.VectorRepresentation.SingleValue.ElectronIonRepresentation.electronIonRepresentation;
+import static thesisinterface.VectorRepresentation.SingleValue.IntegerRepresentation.integerRepresentation;
+import static thesisinterface.VectorRepresentation.SingleValue.PairedNumeric.pairedNumericRepresentation;
+import static thesisinterface.VectorRepresentation.SingleValue.RealNumberRepresentation.realNumberRepresentation;
 
 import weka.core.Attribute;
 import weka.core.Instance;
@@ -71,7 +72,7 @@ public class ThesisInterface {
                     File toReadFile = new File(pathList.get(i));
                     System.out.println(pathList.get(i));
                     //create file for specific type of representation a
-                    outputSparseFile = new File(pathList.get(i).replace("Fasta Files", "/RealNumber"));
+                    outputSparseFile = new File(pathList.get(i).replace("Fasta Files", "/Tetrahedron"));
                     System.out.println(outputSparseFile.toString());
 
                     //create sparse representation
@@ -104,7 +105,7 @@ public class ThesisInterface {
             // for each base sequence
             for (String line : contents) {
                 // get atomic repr
-                BaseFeatureVector representation = realNumberRepresentation(line);
+                BaseFeatureVector representation = tetrahedronRepresentation(line);
                 // pad with zeros
                 representation.sparsify(maxDim);
                 // add to list
@@ -133,7 +134,7 @@ public class ThesisInterface {
             int maxInnerDim = data.get(0).get(i).size();
             // For every component in the related dimension
             for (int innerDim = 0; innerDim < maxInnerDim; ++innerDim) {
-                Attribute att = new Attribute("attribute" + (iDimCount + 1), false);
+                Attribute att = new Attribute(("attribute" + (iDimCount)), false);
                 attributeList.add(att);
                 iDimCount++; // Get next number
             }
@@ -152,6 +153,7 @@ public class ThesisInterface {
 
             // For every dimension
             for (int dim = 1; dim <= maxDim; ++dim) {
+                
                 // Get list of components for specific dimension
                 List<Double> dlist = vec.get(dim);
 
