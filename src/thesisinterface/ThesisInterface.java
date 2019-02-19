@@ -77,8 +77,6 @@ public class ThesisInterface {
 
                     //create sparse representation
                     makeSparse(toReadFile.getPath());
-                    if (true) {
-                    }
                 }
             }
 
@@ -87,7 +85,7 @@ public class ThesisInterface {
 
     // Nikiforos method
     //to create the sparse ARFF representation file
-    public static void makeSparse(String fasPath) {
+    public static int makeSparse(String fasPath) {
         IOHandler io = new IOHandler();
         int maxDim = -1;
         try {
@@ -102,32 +100,54 @@ public class ThesisInterface {
             }
             // create the sparse vector
             ArrayList<BaseFeatureVector> data = new ArrayList<>();
+            int iInstanceCnt = 0;
+            int count = 0;
             // for each base sequence
             for (String line : contents) {
+                System.out.println("INstance #" + count++ + " : " + line);
                 // get atomic repr
                 BaseFeatureVector representation = tetrahedronRepresentation(line);
-                // pad with zeros
-                representation.sparsify(maxDim);
+                // pad with zeros, based on the number of inner dimensions per symbol
+                // TODO: In the future we need to be able to support varying inner dimension
+                int iInnerDim = representation.get(1).size();
+                representation.sparsify(maxDim, iInnerDim);
                 // add to list
                 data.add(representation);
+                
+//                // Every 100 instances
+//                if (iInstanceCnt++ % 100 == 0) {
+//                    // Say something
+//                    System.err.print(".");
+//                    if (iInstanceCnt % 1000 == 0) {
+//                        System.err.println("X");
+//                    }
+//                }
             }
+            
+            System.err.println("Dimensons initialized.");
+            
             // convert to weka instances
+            System.err.println("Converting to ARFF instances...");
             Instances instances = toWekaInstances(data);
+            System.err.println("Converting to ARFF instances... Done.");
             // write arff file
             io.writeARFF(outputSparseFile + ".arff", instances);
 
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
         }
-
+           System.out.println("DONE making sparse file.");
+           return maxDim;
     }
 
     // convert data to WEKA instances
     public static Instances toWekaInstances(ArrayList<BaseFeatureVector> data) {
+        System.out.println("WEKA instances making");
         ArrayList<Attribute> attributeList = new ArrayList();
         int maxDim = data.get(0).size();
         int iDimCount = 0; // Start with zero
 
+        System.err.println("Creating attributes...");
         // For every symbol-related dimension
         for (int i = 1; i <= maxDim; ++i) {
             // Count number of measurements/components in that dimension
@@ -139,14 +159,20 @@ public class ThesisInterface {
                 iDimCount++; // Get next number
             }
         }
+        System.err.println("Creating attributes... Done.");
 
+        System.err.println("Creating instances...");
         Instances instances = new Instances("data", attributeList, data.size());
         // For every data instance
         for (int v = 0; v < data.size(); ++v) {
+            System.out.println("Weka'ing instance # " + v + " / " + data.size());
             // Init empty instance
             Instance instance = new SparseInstance(attributeList.size());
+                        BaseFeatureVector vec = data.get(v);
 
-            BaseFeatureVector vec = data.get(v);
+                        
+
+            System.out.println("len of key set is " + vec.keySet().size());
             // Count number of dimensions in that instance
             maxDim = vec.size();
             int iCurDim = 0; // Here we keep the overall dimension counter
@@ -159,14 +185,26 @@ public class ThesisInterface {
 
                 // For every component in the related dimension
                 for (int innerDim = 0; innerDim < dlist.size(); ++innerDim) {
+                    //System.out.println("Attempting to access index " + innerDim + " of the list with len " + dlist.size());
                     double val = dlist.get(innerDim);
+                    //System.out.println("Attempting to access global index " + iCurDim + " of the global attr list with len " + attributeList.size());
+
                     instance.setValue(attributeList.get(iCurDim), val);
                     iCurDim++; // Move to next
+                }
+            }
+            
+            if (v % 100 == 0) {
+                System.err.print(".");
+                if (v % 1000 == 0) {
+                    System.err.print("X");
                 }
             }
 
             instances.add(instance);
         }
+        System.err.println("Creating instances... Done.");
+        
         return instances;
     }
 
