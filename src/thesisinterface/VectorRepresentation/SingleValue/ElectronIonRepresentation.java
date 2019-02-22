@@ -42,8 +42,5 @@ public class ElectronIonRepresentation extends SingleValueRepresentation {
         return electronRepr;
     }
 
-    @Override
-    public double missinValueAssign() {
-        return 0.0;
-    }
+   
 }

@@ -6,6 +6,7 @@
 package thesisinterface.VectorRepresentation.MultiValue;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,8 +28,8 @@ public class VirtualPotentials extends MultipleValueRepresentation {
 
     double distance;
     double virtPotent = 1 / distance;
-    Map<String, Double> virtualPotentials = new HashMap<>();
-    List<Double> distances = new LinkedList<>();
+    Map<String, ArrayList<Double>> virtualPotentials = new HashMap<>();
+    List<Double> distances = new ArrayList<>();
 
     public VirtualPotentials(ISymbolSequence sequence) {
         super(sequence);
@@ -37,10 +38,14 @@ public class VirtualPotentials extends MultipleValueRepresentation {
     //initialization of the list of values
     @Override
     public void assignValues() {
-        numValues.put("C", getMultipleValueList(virtPotent));
-        numValues.put("T", getMultipleValueList(virtPotent));
-        numValues.put("A", getMultipleValueList(virtPotent));
-        numValues.put("G", getMultipleValueList(virtPotent));
+        numValues.put("C", virtualPotentials.get("C"));
+        numValues.put("T", virtualPotentials.get("T"));
+        numValues.put("A", virtualPotentials.get("A"));
+        numValues.put("G", virtualPotentials.get("G"));
+        numValues.put("N", getMultipleValueList(0.0));
+        numValues.get("N").addAll(getMultipleValueList(0.0));
+        numValues.get("N").addAll(getMultipleValueList(0.0));
+        numValues.get("N").addAll(getMultipleValueList(0.0));
     }
 
     @Override
@@ -86,5 +91,14 @@ public class VirtualPotentials extends MultipleValueRepresentation {
         virtPotentRepr.calculateVectorDimensions();
         
         return virtPotentRepr;
+    }
+    
+    public Map<String, ArrayList<Double>> calculateVirtualPotential(int dimCount){
+        
+        if (dimCount < 25){
+            String base = sequence.getSymbolAt(dimCount);
+            //virtualPotentials.put(base, numValues.get(base).addAll(getMultipleValueList(0.0)));
+        }
+        return virtualPotentials;
     }
 }

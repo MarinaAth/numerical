@@ -33,8 +33,6 @@ public abstract class SingleValueRepresentation extends BaseFeatureVector {
     
     public abstract void assignValues();
 
-    public abstract double missinValueAssign();
-    
     public void calculateVectorDimensions(){
         // For each symbol in sequence
         for (int iSymbolCnt = 0; iSymbolCnt < sequence.size(); iSymbolCnt++) {

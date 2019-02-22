@@ -5,6 +5,7 @@
  */
 package thesisinterface.VectorRepresentation.MultiValue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +29,7 @@ public abstract class MultipleValueRepresentation extends BaseFeatureVector{
     }
 
     public List<Double> getMultipleValueList(double element){
-        List<Double> dlist = new LinkedList<>();
+        List<Double> dlist = new ArrayList<>();
         dlist.add(element);
         return dlist;
     }

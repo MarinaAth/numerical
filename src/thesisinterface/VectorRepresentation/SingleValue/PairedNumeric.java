@@ -39,14 +39,8 @@ public class PairedNumeric extends SingleValueRepresentation {
 
         pairedNumericRepr.calculateVectorDimensions();
 
-//        outputFile.write(pairedNumericRepr.toString() + "\n");
-        
         return pairedNumericRepr;
     }
 
-    @Override
-    public double missinValueAssign() {
-        return 0.0;
-    }
-    
+   
 }

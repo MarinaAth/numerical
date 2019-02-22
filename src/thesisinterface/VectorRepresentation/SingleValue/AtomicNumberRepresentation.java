@@ -40,10 +40,7 @@ public class AtomicNumberRepresentation extends SingleValueRepresentation {
         return atomicNumRepr;
     }
 
-    @Override
-    public double missinValueAssign() {
-        return 0.0;
-    }
+    
     
     
 }

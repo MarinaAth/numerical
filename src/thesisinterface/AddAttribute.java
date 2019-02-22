@@ -24,7 +24,7 @@ public class AddAttribute {
 
     public static void main(String[] args) throws Exception {
 
-        String parentFolder = "D:/Marina/Documents/ThesisDatasets/DNAWalk";
+        String parentFolder = "D:/Marina/Documents/ThesisDatasets/Tetrahedron";
         String procedure = "filter";
         
         

@@ -27,6 +27,7 @@ public class IntegerRepresentation extends SingleValueRepresentation {
         numValues.put("A", getSingleValueList(2.0));
         numValues.put("C", getSingleValueList(1.0));
         numValues.put("T", getSingleValueList(0.0));
+        numValues.put("N", getSingleValueList(4.0));
     }
   
     public static SingleValueRepresentation integerRepresentation(String inputSequence) throws IOException {
@@ -38,14 +39,9 @@ public class IntegerRepresentation extends SingleValueRepresentation {
         integerNumRepr.assignValues();
 
         integerNumRepr.calculateVectorDimensions();
-
-//        outputFile.write(integerNumRepr.toString() + "\n");
         
         return integerNumRepr;
     }
 
-    @Override
-    public double missinValueAssign() {
-        return 4.0;
-    }
+    
 }

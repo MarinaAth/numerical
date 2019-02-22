@@ -43,11 +43,6 @@ public class RealNumberRepresentation extends SingleValueRepresentation {
         return realNumRepr;
     }
 
-    @Override
-    public double missinValueAssign() {
-        return 0.0;
-    }
-    
     
 }
 

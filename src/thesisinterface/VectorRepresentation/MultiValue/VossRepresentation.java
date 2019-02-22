@@ -5,8 +5,10 @@
  */
 package thesisinterface.VectorRepresentation.MultiValue;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import thesisinterface.VectorRepresentation.BaseClasses.BaseSymbolSequence;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
 
 /**
@@ -24,21 +26,25 @@ public class VossRepresentation extends MultipleValueRepresentation {
     public void assignValues() {
         
        numValues.put("G", getMultipleValueList(0.0));
-       numValues.put("G", getMultipleValueList(1.0));
-       numValues.put("G", getMultipleValueList(0.0));
-       numValues.put("G", getMultipleValueList(0.0));
+       numValues.get("G").addAll(getMultipleValueList(1.0));
+       numValues.get("G").addAll(getMultipleValueList(0.0));
+       numValues.get("G").addAll(getMultipleValueList(0.0));
        numValues.put("A", getMultipleValueList(1.0));
-       numValues.put("A", getMultipleValueList(0.0));
-       numValues.put("A", getMultipleValueList(0.0));
-       numValues.put("A", getMultipleValueList(0.0));
+       numValues.get("A").addAll(getMultipleValueList(0.0));
+       numValues.get("A").addAll(getMultipleValueList(0.0));
+       numValues.get("A").addAll(getMultipleValueList(0.0));
        numValues.put("C", getMultipleValueList(0.0));
-       numValues.put("C", getMultipleValueList(0.0));
-       numValues.put("C", getMultipleValueList(1.0));
-       numValues.put("C", getMultipleValueList(0.0));
+       numValues.get("C").addAll(getMultipleValueList(0.0));
+       numValues.get("C").addAll(getMultipleValueList(1.0));
+       numValues.get("C").addAll(getMultipleValueList(0.0));
        numValues.put("T", getMultipleValueList(0.0));
-       numValues.put("T", getMultipleValueList(0.0));
-       numValues.put("T", getMultipleValueList(0.0));
-       numValues.put("T", getMultipleValueList(1.0));
+       numValues.get("T").addAll(getMultipleValueList(0.0));
+       numValues.get("T").addAll(getMultipleValueList(0.0));
+       numValues.get("T").addAll(getMultipleValueList(1.0));
+       numValues.put("N", getMultipleValueList(0.0));
+       numValues.get("N").addAll(getMultipleValueList(0.0));
+       numValues.get("N").addAll(getMultipleValueList(0.0));
+       numValues.get("N").addAll(getMultipleValueList(0.0));
        
        calculateVectorDimensions();
     }
@@ -54,6 +60,15 @@ public class VossRepresentation extends MultipleValueRepresentation {
             // Assign the corresponding value from the numValues key to the feature
             put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
         }            
+    }
+        
+        public static MultipleValueRepresentation vossRepresentation(String inputSequence) throws IOException {
+        BaseSymbolSequence inputSeq = new BaseSymbolSequence(inputSequence);
+        VossRepresentation vossRepr = new VossRepresentation(inputSeq);
+        vossRepr.assignValues();
+        vossRepr.calculateVectorDimensions();
+
+        return vossRepr;
     }
     
 }

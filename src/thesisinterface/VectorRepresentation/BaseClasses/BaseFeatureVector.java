@@ -43,13 +43,22 @@ public class BaseFeatureVector extends TreeMap<Integer, List<Double>> implements
         return this.values().toString();
     }
 
-    public void sparsify(int maxDim) {
-        int currentLen = size();
-        for (int i=currentLen; i< maxDim; ++i){
-            ArrayList<Double> zlist = new ArrayList<>();
-            zlist.add(0.0);
-            put(i, zlist);
+   
+    public void sparsify(int maxDim){
+        sparsify(maxDim, 1);
+    }
+    
+    public void sparsify(int maxDim, int innerDim) {
+    int firstNextKey = size() + 1;
+    for (int i=firstNextKey; i <= maxDim; ++i){
+        // System.out.println("Dimension # " + );
+        ArrayList<Double> zlist = new ArrayList<>();
+        for (int iInnerDim=0; iInnerDim < innerDim; iInnerDim++) {
+            zlist.add(0.0);                
         }
+        put(i, zlist);
+    }
+ 
 
     }
 
