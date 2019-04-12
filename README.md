@@ -1,5 +1,5 @@
 # Numerical Representations
-Implementation of the representations for genomic sequences based mainly on Mendizabal-Ruiz et al., 2017
+Implementation of the representations for genomic sequences based mainly on Kwan, H.K. and Arniker, S.B., 2009
 ## Interfaces
 1. `ISymbolSequence`: represents an input sequence of symbols
     ### Methods to be implemented
