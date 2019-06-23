@@ -1,5 +1,5 @@
 # Numerical Representations
-Implementation of the representations for genomic sequences based mainly on Mendizabal-Ruiz et al., 2017
+Implementation of the representations for genomic sequences based mainly on Kwan, H.K. and Arniker, S.B., 2009
 ## Interfaces
 1. `ISymbolSequence`: represents an input sequence of symbols
     ### Methods to be implemented
@@ -22,15 +22,21 @@ to characterize a symbolic sequence
 and extends TreeMap (matching name of dimension and value from `calculateVectorDimensions()` ).
 
 ## Classes depending on the dimensionality of the representations
-1. `SingleValueRepresentation` : a class to be inherited by all the one-dimensional representation classes. Contains a method to assign one
-value to respective symbols
-    - `AtomicNumberRepresentation` : values assigned = atomic numbers of the nitrogenous bases (A, T, G, C)
-    - `ElectronIonRepresentation` : values assigned = electron-ion interaction potentials
-    - `IntegerRepresentation` : values assigned = integers 0-3
-    - `RealNumberRepresentation` : values assigned = opposite values for the bases in the pairs A-T and G-C
-    - `PairedNumeric` : values assigned = opposite values for the pairs A-T (+1) and G-C (-1)
+1. `SingleValueRepresentation` : a class to be inherited by all the one-dimensional representation classes. Contains a method to assign one numerical value to respective symbols
+    - `AtomicNumberRepresentation` : numerical values assigned = atomic numbers of the nitrogenous bases (A, T, G, C)
+    - `ElectronIonRepresentation` : numerical values assigned = electron-ion interaction potentials
+    - `IntegerRepresentation` : numerical values assigned = integers 0-3
+    - `RealNumberRepresentation` : numerical values assigned = opposite values for the bases in the pairs A-T and G-C
+    - `PairedNumeric` : numerical values assigned = opposite values for the pairs A-T (+1) and G-C (-1)
+    
+    -All non-relevant characters to our analysis ("N") were assigned a fixed value of 0.0
 
-2. `MultipleValueRepresentation` : a class to be inherited by all the multi-dimensional representation classes. Contains a method to 
-assign multiple values to each symbol
-    - `Tetrahedron` : 3 values assigned per symbol in the sequence
-    - `Voss` : binary representation, 4 values per symbol in the sequence
+2. `MultipleValueRepresentation` : a class to be inherited by all the multi-dimensional representation classes. Contains a method to assign multiple numerical values to each symbol
+    - `Tetrahedron` : 3 numerical values assigned per symbol in the sequence
+    - `Voss` : binary representation, 4 numerical values per symbol in the sequence
+    - `PN Curve`: 16 possible pairs, 3 numerical values assigned per pair, taking into account the position on the sequence and the number of times each pair has appeared 
+    - `TN Curve`: 64 possible possible triplets, 3 numerical values assigned per triplet, taking into ccount the number of times each triplet has appeared
+    - `Z curve`: 3 numerical values per symbol
+    - `Virtual Potentials`: 4 numerical values per symbol in the sequence, assigned on a rolling window basis
+    
+    -All non-relevant characters to our analysis ("N") were assigned a fixed value of 0.0
