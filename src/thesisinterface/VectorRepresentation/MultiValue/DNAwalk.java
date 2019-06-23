@@ -11,6 +11,8 @@ import java.util.LinkedList;
 import java.util.List;
 import thesisinterface.VectorRepresentation.BaseClasses.BaseSymbolSequence;
 import thesisinterface.VectorRepresentation.ISymbolSequence;
+import thesisinterface.VectorRepresentation.MultiValue.MultipleValueRepresentation;
+import thesisinterface.VectorRepresentation.SingleValue.SingleValueRepresentation;
 
 /**
  *
