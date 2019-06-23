@@ -19,7 +19,7 @@ public class Zcurve extends MultipleValueRepresentation {
     double cCount = 0.0;
     double gCount = 0.0;
     double tCount = 0.0;
-    
+    double nCount = 0.0;
     
     public Zcurve(ISymbolSequence sequence) {
         super(sequence);
@@ -39,6 +39,9 @@ public class Zcurve extends MultipleValueRepresentation {
         numValues.put("T", getMultipleValueList(calculateX(aCount,tCount,cCount,gCount)));
         numValues.get("T").addAll(getMultipleValueList(calculateY(aCount,tCount,cCount,gCount)));
         numValues.get("T").addAll(getMultipleValueList( calculateZ(aCount,tCount,cCount,gCount)));
+        numValues.put("N", getMultipleValueList(0.0));
+        numValues.get("N").addAll(getMultipleValueList(0.0));
+        numValues.get("N").addAll(getMultipleValueList(nCount));
     }
 
     @Override
@@ -66,6 +69,12 @@ public class Zcurve extends MultipleValueRepresentation {
                 
                 case "T": tCount += 1.0;
                 break;
+                
+                case "N": nCount += 1.0;
+                break;
+                
+                default : System.out.println("Look in assigning values in Zcurve");
+                break;
             }
             
           // Assign the corresponding values here because of use of functions
@@ -73,11 +82,7 @@ public class Zcurve extends MultipleValueRepresentation {
           
           // Create dimensions
           put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
-//            
-//           numValues.get(key).set(0, calculateX(aCount,tCount,cCount,gCount));
-//           numValues.get(key).set(1, calculateY(aCount,tCount,cCount,gCount));
-//           numValues.get(key).set(2, calculateZ(aCount,tCount,cCount,gCount));
-//            
+          
             
         } 
     }
@@ -108,7 +113,7 @@ public class Zcurve extends MultipleValueRepresentation {
    }
    
 //   public static void main(String[] args) throws IOException {
-//        String seq = "ATAATAGCTTTGTAC";
+//        String seq = "ATAATNAGCTTTGNTAC";
 //        
 //        MultipleValueRepresentation example = ZcurveRepresentation(seq);
 //        
