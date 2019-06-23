@@ -98,7 +98,6 @@ public class TNcurve extends MultipleValueRepresentation {
         numValues.put("GTA", getMultipleValueList(2.0));
         numValues.get("GTA").addAll(getMultipleValueList(-1.0));
         numValues.get("GTA").addAll(getMultipleValueList(0.0));
-        numValues.get("GCA").addAll(getMultipleValueList(-0.0));
         numValues.put("CAT", getMultipleValueList(3.0));
         numValues.get("CAT").addAll(getMultipleValueList(4.0));
         numValues.get("CAT").addAll(getMultipleValueList(0.0));
@@ -224,21 +223,48 @@ public class TNcurve extends MultipleValueRepresentation {
     @Override
     public void calculateVectorDimensions() {
         double count = 1.0;
-        
+
+        List<Double> paddList = new ArrayList<>();
+        paddList.add(0.0);
+        paddList.add(0.0);
+        paddList.add(0.0);
+
         // For each symbol in sequence
-        for (int iSymbolCnt = 0; iSymbolCnt < sequence.size() - 2; iSymbolCnt++) {
+        for (int iSymbolCnt = 0; iSymbolCnt < sequence.size(); iSymbolCnt++) {
             // Determine dimension name - trinucleotides
             int sDimensionName = iSymbolCnt + 1;
-            //To match the keys in the numValues map
-            String key = (sequence.getSymbolAt(iSymbolCnt) + sequence.getSymbolAt(iSymbolCnt + 1) + sequence.getSymbolAt(iSymbolCnt + 2));
-            
-            assignValues();
-            numValues.get(key).set(2, count);
-            
-            // Assign the corresponding value from the numValues key to the feature
-            put(sDimensionName, numValues.get(key));
-            
-            count +=1.0;
+
+            //Check if there are enough nucleotides left in the sequence for a triplet
+            int i = sequence.size()-2;
+            if (iSymbolCnt >= i) {
+                
+                put(sDimensionName, paddList);
+
+            } else {
+
+                String key = (sequence.getSymbolAt(iSymbolCnt) + sequence.getSymbolAt(iSymbolCnt + 1) + sequence.getSymbolAt(iSymbolCnt + 2));
+
+                if (key.contains("N")) {
+
+                    List <Double> nFill = new ArrayList<>();
+                    nFill.add(0.0);
+                    nFill.add(0.0);
+                    nFill.add(count);
+                    put(sDimensionName, nFill);
+                    
+                    
+                } else {
+
+                    assignValues();
+                    numValues.get(key).set(2, count);
+
+                    // Assign the corresponding value from the numValues key to the feature
+                    put(sDimensionName, numValues.get(key));
+
+                }
+
+                count += 1.0;
+            }
         }
     }
 
@@ -253,13 +279,11 @@ public class TNcurve extends MultipleValueRepresentation {
         return TNCurveRepr;
 
     }
-    
-    public static void main(String[] args) throws IOException {
-        String seq = "ATAATAGCTTTGTACTGTCTTTACGTA";
-        
-        MultipleValueRepresentation example = TNCurveRepresentation(seq);
-        
-        System.out.println(example );
-    }
+
+//    public static void main(String[] args) throws IOException {
+//        String seq = "ATAATAGCTNNTTGTANCTGTCTTTACGTA";
+//
+//        System.out.println(TNCurveRepresentation(seq));
+//    }
 
 }
