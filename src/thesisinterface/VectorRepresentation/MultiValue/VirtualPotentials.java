@@ -14,7 +14,7 @@ import thesisinterface.VectorRepresentation.ISymbolSequence;
 import java.util.Map;
 import java.util.TreeMap;
 import thesisinterface.VectorRepresentation.BaseClasses.BaseSymbolSequence;
-
+import java.text.DecimalFormat;
 /**
  *
  * @author marina Virtual Potential of a nucleotide: each nucleotide in the
@@ -26,26 +26,42 @@ import thesisinterface.VectorRepresentation.BaseClasses.BaseSymbolSequence;
  */
 public class VirtualPotentials extends MultipleValueRepresentation {
 
-    double distance;
-    double virtPotent = 1 / distance;
-    Map<String, ArrayList<Double>> virtualPotentials = new HashMap<>();
-    List<Double> distances = new ArrayList<>();
-
+    
     public VirtualPotentials(ISymbolSequence sequence) {
         super(sequence);
     }
 
+    DecimalFormat df = new DecimalFormat("$#.###");
+    
+    double aCount = 0.0;
+    double cCount = 0.0;
+    double gCount = 0.0;
+    double tCount = 0.0;
+    double nCount = 0.0;
+    
     //initialization of the list of values
     @Override
     public void assignValues() {
-        numValues.put("C", virtualPotentials.get("C"));
-        numValues.put("T", virtualPotentials.get("T"));
-        numValues.put("A", virtualPotentials.get("A"));
-        numValues.put("G", virtualPotentials.get("G"));
-        numValues.put("N", getMultipleValueList(0.0));
-        numValues.get("N").addAll(getMultipleValueList(0.0));
-        numValues.get("N").addAll(getMultipleValueList(0.0));
-        numValues.get("N").addAll(getMultipleValueList(0.0));
+        numValues.put("G", getMultipleValueList(aCount));
+        numValues.get("G").addAll(getMultipleValueList(cCount));
+        numValues.get("G").addAll(getMultipleValueList(gCount));
+        numValues.get("G").addAll(getMultipleValueList(tCount));
+        numValues.put("A", getMultipleValueList(aCount));
+        numValues.get("A").addAll(getMultipleValueList(cCount));
+        numValues.get("A").addAll(getMultipleValueList(gCount));
+        numValues.get("A").addAll(getMultipleValueList(tCount));
+        numValues.put("C", getMultipleValueList(aCount));
+        numValues.get("C").addAll(getMultipleValueList(cCount));
+        numValues.get("C").addAll(getMultipleValueList(gCount));
+        numValues.get("C").addAll(getMultipleValueList(tCount));
+        numValues.put("T", getMultipleValueList(aCount));
+        numValues.get("T").addAll(getMultipleValueList(cCount));
+        numValues.get("T").addAll(getMultipleValueList(gCount));
+        numValues.get("T").addAll(getMultipleValueList(tCount));
+        numValues.put("N", getMultipleValueList(nCount));
+        numValues.get("N").addAll(getMultipleValueList(nCount));
+        numValues.get("N").addAll(getMultipleValueList(nCount));
+        numValues.get("N").addAll(getMultipleValueList(nCount));
     }
 
     @Override
@@ -58,47 +74,79 @@ public class VirtualPotentials extends MultipleValueRepresentation {
             int sDimensionName = iSymbolCnt;
 
             //Assign the corresponding value from the numValues key to the feature
-            if (iSymbolCnt < 25) {
-                virtPotent = 0;
-                put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
+            if (iSymbolCnt < 6) {
+
+                List<Double> paddList = new ArrayList<>();
+                paddList.add(0.0);
+                paddList.add(0.0);
+                paddList.add(0.0);
+                paddList.add(0.0);
+                put(sDimensionName, paddList);
             } else {
                 //for a window of 25 nucleotides
-                for (int i = iSymbolCnt - 1; i > iSymbolCnt - 26; i--) {
-                    
+                for (int i = iSymbolCnt - 1; i >= iSymbolCnt - 6; i--) {
+
                     //distance from nucleotide of interest
-                    distance = i;
+                    
+                    int distance = iSymbolCnt - i;
+                    double potential = 1 / (double) distance;
+                    
+                    double frac = (double)Math.round(potential * 1000d) / 1000d;
+                    
+                    String key = sequence.getSymbolAt(i);
 
-                    String dimension = sequence.getSymbolAt(i);
+                    switch (key) {
+                        case "A": aCount = aCount + frac;
+                            break;
 
-                    if (containsKey(iSymbolCnt)) {
-                        numValues.get(dimension).add(1 / distance);
+                        case "G": gCount = gCount + frac;
+                            break;
+
+                        case "C": cCount = cCount + frac;
+                            break;
+
+                        case "T": tCount = tCount + frac;
+                            break;
+
+                        case "N":
+                            nCount = 0.0;
+                            break;
+
+                        default:
+                            System.out.println("Look in assigning values");
+                            break;
                     }
-                    put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
+                   assignValues();
                 }
+                    
+                    put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
+                    aCount = 0.0;
+                    cCount=0.0;
+                    gCount=0.0;
+                    tCount=0.0;
+                    
 
             }
+
+           
         }
     }
-    
+
     public static MultipleValueRepresentation virtualPotentialsRepresentation(String inputSequence) throws IOException {
 
-    	BaseSymbolSequence inputSeq = new BaseSymbolSequence(inputSequence);
+        BaseSymbolSequence inputSeq = new BaseSymbolSequence(inputSequence);
         //TreeMap
         VirtualPotentials virtPotentRepr = new VirtualPotentials(inputSeq);
 
-        virtPotentRepr.assignValues();
-
         virtPotentRepr.calculateVectorDimensions();
-        
+
         return virtPotentRepr;
     }
-    
-    public Map<String, ArrayList<Double>> calculateVirtualPotential(int dimCount){
-        
-        if (dimCount < 25){
-            String base = sequence.getSymbolAt(dimCount);
-            //virtualPotentials.put(base, numValues.get(base).addAll(getMultipleValueList(0.0)));
-        }
-        return virtualPotentials;
-    }
+
+//   public static void main(String[] args) throws IOException {
+//        String seq = "CCCCACAACCTCNANCATCNNCTGCCC"; //TCTTTCATCCTTTTATTTNAN
+//
+//        System.out.println(virtualPotentialsRepresentation(seq));
+//    }
+
 }
