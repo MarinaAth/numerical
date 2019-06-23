@@ -6,6 +6,7 @@
 package thesisinterface.VectorRepresentation.MultiValue;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,6 +76,33 @@ public class PNcurve extends MultipleValueRepresentation{
         numValues.put("CC", getMultipleValueList(16.0));
         numValues.get("CC").addAll(getMultipleValueList(0.0));
         numValues.get("CC").addAll(getMultipleValueList(0.0));
+        numValues.put("NN", getMultipleValueList(0.0));
+        numValues.get("NN").addAll(getMultipleValueList(0.0));
+        numValues.get("NN").addAll(getMultipleValueList(0.0));
+        numValues.put("AN", getMultipleValueList(0.0));
+        numValues.get("AN").addAll(getMultipleValueList(0.0));
+        numValues.get("AN").addAll(getMultipleValueList(0.0));
+        numValues.put("TN", getMultipleValueList(0.0));
+        numValues.get("TN").addAll(getMultipleValueList(0.0));
+        numValues.get("TN").addAll(getMultipleValueList(0.0));
+        numValues.put("GN", getMultipleValueList(0.0));
+        numValues.get("GN").addAll(getMultipleValueList(0.0));
+        numValues.get("GN").addAll(getMultipleValueList(0.0));
+        numValues.put("CN", getMultipleValueList(0.0));
+        numValues.get("CN").addAll(getMultipleValueList(0.0));
+        numValues.get("CN").addAll(getMultipleValueList(0.0));
+        numValues.put("NA", getMultipleValueList(0.0));
+        numValues.get("NA").addAll(getMultipleValueList(0.0));
+        numValues.get("NA").addAll(getMultipleValueList(0.0));
+        numValues.put("NT", getMultipleValueList(0.0));
+        numValues.get("NT").addAll(getMultipleValueList(0.0));
+        numValues.get("NT").addAll(getMultipleValueList(0.0));
+        numValues.put("NG", getMultipleValueList(0.0));
+        numValues.get("NG").addAll(getMultipleValueList(0.0));
+        numValues.get("NG").addAll(getMultipleValueList(0.0));
+        numValues.put("NC", getMultipleValueList(0.0));
+        numValues.get("NC").addAll(getMultipleValueList(0.0));
+        numValues.get("NC").addAll(getMultipleValueList(0.0));
     }
 
     
@@ -83,14 +111,28 @@ public class PNcurve extends MultipleValueRepresentation{
         
         double count = 1.0;
         
-        for (int iSymbolCnt=0; iSymbolCnt<sequence.size()-1 ;iSymbolCnt++){
+        for (int iSymbolCnt=0; iSymbolCnt<sequence.size() ;iSymbolCnt++){
            //Dimension name for dinucleotide as integer
           
            int sDimensionName = iSymbolCnt+1;
            
-           String key = sequence.getSymbolAt(iSymbolCnt)+sequence.getSymbolAt(iSymbolCnt+1);
            
-           //count for key dinucleotide so far
+           
+           if(iSymbolCnt==sequence.size()-1){
+           
+           assignValues();
+           
+           List <Double> paddList = new ArrayList<>();
+           paddList.add(0.0);
+           paddList.add(0.0);
+           paddList.add(0.0);
+           
+           put(sDimensionName, paddList);
+           
+           } else {
+               
+               String key = sequence.getSymbolAt(iSymbolCnt)+sequence.getSymbolAt(iSymbolCnt+1);
+               //count for key dinucleotide so far
            
            if(!existingKeys.containsKey(key)){
                existingKeys.put(key, 1.0);
@@ -109,6 +151,8 @@ public class PNcurve extends MultipleValueRepresentation{
            put(sDimensionName, numValues.get(key));
            
            count +=1.0;
+           }
+           
         }
     }
     
@@ -125,7 +169,7 @@ public class PNcurve extends MultipleValueRepresentation{
     }
     
     public static void main(String[] args) throws IOException {
-        String seq = "ATATAGAGCTTGTACTAGTCTTTACGTA";
+        String seq = "ATATAGANNNGCTTGTACTAGTCTTTACGTA";
         
         System.out.println(PNCurveRepresentation(seq));
     }
