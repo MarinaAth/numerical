@@ -24,10 +24,9 @@ public class AddAttribute {
 
     public static void main(String[] args) throws Exception {
 
-        String parentFolder = "D:/Marina/Documents/ThesisDatasets/Tetrahedron";
+        String parentFolder = "D:/Marina/Documents/ThesisDatasets/TNcurve/";
         String procedure = "filter";
-        
-        
+
         Path folderPath = Paths.get(parentFolder);
         List<Path> subfolder = Files.walk(folderPath, 1)
                 .filter(Files::isDirectory)
@@ -45,7 +44,6 @@ public class AddAttribute {
         for (int i = 0; i < subfolder.size(); i++) {
             File f = subfolder.get(i).toFile();
             String[] fileList = f.list();
-            String comparisonNum = subfolder.get(i).toString().replace(parentFolder, "");
             System.out.println(Arrays.toString(fileList));
 
             data1 = new Instances(new BufferedReader(new FileReader(subfolder.get(i).toAbsolutePath() + "/" + fileList[0])));
