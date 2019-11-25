@@ -74,7 +74,7 @@ public class VirtualPotentials extends MultipleValueRepresentation {
             int sDimensionName = iSymbolCnt;
 
             //Assign the corresponding value from the numValues key to the feature
-            if (iSymbolCnt < 6) {
+            if (iSymbolCnt <= 5) {
 
                 List<Double> paddList = new ArrayList<>();
                 paddList.add(0.0);
@@ -83,8 +83,8 @@ public class VirtualPotentials extends MultipleValueRepresentation {
                 paddList.add(0.0);
                 put(sDimensionName, paddList);
             } else {
-                //for a window of 25 nucleotides
-                for (int i = iSymbolCnt - 1; i >= iSymbolCnt - 6; i--) {
+                //for a window of 6 nucleotides
+                for (int i = iSymbolCnt; i >= iSymbolCnt - 5; i--) {
 
                     //distance from nucleotide of interest
                     
@@ -120,7 +120,7 @@ public class VirtualPotentials extends MultipleValueRepresentation {
                 }
                     
                     put(sDimensionName, numValues.get(sequence.getSymbolAt(iSymbolCnt)));
-                    aCount = 0.0;
+                    aCount= 0.0;
                     cCount=0.0;
                     gCount=0.0;
                     tCount=0.0;

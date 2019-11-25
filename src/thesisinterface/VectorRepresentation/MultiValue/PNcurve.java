@@ -168,9 +168,9 @@ public class PNcurve extends MultipleValueRepresentation{
 
     }
     
-    public static void main(String[] args) throws IOException {
-        String seq = "ATATAGANNNGCTTGTACTAGTCTTTACGTA";
-        
-        System.out.println(PNCurveRepresentation(seq));
-    }
+//    public static void main(String[] args) throws IOException {
+//        String seq = "ATATAGANNNGCTTGTACTAGTCTTTACGTA";
+//        
+//        System.out.println(PNCurveRepresentation(seq));
+//    }
 }

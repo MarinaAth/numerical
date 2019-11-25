@@ -56,7 +56,7 @@ public class ThesisInterface {
     public static void main(String[] args) throws IOException {
 
         //open folder of fasta datasets 
-        try (Stream<Path> paths = Files.walk(Paths.get("D:/Marina/Documents/Code Solve/Fasta Files/"))) {
+        try (Stream<Path> paths = Files.walk(Paths.get("D:/Marina/Documents/Code Solve/Fasta Files"))) {
 
             //create a list of the directories of all subfolders and files contained
             List<String> pathList = paths.map(p -> {
@@ -77,7 +77,7 @@ public class ThesisInterface {
                     File toReadFile = new File(pathList.get(i));
                     System.out.println(pathList.get(i));
                     //create file for specific type of representation a
-                    outputSparseFile = new File(pathList.get(i).replace("Fasta Files", "PNCurve"));
+                    outputSparseFile = new File(pathList.get(i).replace("Fasta Files", "Atomic"));
                     System.out.println(outputSparseFile.toString());
 
                     //create sparse representation
@@ -110,11 +110,11 @@ public class ThesisInterface {
 
             // for each base sequence
             for (String line : contents) {
-                //System.out.println("Instance #" + count++ + " : " + line);
-
+//                System.out.println("Instance #" + count++ + " : " + line);
+                
                 // get repr
-                BaseFeatureVector representation = PNCurveRepresentation(line);
-
+                BaseFeatureVector representation = atomicNumberRepresentation(line);
+                
                 // pad with zeros, based on the number of inner dimensions per symbol
                 // TODO: In the future we need to be able to support varying inner dimension
                 int iInnerDim = representation.get(1).size();
@@ -126,102 +126,103 @@ public class ThesisInterface {
             System.err.println("Dimensions initialized.");
 
             // convert to weka instances
-
+            
             System.err.println("Converting to ARFF instances...");
             Instances instances = toWekaInstances(data);
-
+            
             System.err.println("Converting to ARFF instances... Done.");
-
+            
             // write arff file
             io.writeARFF(outputSparseFile + ".arff", instances);
 
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
         }
-        System.out.println("DONE making sparse file.");
+       System.out.println("DONE making sparse file.");
         return maxDim;
 
     }
 
     // convert data to WEKA instances
     public static Instances toWekaInstances(ArrayList<BaseFeatureVector> data) {
-
+        
         System.out.println("WEKA instances making");
-
+        
         ArrayList<Attribute> attributeList = new ArrayList();
         int maxDim = data.get(0).size();
+        int maxInnerDim = data.get(0).get(0).size();
+        System.out.println(maxDim);
+        System.out.println(maxInnerDim);
+        int iDimCount = 0; // Start with zero
+        
         System.err.println("Creating attributes...");
-
-
+        
         // For every symbol-related dimension
         for (int i = 1; i <= maxDim; ++i) {
             // Count number of measurements/components in that dimension
-            int maxInnerDim = data.get(0).get(i).size();
-            if (maxInnerDim > 1) {
-                //System.out.println(i);
-                int iDimCount = 0; // Start with zero
+            try {
+                
+            // For every component in the related dimension
+            for (int innerDim = 0; innerDim < maxInnerDim; ++innerDim) {
+                Attribute att = new Attribute(("attribute" + (iDimCount+1)), false);
+                attributeList.add(att);
+                iDimCount++; // Get next number
+            }
+            
+            } catch (NullPointerException e) {
+                throw new IllegalStateException(e);
+            }
+        }
+        System.err.println("Creating attributes... Done.");
+
+        
+        System.err.println("Creating instances...");
+        Instances instances = new Instances("data", attributeList, data.size());
+        
+        // For every data instance
+        for (int v = 0; v < data.size(); ++v) {
+            System.out.println("Weka'ing instance # " + v + " / " + data.size());
+            
+            // Init empty instance
+            Instance instance = new SparseInstance(attributeList.size());
+            BaseFeatureVector vec = data.get(v);
+
+            //System.out.println("len of key set is " + vec.keySet().size());
+            
+            // Count number of dimensions in that instance
+            maxDim = vec.size();
+            int iCurDim = 0; // Here we keep the overall dimension counter
+
+            // For every dimension
+            for (int dim = 0; dim < maxDim; ++dim) {
+
+                // Get list of components for specific dimension
+                List<Double> dlist = vec.get(dim);
+                
                 // For every component in the related dimension
-                for (int innerDim = 0; innerDim < maxInnerDim; ++innerDim) {
-                    Attribute att = new Attribute(("attribute" + (iDimCount + 1)), false);
-                    //System.out.println(att);
-                    attributeList.add(att);
-                    iDimCount++; // Get next number
+                for (int innerDim = 0; innerDim < dlist.size(); ++innerDim) {
+                    System.out.println("Attempting to access index " + innerDim + " in " + iCurDim + " of the list with len " + dlist.size());
+//                    System.out.println("Attempting to access global index " + iCurDim + " of the global attr list with len " + attributeList.size());
+                    System.out.println(iCurDim);
+                    instance.setValue(attributeList.get(iCurDim), dlist.get(innerDim));
+                     
                 }
-            } else {
-                for (int j = 0; j < maxDim; ++j) {
-                    Attribute att = new Attribute("attribute" + (j + 1), false);
-                    attributeList.add(att);
-                }
+                // Move to next dimension
+                iCurDim++;
             }
-        }
-            System.err.println("Creating attributes... Done.");
-
-
-            System.err.println("Creating instances...");
-            Instances instances = new Instances("data", attributeList, data.size());
-            // For every data instance
-            for (int v = 0; v < data.size(); ++v) {
-                System.out.println("Weka'ing instance # " + v + " / " + data.size());
-
-                // Init empty instance
-                Instance instance = new SparseInstance(attributeList.size());
-                BaseFeatureVector vec = data.get(v);
-
-                //System.out.println("len of key set is " + vec.keySet().size());
-
-                // Count number of dimensions in that instance
-                maxDim = vec.size();
-                int iCurDim = 0; // Here we keep the overall dimension counter
-
-                // For every dimension
-                for (int dim = 1; dim <= maxDim; ++dim) {
-
-                    // Get list of components for specific dimension
-                    List<Double> dlist = vec.get(dim);
-
-                    // For every component in the related dimension
-                    for (int innerDim = 0; innerDim < dlist.size(); ++innerDim) {
-                        //System.out.println("Attempting to access index " + innerDim + " of the list with len " + dlist.size());
-                        double val = dlist.get(innerDim);
-                        //System.out.println("Attempting to access global index " + iCurDim + " of the global attr list with len " + attributeList.size());
-
-                        instance.setValue(attributeList.get(iCurDim), val);
-                        iCurDim++; // Move to next
-                    }
-                }
 //
-//            if (v % 100 == 0) {
-//                System.err.print(".");
-//                if (v % 1000 == 0) {
-//                    System.err.print("X \n");
-//               }
-//           }
-
-                instances.add(instance);
+            if (v % 100 == 0) {
+                System.err.print(".");
+                if (v % 1000 == 0) {
+                    System.err.print("X \n");
+                }
             }
-            System.err.println("Creating instances... Done.");
 
-            return instances;
+            instances.add(instance);
         }
+        System.err.println("Creating instances... Done.");
 
+        return instances;
     }
+
+}

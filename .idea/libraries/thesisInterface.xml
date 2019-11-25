@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="thesisInterface">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/thesisInterface.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

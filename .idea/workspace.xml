@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f483036b-4d7f-453e-9b57-79da1c30e4fb" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/nbproject/private/private.properties" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/private/private.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/private/private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/private/private.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/thesisinterface/AddAttribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/thesisinterface/AddAttribute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/thesisinterface/ThesisInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/thesisinterface/ThesisInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/thesisinterface/VectorRepresentation/MultiValue/DNAwalk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/thesisinterface/VectorRepresentation/MultiValue/DNAwalk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/thesisinterface/VectorRepresentation/MultiValue/PNcurve.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/thesisinterface/VectorRepresentation/MultiValue/PNcurve.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/thesisinterface/VectorRepresentation/MultiValue/TNcurve.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/thesisinterface/VectorRepresentation/MultiValue/TNcurve.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/thesisinterface/VectorRepresentation/MultiValue/VirtualPotentials.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/thesisinterface/VectorRepresentation/MultiValue/VirtualPotentials.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/thesisinterface/VectorRepresentation/MultiValue/Zcurve.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/thesisinterface/VectorRepresentation/MultiValue/Zcurve.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/thesisinterface/ThesisInterface.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="99">
+              <caret line="107" column="28" selection-start-line="107" selection-start-column="28" selection-end-line="107" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/thesisinterface/VectorRepresentation/MultiValue/VossRepresentation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/thesisinterface/ThesisInterface.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="85" />
+    <option name="y" value="25" />
+    <option name="width" value="1750" />
+    <option name="height" value="1030" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="thesisInterface" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thesisInterface" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="thesisInterface" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thesisInterface" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="thesisInterface" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thesisInterface" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="thesisinterface" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="thesisInterface" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thesisInterface" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="thesisinterface" type="462c0819:PsiDirectoryNode" />
+              <item name="VectorRepresentation" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="thesisInterface" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thesisInterface" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="thesisinterface" type="462c0819:PsiDirectoryNode" />
+              <item name="VectorRepresentation" type="462c0819:PsiDirectoryNode" />
+              <item name="MultiValue" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552304931933" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="ThesisInterface" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="thesisinterface.ThesisInterface" />
+      <module name="thesisInterface" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="thesisinterface.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ThesisInterface" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f483036b-4d7f-453e-9b57-79da1c30e4fb" name="Default Changelist" comment="" />
+      <created>1552298161035</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1552298161035</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14697987" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Learn" order="6" />
+      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4986577" visible="true" weight="0.3297587" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.64832217" weight="0.2707775" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5013423" side_tool="true" visible="true" weight="0.3297587" />
+      <window_info anchor="bottom" id="Messages" order="10" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+    </layout>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/thesisinterface/ThesisInterface.java</url>
+          <line>156</line>
+          <properties />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/thesisinterface/ThesisInterface.java</url>
+          <line>150</line>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="breakpointCondition">
+      <expression>
+        <expression-string>maxInnerDim&gt;=2</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/thesisinterface/ThesisInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="107" column="28" selection-start-line="107" selection-start-column="28" selection-end-line="107" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thesisinterface/VectorRepresentation/MultiValue/VossRepresentation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

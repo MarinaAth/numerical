@@ -17,7 +17,7 @@ public interface IFeatureVector {
     
     int getNumberOfDimensions();
 
-    void sparsify(int maxDim);
+    void sparsify(int maxDim, int innerDim);
     
     
     List<Double> getDimensionValue(String dimensionName);
